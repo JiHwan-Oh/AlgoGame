@@ -1,5 +1,6 @@
 #include "block.h"
 #include "object.h"
+#include "maparray.h"
 // 스크린
 #define SCREEN_WIDTH 75
 #define SCREEN_HEIGHT 46
@@ -30,21 +31,18 @@
 
 #define INFO_ORIGIN_X 78
 #define INFO_ORIGIN_Y 1
-
 // BACK
 #define BACK_WIDTH 3
 #define BACK_HEIGHT 5
 
 #define BACK_ORIGIN_X 142
 #define BACK_ORIGIN_Y 1
-
 // 배속
 #define SPEED_WIDTH 3
 #define SPEED_HEIGHT 6
 
 #define SPEED_ORIGIN_X 142
 #define SPEED_ORIGIN_Y 7
-
 // 대화창
 #define DIALOGUE_WIDTH 24
 #define DIALOGUE_HEIGHT 6
@@ -343,7 +341,7 @@ void drawExitButton()
 	int backX = BACK_ORIGIN_X + 2;
 	int backY = BACK_ORIGIN_Y + 2;
 	SetCurrentCursorPos(backX, backY);
-	printf("BACK");
+	printf("EXIT");
 }
 
 void showSpeedButton()
@@ -444,7 +442,54 @@ void drawDialogue()
 	SetCurrentCursorPos(diaX, diaY++);
 	printf("My major is ");
 }
-
+void drawObject(int x, int y, int idx)
+{
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			SetCurrentCursorPos(x + (2 * i), y + j);
+			int obj = objectarray[idx][i][j];
+			switch (obj)
+			{
+			case 0:
+				printf("  ");
+				break;
+			case 1:
+				printf("■");
+				break;
+			case 2:
+				printf("▲");
+				break;
+			case 3:
+				printf("●");
+				break;
+			case 4:
+				printf("★");
+				break;
+			case 5:
+				printf("☆");
+				break;
+			case 6:
+				printf("♡");
+				break;
+			default:
+				break;
+			}
+		}
+	}
+}
+void drawMap()
+{
+	int x = GBOARD_ORIGIN_X + 2;
+	int y = GBOARD_ORIGIN_Y + 1;
+	for (int i = 0; i < 12; i++)
+		for (int j = 0; j < 12; j++)
+		{
+			int idx = maparray[j][i];
+			drawObject(x + (6*i), y + (3*j), idx);
+		}
+}
 
 void drawUI()
 {
@@ -456,4 +501,5 @@ void drawUI()
 	drawDialogue();
 	drawExitButton();
 	showSpeedButton();
+	drawMap();
 }
