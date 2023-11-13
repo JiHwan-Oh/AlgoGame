@@ -1,5 +1,7 @@
 #include "block.h"
 #include "object.h"
+#include "map.h"
+
 // ½ºÅ©¸°
 #define SCREEN_WIDTH 75
 #define SCREEN_HEIGHT 46
@@ -136,6 +138,48 @@ void drawGameBoard()
 	{
 		SetCurrentCursorPos(GBOARD_ORIGIN_X + x * 2, GBOARD_ORIGIN_Y + GBOARD_HEIGHT);
 		printf("¦¬");
+	}
+}
+
+void drawObject(int index) {
+	COORD pos = GetCurrentCursorPos();
+	int posX = pos.X, posY = pos.Y;
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
+			SetCurrentCursorPos(posX + j * 2, posY + i);
+			switch (blockArray[index][i][j]) {
+			case 0:
+				break;
+			case 1:
+				printf("¡á");
+				break;
+			case 2:
+				printf("¡ã");
+				break;
+			case 3:
+				printf("¡Ü");
+				break;
+			case 4:
+				printf("¡Ú");
+				break;
+			case 5:
+				printf("¡Ù");
+				break;
+			case 6:
+				printf("¢½");
+				break;
+			}
+		}
+	}
+}
+
+void drawMap() {
+	int x, y;
+	for (y = 0; y < 12; y++) {
+		for (x = 0; x < 12; x++) {
+			SetCurrentCursorPos(GBOARD_ORIGIN_X + 1 + 3 * x * 2, GBOARD_ORIGIN_Y + 1 + 3 * y);
+			drawObject(map[curStageInfo][y][x]);
+		}
 	}
 }
 
@@ -450,6 +494,7 @@ void drawUI()
 {
 	drawScreen();
 	drawGameBoard();
+	drawMap();
 	drawBlock();
 	drawBlockArray();
 	showStageInfo();

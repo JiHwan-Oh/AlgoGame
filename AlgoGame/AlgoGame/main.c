@@ -17,12 +17,18 @@ void RemoveCursor()
 
 }
 
-int main()
+void init()
 {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 6);
-	//string s[2] = { "■" ,"hello"};
 	system("mode con cols=155 lines=52");
 	RemoveCursor();
+}
+
+int main()
+{
+	init();
+
+	// drawTitle();
 
 	drawUI();
 
@@ -47,7 +53,7 @@ int main()
 			}
 		bax += 12;
 	}
-
+	/*
 	SetCurrentCursorPos(curPosX, curPosY);
 	curPosX = 4;
 	curPosY = 2;
@@ -57,7 +63,7 @@ int main()
 			SetCurrentCursorPos(curPosX + (x * 2), curPosY + y);
 			printf("■");
 		}
-
+	*/
 	SetCurrentCursorPos(0, 42);
 	printf("\n\n\n\n\n");
 }
