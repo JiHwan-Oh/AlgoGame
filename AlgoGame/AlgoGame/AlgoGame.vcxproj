@@ -131,7 +131,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="block.h" />
-    <ClInclude Include="maparray.h" />
+    <ClInclude Include="map.h" />
     <ClInclude Include="object.h" />
     <ClInclude Include="ui.h" />
   </ItemGroup>
