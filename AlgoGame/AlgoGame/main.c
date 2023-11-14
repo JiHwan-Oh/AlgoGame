@@ -1,10 +1,68 @@
 ﻿#include <stdio.h>
 #include <windows.h>
-#include<time.h>
+#include <time.h>
 #include <conio.h>
 #include "ui.h"
 
-int blockQueue[24] = { 0, 0, 1, 5, 1, 3, 6, 1, 0, 3, 4, 3, 1, 1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1 };
+int key = 0;
+int shield = 0;
+int blockcount = 0;
+int tmp[24] = { 0, 0, 1, 5, 1, 3, 6, 1, 0, 3, 4, 3, 1, 1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1 };
+
+typedef struct Quque
+{
+	int queue[24];
+	int size;
+}Queue;
+
+Queue blockQueue;
+
+void initQueue(Queue* q)
+{
+	q->size = 0;
+	for (int i = 0; i < 24; i++)
+		q->queue[i] = tmp[i]; // 초기화 q->queue[i] =  -1;
+}
+
+void addQueue(int blockNumber)
+{
+	blockQueue.queue[blockQueue.size] = blockNumber;
+	blockQueue.size += 1;
+}
+
+void deleteQueue(int idx)
+{
+	for (int i = idx; i < 23; i++)
+	{
+		blockQueue.queue[i] = blockQueue.queue[i + 1];
+	}
+	blockQueue.queue[23] = -1;
+	blockQueue.size -= 1;
+}
+
+void showBlockArray()
+{
+	int blockArrayX = BLOCK_ARRAY_ORIGIN_X + 2;
+	int blockArrayY = BLOCK_ARRAY_ORIGIN_Y + 1;
+	for (int i = 0; i < 24; i++)
+	{
+		if (blockQueue.queue[i] == -1)
+			break;
+		if (i % 6 == 0 && i != 0)
+		{
+			blockArrayX = BLOCK_ARRAY_ORIGIN_X + 2;
+			blockArrayY += 6;
+		}
+		for (int y = 0; y < 5; y++)
+			for (int x = 0; x < 5; x++)
+			{
+				SetCurrentCursorPos(blockArrayX + (x * 2), blockArrayY + y);
+				if (block[blockQueue.queue[i]][y][x] == 1)
+					printf("■");
+			}
+		blockArrayX += 12;
+	}
+}
 
 typedef struct pc
 {
@@ -12,6 +70,8 @@ typedef struct pc
 	int pcPosY;
 	int direction;
 }PC;
+
+PC player;
 
 void showPC(PC player)
 {
@@ -31,7 +91,7 @@ void showPC(PC player)
 		break;
 	case 3:
 		printf("←");
-	default :
+	default:
 		break;
 	}
 }
@@ -42,6 +102,66 @@ void deletePC(PC player)
 	int y = GBOARD_ORIGIN_Y + 2;
 	SetCurrentCursorPos(x + (6 * player.pcPosX), y + 3 * player.pcPosY);
 	printf("  ");
+}
+
+void goStraight()
+{
+	deletePC(player);
+	switch (player.direction)
+	{
+	case 0:
+		player.pcPosY -= 1;
+		break;
+	case 1:
+		player.pcPosX += 1;
+		break;
+	case 2:
+		player.pcPosY += 1;
+		break;
+	case 3:
+		player.pcPosX -= 1;
+		break;
+	default:
+		break;
+	}
+}
+
+void turnLeft()
+{
+	deletePC(player);
+	player.direction = (player.direction + 3) % 4;
+	showPC(player);
+	Sleep(1000);
+	deletePC(player);
+}
+
+void turnRight()
+{
+	deletePC(player);
+	player.direction = (player.direction + 5) % 4;
+	showPC(player);
+	Sleep(1000);
+	deletePC(player);
+}
+
+void gatherItem()
+{
+
+}
+
+void useKey()
+{
+
+}
+
+void useShield()
+{
+
+}
+
+void usePortal()
+{
+
 }
 
 void RemoveCursor()
@@ -64,8 +184,6 @@ int main()
 	drawUI();
 	showBlockArray();
 
-	PC player;
-
 	player.direction = 1;
 	player.pcPosX = 1; // 12x12에서 x좌표(0~11)
 	player.pcPosY = 5; // 12x12에서 y좌표(0~11)
@@ -75,28 +193,9 @@ int main()
 		Sleep(1000);
 		if (i == 4)
 		{
-			player.direction = 0;
-			showPC(player);
-			Sleep(1000);
+			turnLeft();
 		}
-		deletePC(player);
-		switch (player.direction)
-		{
-		case 0:
-			player.pcPosY -= 1;
-			break;
-		case 1:
-			player.pcPosX += 1;
-			break;
-		case 2:
-			player.pcPosY += 1;
-			break;
-		case 3:
-			player.pcPosX -= 1;
-			break;
-		default:
-			break;
-		}
+		goStraight();
 	}
 
 
@@ -104,28 +203,4 @@ int main()
 	SetCurrentCursorPos(0, 42);
 	printf("\n\n\n\n\n");
 	return 0;
-}
-
-void showBlockArray()
-{
-	int blockArrayX = BLOCK_ARRAY_ORIGIN_X + 2;
-	int blockArrayY = BLOCK_ARRAY_ORIGIN_Y + 1;
-	for (int i = 0; i < 24; i++)
-	{
-		if (blockQueue[i] == -1)
-			break;
-		if (i % 6 == 0 && i != 0)
-		{
-			blockArrayX = BLOCK_ARRAY_ORIGIN_X + 2;
-			blockArrayY += 6;
-		}
-		for (int y = 0; y < 5; y++)
-			for (int x = 0; x < 5; x++)
-			{
-				SetCurrentCursorPos(blockArrayX + (x * 2), blockArrayY + y);
-				if (block[blockQueue[i]][y][x] == 1)
-					printf("■");
-			}
-		blockArrayX += 12;
-	}
 }

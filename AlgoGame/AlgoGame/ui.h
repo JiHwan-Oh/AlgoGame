@@ -487,7 +487,7 @@ void drawMap()
 		for (int j = 0; j < 12; j++)
 		{
 			int idx = maparray[j][i];
-			drawObject(x + (6*i), y + (3*j), idx);
+			drawObject(x + (6 * i), y + (3 * j), idx);
 		}
 }
 
