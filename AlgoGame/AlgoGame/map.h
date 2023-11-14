@@ -448,7 +448,7 @@ int map[MAP_COUNT][MAP_WIDTH][MAP_HEIGHT] =
 
 PCInfo initialPCPos[MAP_COUNT] = {
 	// STAGE 1-1
-	{5, 6, 1},
+	{4, 5, 1},
 	// STAGE 1-2
 	{4, 5, 1},
 	// STAGE 1-3

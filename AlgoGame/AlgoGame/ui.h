@@ -138,48 +138,6 @@ void drawGameBoard()
 	}
 }
 
-void drawObject(int index) {
-	COORD pos = GetCurrentCursorPos();
-	int posX = pos.X, posY = pos.Y;
-	for (int i = 0; i < 3; i++) {
-		for (int j = 0; j < 3; j++) {
-			SetCurrentCursorPos(posX + j * 2, posY + i);
-			switch (blockArray[index][i][j]) {
-			case 0:
-				break;
-			case 1:
-				printf("¡á");
-				break;
-			case 2:
-				printf("¡ã");
-				break;
-			case 3:
-				printf("¡Ü");
-				break;
-			case 4:
-				printf("¡Ú");
-				break;
-			case 5:
-				printf("¡Ù");
-				break;
-			case 6:
-				printf("¢½");
-				break;
-			}
-		}
-	}
-}
-
-void drawMap() {
-	int x, y;
-	for (y = 0; y < 12; y++) {
-		for (x = 0; x < 12; x++) {
-			SetCurrentCursorPos(GBOARD_ORIGIN_X + 1 + 3 * x * 2, GBOARD_ORIGIN_Y + 1 + 3 * y);
-			drawObject(map[curStageInfo][y][x]);
-		}
-	}
-}
-
 void drawBlock()
 {
 	int x, y;
@@ -339,7 +297,7 @@ void showStageInfo()
 	int infoX = INFO_ORIGIN_X + 2;
 	int infoY = INFO_ORIGIN_Y + 1;
 	SetCurrentCursorPos(infoX, infoY);
-	printf("[CHAPTER] : 1, [STAGE] : 5");
+	printf("[CHAPTER] : %d, [STAGE] : %d", curStageInfo / 10 + 1, curStageInfo % 10 + 1);
 	SetCurrentCursorPos(infoX, infoY + 3);
 	printf("ITEM");
 	SetCurrentCursorPos(infoX, infoY + 4);
@@ -431,6 +389,7 @@ void showSpeedButton()
 	SetCurrentCursorPos(speedX, speedY);
 	printf("%d", speed);
 }
+
 void drawDialogue()
 {
 	int x, y;
@@ -485,6 +444,7 @@ void drawDialogue()
 	SetCurrentCursorPos(diaX, diaY++);
 	printf("My major is ");
 }
+
 void drawObject(int x, int y, int idx)
 {
 	for (int i = 0; i < 3; i++)
@@ -492,7 +452,7 @@ void drawObject(int x, int y, int idx)
 		for (int j = 0; j < 3; j++)
 		{
 			SetCurrentCursorPos(x + (2 * i), y + j);
-			int obj = objectarray[idx][i][j];
+			int obj = objectArray[idx][i][j];
 			switch (obj)
 			{
 			case 0:
@@ -522,6 +482,18 @@ void drawObject(int x, int y, int idx)
 		}
 	}
 }
+
+void removeMap()
+{
+	int x = GBOARD_ORIGIN_X + 2;
+	int y = GBOARD_ORIGIN_Y + 1;
+	for (int i = 0; i < 12; i++)
+		for (int j = 0; j < 12; j++)
+		{
+			drawObject(x + (6 * j), y + (3 * i), 0);
+		}
+}
+
 void drawMap()
 {
 	int x = GBOARD_ORIGIN_X + 2;
@@ -529,8 +501,8 @@ void drawMap()
 	for (int i = 0; i < 12; i++)
 		for (int j = 0; j < 12; j++)
 		{
-			int idx = maparray[j][i];
-			drawObject(x + (6*i), y + (3*j), idx);
+			int index = map[curStageInfo][i][j];
+			drawObject(x + (6 * j), y + (3 * i), index);
 		}
 }
 
@@ -538,7 +510,6 @@ void drawUI()
 {
 	drawScreen();
 	drawGameBoard();
-	drawMap();
 	drawBlock();
 	drawBlockArray();
 	showStageInfo();
