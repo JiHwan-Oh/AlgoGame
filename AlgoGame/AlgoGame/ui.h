@@ -27,11 +27,23 @@
 #define BLOCK_ARRAY_ORIGIN_X 78
 #define BLOCK_ARRAY_ORIGIN_Y 14
 // 스테이지 정보
-#define INFO_WIDTH 30
+#define INFO_WIDTH 25
 #define INFO_HEIGHT 12
 
 #define INFO_ORIGIN_X 78
 #define INFO_ORIGIN_Y 1
+// PLAY/STOP
+#define PS_WIDTH 3
+#define PS_HEIGHT 6
+
+#define PS_ORIGIN_X 132
+#define PS_ORIGIN_Y 7
+// RESET
+#define RESET_WIDTH 3
+#define RESET_HEIGHT 5
+
+#define RESET_ORIGIN_X 132
+#define RESET_ORIGIN_Y 1
 // BACK
 #define BACK_WIDTH 3
 #define BACK_HEIGHT 5
@@ -50,6 +62,7 @@
 
 #define DIALOGUE_ORIGIN_X 100
 #define DIALOGUE_ORIGIN_Y 39
+
 
 void SetCurrentCursorPos(int x, int y)
 {
@@ -301,9 +314,87 @@ void showStageInfo()
 	SetCurrentCursorPos(infoX, infoY + 3);
 	printf("ITEM");
 	SetCurrentCursorPos(infoX, infoY + 4);
-	printf("★ : 0           ♥: 1");
+	printf("★ : 0           ♥: 0");
 	SetCurrentCursorPos(infoX, infoY + 7);
-	printf("COMMAND BLOCK COUNT : 14");
+	printf("COMMAND BLOCK COUNT : 9");
+}
+
+void drawPlayStopButton()
+{
+	int x, y;
+	for (y = 0; y <= PS_HEIGHT; y++)
+	{
+		SetCurrentCursorPos(PS_ORIGIN_X, PS_ORIGIN_Y + y);
+		if (y == PS_HEIGHT)
+			printf("┗");
+		else if (y == 0)
+			printf("┏");
+		else
+			printf("┃");
+	}
+	for (y = 0; y <= PS_HEIGHT; y++)
+	{
+		SetCurrentCursorPos(PS_ORIGIN_X + (PS_WIDTH + 1) * 2, PS_ORIGIN_Y + y);
+		if (y == PS_HEIGHT)
+			printf("┛");
+		else if (y == 0)
+			printf("┓");
+		else
+			printf("┃");
+	}
+	for (x = 1; x < PS_WIDTH + 1; x++)
+	{
+		SetCurrentCursorPos(PS_ORIGIN_X + x * 2, PS_ORIGIN_Y);
+		printf("━");
+	}
+	for (x = 1; x < PS_WIDTH + 1; x++)
+	{
+		SetCurrentCursorPos(PS_ORIGIN_X + x * 2, PS_ORIGIN_Y + PS_HEIGHT);
+		printf("━");
+	}
+	int psX = PS_ORIGIN_X + 2;
+	int psY = PS_ORIGIN_Y + 2;
+	SetCurrentCursorPos(psX, psY);
+	printf("PLAY");
+}
+
+void drawResetButton()
+{
+	int x, y;
+	for (y = 0; y <= RESET_HEIGHT; y++)
+	{
+		SetCurrentCursorPos(RESET_ORIGIN_X, RESET_ORIGIN_Y + y);
+		if (y == RESET_HEIGHT)
+			printf("┗");
+		else if (y == 0)
+			printf("┏");
+		else
+			printf("┃");
+	}
+	for (y = 0; y <= RESET_HEIGHT; y++)
+	{
+		SetCurrentCursorPos(RESET_ORIGIN_X + (RESET_WIDTH + 1) * 2, RESET_ORIGIN_Y + y);
+		if (y == RESET_HEIGHT)
+			printf("┛");
+		else if (y == 0)
+			printf("┓");
+		else
+			printf("┃");
+	}
+	for (x = 1; x < RESET_WIDTH + 1; x++)
+	{
+		SetCurrentCursorPos(RESET_ORIGIN_X + x * 2, RESET_ORIGIN_Y);
+		printf("━");
+	}
+	for (x = 1; x < RESET_WIDTH + 1; x++)
+	{
+		SetCurrentCursorPos(RESET_ORIGIN_X + x * 2, RESET_ORIGIN_Y + RESET_HEIGHT);
+		printf("━");
+	}
+	int resetX = RESET_ORIGIN_X + 2;
+	int resetY = RESET_ORIGIN_Y + 2;
+	SetCurrentCursorPos(resetX, resetY);
+	printf("RESET");
 }
 
 void drawExitButton()
@@ -502,7 +593,10 @@ void drawMap()
 		for (int j = 0; j < 12; j++)
 		{
 			int index = map[curStageInfo][i][j];
+			if(index == 7) // 도착점 빨간색
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);
 			drawObject(x + (6 * j), y + (3 * i), index);
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 		}
 }
 
@@ -513,6 +607,8 @@ void drawUI()
 	drawBlock();
 	drawBlockArray();
 	showStageInfo();
+	drawPlayStopButton();
+	drawResetButton();
 	drawDialogue();
 	drawExitButton();
 	showSpeedButton();
