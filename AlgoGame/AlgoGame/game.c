@@ -2,23 +2,6 @@
 
 // UI 모듈
 
-void SetCurrentCursorPos(int x, int y)
-{
-	COORD pos = { x, y };
-	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
-
-}
-
-COORD GetCurrentCursorPos()
-{
-	COORD curPoint;
-	CONSOLE_SCREEN_BUFFER_INFO curInfo;
-	GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &curInfo);
-	curPoint.X = curInfo.dwCursorPosition.X;
-	curPoint.Y = curInfo.dwCursorPosition.Y;
-	return curPoint;
-}
-
 void drawScreen()
 {
 	int x, y;
@@ -639,6 +622,8 @@ void drawUI()
 	drawMap();
 }
 
+// Stage 모듈
+
 void initBlockArray()
 {
 	for (int i = 0; i < QUEUE_MAX; i++)
@@ -824,6 +809,7 @@ void usePortal()
 	}
 }
 
+// 임시 게임 시작 함수
 void startGame() {
 
 	initBlockArray();
