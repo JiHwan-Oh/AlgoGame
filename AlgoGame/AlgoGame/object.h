@@ -1,3 +1,5 @@
+#include "main.h"
+
 int objectArray[8][3][3] =
 {
 	{ // º® (index: 0)
@@ -41,4 +43,3 @@ int objectArray[8][3][3] =
 	{1, 1, 1}
 	}
 };
-

@@ -1,3 +1,5 @@
+#include "main.h"
+
 int block[7][5][5] =
 {
 	{ // ÀüÁø
