@@ -1,6 +1,6 @@
-#include "game.h"
+Ôªø#include "game.h"
 
-// UI ∏µ‚
+// UI Î™®Îìà
 
 void drawScreen()
 {
@@ -9,31 +9,31 @@ void drawScreen()
 	{
 		SetCurrentCursorPos(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y + y);
 		if (y == SCREEN_HEIGHT)
-			printf("¶±");
+			printf("‚îó");
 		else if (y == 0)
-			printf("¶Æ");
+			printf("‚îè");
 		else
-			printf("¶≠");
+			printf("‚îÉ");
 	}
 	for (y = 0; y <= SCREEN_HEIGHT; y++)
 	{
 		SetCurrentCursorPos(SCREEN_ORIGIN_X + (SCREEN_WIDTH + 1) * 2, SCREEN_ORIGIN_Y + y);
 		if (y == SCREEN_HEIGHT)
-			printf("¶∞");
+			printf("‚îõ");
 		else if (y == 0)
-			printf("¶Ø");
+			printf("‚îì");
 		else
-			printf("¶≠");
+			printf("‚îÉ");
 	}
 	for (x = 1; x < SCREEN_WIDTH + 1; x++)
 	{
 		SetCurrentCursorPos(SCREEN_ORIGIN_X + x * 2, SCREEN_ORIGIN_Y);
-		printf("¶¨");
+		printf("‚îÅ");
 	}
 	for (x = 1; x < SCREEN_WIDTH + 1; x++)
 	{
 		SetCurrentCursorPos(SCREEN_ORIGIN_X + x * 2, SCREEN_ORIGIN_Y + SCREEN_HEIGHT);
-		printf("¶¨");
+		printf("‚îÅ");
 	}
 }
 
@@ -44,31 +44,31 @@ void drawGameBoard()
 	{
 		SetCurrentCursorPos(GBOARD_ORIGIN_X, GBOARD_ORIGIN_Y + y);
 		if (y == GBOARD_HEIGHT)
-			printf("¶±");
+			printf("‚îó");
 		else if (y == 0)
-			printf("¶Æ");
+			printf("‚îè");
 		else
-			printf("¶≠");
+			printf("‚îÉ");
 	}
 	for (y = 0; y <= GBOARD_HEIGHT; y++)
 	{
 		SetCurrentCursorPos(GBOARD_ORIGIN_X + (GBOARD_WIDTH + 1) * 2, GBOARD_ORIGIN_Y + y);
 		if (y == GBOARD_HEIGHT)
-			printf("¶∞");
+			printf("‚îõ");
 		else if (y == 0)
-			printf("¶Ø");
+			printf("‚îì");
 		else
-			printf("¶≠");
+			printf("‚îÉ");
 	}
 	for (x = 1; x < GBOARD_WIDTH + 1; x++)
 	{
 		SetCurrentCursorPos(GBOARD_ORIGIN_X + x * 2, GBOARD_ORIGIN_Y);
-		printf("¶¨");
+		printf("‚îÅ");
 	}
 	for (x = 1; x < GBOARD_WIDTH + 1; x++)
 	{
 		SetCurrentCursorPos(GBOARD_ORIGIN_X + x * 2, GBOARD_ORIGIN_Y + GBOARD_HEIGHT);
-		printf("¶¨");
+		printf("‚îÅ");
 	}
 }
 
@@ -79,37 +79,37 @@ void drawBlock()
 	{
 		SetCurrentCursorPos(BLOCK_ORIGIN_X, BLOCK_ORIGIN_Y + y);
 		if (y == BLOCK_HEIGHT)
-			printf("¶±");
+			printf("‚îó");
 		else if (y == 0)
-			printf("¶Æ");
+			printf("‚îè");
 		else
-			printf("¶≠");
+			printf("‚îÉ");
 	}
 	for (y = 0; y <= BLOCK_HEIGHT; y++)
 	{
 		SetCurrentCursorPos(BLOCK_ORIGIN_X + (BLOCK_WIDTH + 1) * 2, BLOCK_ORIGIN_Y + y);
 		if (y == BLOCK_HEIGHT)
-			printf("¶∞");
+			printf("‚îõ");
 		else if (y == 0)
-			printf("¶Ø");
+			printf("‚îì");
 		else
-			printf("¶≠");
+			printf("‚îÉ");
 	}
 	for (x = 1; x < BLOCK_WIDTH + 1; x++)
 	{
 		SetCurrentCursorPos(BLOCK_ORIGIN_X + x * 2, BLOCK_ORIGIN_Y);
-		printf("¶¨");
+		printf("‚îÅ");
 	}
 	for (x = 1; x < BLOCK_WIDTH + 1; x++)
 	{
 		SetCurrentCursorPos(BLOCK_ORIGIN_X + x * 2, BLOCK_ORIGIN_Y + BLOCK_HEIGHT);
-		printf("¶¨");
+		printf("‚îÅ");
 	}
 	for (int x = 0; x < 7; x++)
 		for (int y = 0; y < 5; y++)
 		{
 			SetCurrentCursorPos(14 + (x * 12), 40 + y);
-			printf("¶≠");
+			printf("‚îÉ");
 		}
 
 	int blockPosX = 4;
@@ -122,7 +122,7 @@ void drawBlock()
 			{
 				SetCurrentCursorPos(blockPosX + (x * 2), blockPosY + y);
 				if (block[i][y][x] == 1)
-					printf("°·");
+					printf("‚ñ†");
 			}
 		blockPosX += 12;
 	}
@@ -135,39 +135,39 @@ void drawBlockArray()
 	{
 		SetCurrentCursorPos(BLOCK_ARRAY_ORIGIN_X, BLOCK_ARRAY_ORIGIN_Y + y);
 		if (y == BLOCK_ARRAY_HEIGHT)
-			printf("¶±");
+			printf("‚îó");
 		else if (y == 0)
-			printf("¶Æ");
+			printf("‚îè");
 		else
-			printf("¶≠");
+			printf("‚îÉ");
 	}
 	for (y = 0; y <= BLOCK_ARRAY_HEIGHT; y++)
 	{
 		SetCurrentCursorPos(BLOCK_ARRAY_ORIGIN_X + (BLOCK_ARRAY_WIDTH + 1) * 2, BLOCK_ARRAY_ORIGIN_Y + y);
 		if (y == BLOCK_ARRAY_HEIGHT)
-			printf("¶∞");
+			printf("‚îõ");
 		else if (y == 0)
-			printf("¶Ø");
+			printf("‚îì");
 		else
-			printf("¶≠");
+			printf("‚îÉ");
 	}
 	for (x = 1; x < BLOCK_ARRAY_WIDTH + 1; x++)
 	{
 		SetCurrentCursorPos(BLOCK_ARRAY_ORIGIN_X + x * 2, BLOCK_ARRAY_ORIGIN_Y);
-		printf("¶¨");
+		printf("‚îÅ");
 	}
 	for (x = 1; x < BLOCK_ARRAY_WIDTH + 1; x++)
 	{
 		SetCurrentCursorPos(BLOCK_ARRAY_ORIGIN_X + x * 2, BLOCK_ARRAY_ORIGIN_Y + BLOCK_ARRAY_HEIGHT);
-		printf("¶¨");
+		printf("‚îÅ");
 	}
 	for (int x = 0; x < 7; x++)
 		for (int y = 0; y < 5; y++)
 		{
 			SetCurrentCursorPos(14 + (x * 12), 40 + y);
-			printf("¶≠");
+			printf("‚îÉ");
 		}
-	// ºº∑Œº±
+	// ÏÑ∏Î°úÏÑ†
 	int bax;
 	int bay;
 	bax = BLOCK_ARRAY_ORIGIN_X + 12;
@@ -178,10 +178,10 @@ void drawBlockArray()
 			for (int y = 0; y < 5; y++)
 			{
 				SetCurrentCursorPos(bax + (x * 12), bay + y + (6 * i));
-				printf("¶≠");
+				printf("‚îÉ");
 			}
 	}
-	// ∞°∑Œº±
+	// Í∞ÄÎ°úÏÑ†
 	bax = BLOCK_ARRAY_ORIGIN_X + 2;
 	bay = BLOCK_ARRAY_ORIGIN_Y + 6;
 	for (int i = 0; i < 3; i++)
@@ -190,7 +190,7 @@ void drawBlockArray()
 			for (int x = 0; x < 9; x++)
 			{
 				SetCurrentCursorPos(bax + x + (12 * y), bay + (6 * i));
-				printf("¶¨");
+				printf("‚îÅ");
 			}
 	}
 }
@@ -202,31 +202,31 @@ void showStageInfo()
 	{
 		SetCurrentCursorPos(INFO_ORIGIN_X, INFO_ORIGIN_Y + y);
 		if (y == INFO_HEIGHT)
-			printf("¶±");
+			printf("‚îó");
 		else if (y == 0)
-			printf("¶Æ");
+			printf("‚îè");
 		else
-			printf("¶≠");
+			printf("‚îÉ");
 	}
 	for (y = 0; y <= INFO_HEIGHT; y++)
 	{
 		SetCurrentCursorPos(INFO_ORIGIN_X + (INFO_WIDTH + 1) * 2, INFO_ORIGIN_Y + y);
 		if (y == INFO_HEIGHT)
-			printf("¶∞");
+			printf("‚îõ");
 		else if (y == 0)
-			printf("¶Ø");
+			printf("‚îì");
 		else
-			printf("¶≠");
+			printf("‚îÉ");
 	}
 	for (x = 1; x < INFO_WIDTH + 1; x++)
 	{
 		SetCurrentCursorPos(INFO_ORIGIN_X + x * 2, INFO_ORIGIN_Y);
-		printf("¶¨");
+		printf("‚îÅ");
 	}
 	for (x = 1; x < INFO_WIDTH + 1; x++)
 	{
 		SetCurrentCursorPos(INFO_ORIGIN_X + x * 2, INFO_ORIGIN_Y + INFO_HEIGHT);
-		printf("¶¨");
+		printf("‚îÅ");
 	}
 	int infoX = INFO_ORIGIN_X + 2;
 	int infoY = INFO_ORIGIN_Y + 1;
@@ -235,9 +235,9 @@ void showStageInfo()
 	SetCurrentCursorPos(infoX, infoY + 3);
 	printf("ITEM");
 	SetCurrentCursorPos(infoX, infoY + 4);
-	printf("°⁄ : 0           ¢æ: 0");
+	printf("‚òÖ : 0           ‚ô•: 0");
 	SetCurrentCursorPos(infoX, infoY + 7);
-	printf("COMMAND BLOCK COUNT : 9");
+	printf("COMMAND BLOCK COUNT : 0");
 }
 
 void drawPlayStopButton()
@@ -247,31 +247,31 @@ void drawPlayStopButton()
 	{
 		SetCurrentCursorPos(PS_ORIGIN_X, PS_ORIGIN_Y + y);
 		if (y == PS_HEIGHT)
-			printf("¶±");
+			printf("‚îó");
 		else if (y == 0)
-			printf("¶Æ");
+			printf("‚îè");
 		else
-			printf("¶≠");
+			printf("‚îÉ");
 	}
 	for (y = 0; y <= PS_HEIGHT; y++)
 	{
 		SetCurrentCursorPos(PS_ORIGIN_X + (PS_WIDTH + 1) * 2, PS_ORIGIN_Y + y);
 		if (y == PS_HEIGHT)
-			printf("¶∞");
+			printf("‚îõ");
 		else if (y == 0)
-			printf("¶Ø");
+			printf("‚îì");
 		else
-			printf("¶≠");
+			printf("‚îÉ");
 	}
 	for (x = 1; x < PS_WIDTH + 1; x++)
 	{
 		SetCurrentCursorPos(PS_ORIGIN_X + x * 2, PS_ORIGIN_Y);
-		printf("¶¨");
+		printf("‚îÅ");
 	}
 	for (x = 1; x < PS_WIDTH + 1; x++)
 	{
 		SetCurrentCursorPos(PS_ORIGIN_X + x * 2, PS_ORIGIN_Y + PS_HEIGHT);
-		printf("¶¨");
+		printf("‚îÅ");
 	}
 	int psX = PS_ORIGIN_X + 2;
 	int psY = PS_ORIGIN_Y + 2;
@@ -286,31 +286,31 @@ void drawResetButton()
 	{
 		SetCurrentCursorPos(RESET_ORIGIN_X, RESET_ORIGIN_Y + y);
 		if (y == RESET_HEIGHT)
-			printf("¶±");
+			printf("‚îó");
 		else if (y == 0)
-			printf("¶Æ");
+			printf("‚îè");
 		else
-			printf("¶≠");
+			printf("‚îÉ");
 	}
 	for (y = 0; y <= RESET_HEIGHT; y++)
 	{
 		SetCurrentCursorPos(RESET_ORIGIN_X + (RESET_WIDTH + 1) * 2, RESET_ORIGIN_Y + y);
 		if (y == RESET_HEIGHT)
-			printf("¶∞");
+			printf("‚îõ");
 		else if (y == 0)
-			printf("¶Ø");
+			printf("‚îì");
 		else
-			printf("¶≠");
+			printf("‚îÉ");
 	}
 	for (x = 1; x < RESET_WIDTH + 1; x++)
 	{
 		SetCurrentCursorPos(RESET_ORIGIN_X + x * 2, RESET_ORIGIN_Y);
-		printf("¶¨");
+		printf("‚îÅ");
 	}
 	for (x = 1; x < RESET_WIDTH + 1; x++)
 	{
 		SetCurrentCursorPos(RESET_ORIGIN_X + x * 2, RESET_ORIGIN_Y + RESET_HEIGHT);
-		printf("¶¨");
+		printf("‚îÅ");
 	}
 	int resetX = RESET_ORIGIN_X + 2;
 	int resetY = RESET_ORIGIN_Y + 2;
@@ -325,31 +325,31 @@ void drawExitButton()
 	{
 		SetCurrentCursorPos(BACK_ORIGIN_X, BACK_ORIGIN_Y + y);
 		if (y == BACK_HEIGHT)
-			printf("¶±");
+			printf("‚îó");
 		else if (y == 0)
-			printf("¶Æ");
+			printf("‚îè");
 		else
-			printf("¶≠");
+			printf("‚îÉ");
 	}
 	for (y = 0; y <= BACK_HEIGHT; y++)
 	{
 		SetCurrentCursorPos(BACK_ORIGIN_X + (BACK_WIDTH + 1) * 2, BACK_ORIGIN_Y + y);
 		if (y == BACK_HEIGHT)
-			printf("¶∞");
+			printf("‚îõ");
 		else if (y == 0)
-			printf("¶Ø");
+			printf("‚îì");
 		else
-			printf("¶≠");
+			printf("‚îÉ");
 	}
 	for (x = 1; x < BACK_WIDTH + 1; x++)
 	{
 		SetCurrentCursorPos(BACK_ORIGIN_X + x * 2, BACK_ORIGIN_Y);
-		printf("¶¨");
+		printf("‚îÅ");
 	}
 	for (x = 1; x < BACK_WIDTH + 1; x++)
 	{
 		SetCurrentCursorPos(BACK_ORIGIN_X + x * 2, BACK_ORIGIN_Y + BACK_HEIGHT);
-		printf("¶¨");
+		printf("‚îÅ");
 	}
 	int backX = BACK_ORIGIN_X + 2;
 	int backY = BACK_ORIGIN_Y + 2;
@@ -364,42 +364,40 @@ void showSpeedButton()
 	{
 		SetCurrentCursorPos(SPEED_ORIGIN_X, SPEED_ORIGIN_Y + y);
 		if (y == SPEED_HEIGHT)
-			printf("¶±");
+			printf("‚îó");
 		else if (y == 0)
-			printf("¶Æ");
+			printf("‚îè");
 		else
-			printf("¶≠");
+			printf("‚îÉ");
 	}
 	for (y = 0; y <= SPEED_HEIGHT; y++)
 	{
 		SetCurrentCursorPos(SPEED_ORIGIN_X + (SPEED_WIDTH + 1) * 2, SPEED_ORIGIN_Y + y);
 		if (y == SPEED_HEIGHT)
-			printf("¶∞");
+			printf("‚îõ");
 		else if (y == 0)
-			printf("¶Ø");
+			printf("‚îì");
 		else
-			printf("¶≠");
+			printf("‚îÉ");
 	}
 	for (x = 1; x < SPEED_WIDTH + 1; x++)
 	{
 		SetCurrentCursorPos(SPEED_ORIGIN_X + x * 2, SPEED_ORIGIN_Y);
-		printf("¶¨");
+		printf("‚îÅ");
 	}
 	for (x = 1; x < SPEED_WIDTH + 1; x++)
 	{
 		SetCurrentCursorPos(SPEED_ORIGIN_X + x * 2, SPEED_ORIGIN_Y + SPEED_HEIGHT);
-		printf("¶¨");
+		printf("‚îÅ");
 	}
-
-	int speed = 1;
 	int speedX = SPEED_ORIGIN_X + 2;
 	int speedY = SPEED_ORIGIN_Y + 2;
 	SetCurrentCursorPos(speedX, speedY);
-	printf("¢∫¢∫¢∫");
+	printf("‚ñ∂");
 	speedX += 2;
 	speedY += 2;
 	SetCurrentCursorPos(speedX, speedY);
-	printf("%d", speed);
+	printf("1");
 }
 
 void drawDialogue()
@@ -409,40 +407,40 @@ void drawDialogue()
 	{
 		SetCurrentCursorPos(DIALOGUE_ORIGIN_X, DIALOGUE_ORIGIN_Y + y);
 		if (y == DIALOGUE_HEIGHT)
-			printf("¶±");
+			printf("‚îó");
 		else if (y == 0)
-			printf("¶Æ");
+			printf("‚îè");
 		else
-			printf("¶≠");
+			printf("‚îÉ");
 	}
 	for (y = 0; y <= DIALOGUE_HEIGHT; y++)
 	{
 		SetCurrentCursorPos(DIALOGUE_ORIGIN_X + (DIALOGUE_WIDTH + 1) * 2, DIALOGUE_ORIGIN_Y + y);
 		if (y == DIALOGUE_HEIGHT)
-			printf("¶∞");
+			printf("‚îõ");
 		else if (y == 0)
-			printf("¶Ø");
+			printf("‚îì");
 		else
-			printf("¶≠");
+			printf("‚îÉ");
 	}
 	for (x = 1; x < DIALOGUE_WIDTH + 1; x++)
 	{
 		SetCurrentCursorPos(DIALOGUE_ORIGIN_X + x * 2, DIALOGUE_ORIGIN_Y);
-		printf("¶¨");
+		printf("‚îÅ");
 	}
 	for (x = 1; x < DIALOGUE_WIDTH + 1; x++)
 	{
 		SetCurrentCursorPos(DIALOGUE_ORIGIN_X + x * 2, DIALOGUE_ORIGIN_Y + DIALOGUE_HEIGHT);
-		printf("¶¨");
+		printf("‚îÅ");
 	}
 	for (int x = 0; x < 7; x++)
 		for (int y = 0; y < 5; y++)
 		{
 			SetCurrentCursorPos(14 + (x * 12), 40 + y);
-			printf("¶≠");
+			printf("‚îÉ");
 		}
 
-	// ¥Î»≠ √‚∑¬
+	// ÎåÄÌôî Ï∂úÎ†•
 	int diaX = DIALOGUE_ORIGIN_X + 2;
 	int diaY = DIALOGUE_ORIGIN_Y + 1;
 	SetCurrentCursorPos(diaX, diaY++);
@@ -471,22 +469,22 @@ void drawObject(int x, int y, int idx)
 				printf("  ");
 				break;
 			case 1:
-				printf("°·");
+				printf("‚ñ†");
 				break;
 			case 2:
-				printf("°„");
+				printf("‚ñ≤");
 				break;
 			case 3:
-				printf("°‹");
+				printf("‚óè");
 				break;
 			case 4:
-				printf("°⁄");
+				printf("‚òÖ");
 				break;
 			case 5:
-				printf("°Ÿ");
+				printf("‚òÜ");
 				break;
 			case 6:
-				printf("¢Ω");
+				printf("‚ô°");
 				break;
 			default:
 				break;
@@ -514,7 +512,7 @@ void drawMap()
 		for (int j = 0; j < 12; j++)
 		{
 			int index = map[curStageInfo][i][j];
-			if (index == 7) // µµ¬¯¡° ª°∞£ªˆ
+			if (index == 7) // ÎèÑÏ∞©Ï†ê Îπ®Í∞ÑÏÉâ
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);
 			drawObject(x + (6 * j), y + (3 * i), index);
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
@@ -539,12 +537,31 @@ void showBlockArray()
 			{
 				SetCurrentCursorPos(blockArrayX + (x * 2), blockArrayY + y);
 				if (block[blockArray.array[i]][y][x] == 1)
-					printf("°·");
+					printf("‚ñ†");
 			}
 		blockArrayX += 12;
 	}
 }
-
+void removeAllBlockArray()
+{
+	int blockArrayX = BLOCK_ARRAY_ORIGIN_X + 2;
+	int blockArrayY = BLOCK_ARRAY_ORIGIN_Y + 1;
+	for (int i = 0; i < 24; i++)
+	{
+		if (i % 6 == 0 && i != 0)
+		{
+			blockArrayX = BLOCK_ARRAY_ORIGIN_X + 2;
+			blockArrayY += 6;
+		}
+		for (int y = 0; y < 5; y++)
+			for (int x = 0; x < 5; x++)
+			{
+				SetCurrentCursorPos(blockArrayX + (x * 2), blockArrayY + y);
+				printf("  ");
+			}
+		blockArrayX += 12;
+	}
+}
 void clearBlockArray()
 {
 	int blockArrayX = BLOCK_ARRAY_ORIGIN_X + 2;
@@ -576,21 +593,21 @@ void showPC(PCInfo player)
 	switch (player.dir)
 	{
 	case 0:
-		printf("°Ë");
+		printf("‚Üë");
 		break;
 	case 1:
-		printf("°Ê");
+		printf("‚Üí");
 		break;
 	case 2:
-		printf("°È");
+		printf("‚Üì");
 		break;
 	case 3:
-		printf("°Á");
+		printf("‚Üê");
 	default:
 		break;
 	}
 	Sleep(simulationSpeed);
-	if (map[curStageInfo][player.x][player.y] == 2) // «ˆ¿Á ¿ßƒ°∞° «‘¡§¿œ ∞ÊøÏ
+	if (map[curStageInfo][player.x][player.y] == 2) // ÌòÑÏû¨ ÏúÑÏπòÍ∞Ä Ìï®Ï†ïÏùº Í≤ΩÏö∞
 	{
 		if (shield == 0)
 		{
@@ -622,7 +639,7 @@ void drawUI()
 	drawMap();
 }
 
-// Stage ∏µ‚
+// Stage Î™®Îìà
 
 void initBlockArray()
 {
@@ -643,6 +660,10 @@ void addBlock(int objectIndex)
 	if (isBlockArrayFull())
 		return;
 	blockArray.array[blockArray.rear++] = objectIndex;
+	int infoX = INFO_ORIGIN_X + 2;
+	int infoY = INFO_ORIGIN_Y + 1;
+	SetCurrentCursorPos(infoX, infoY + 7);
+	printf("COMMAND BLOCK COUNT : %d", ++blockCount);
 }
 
 void deleteBlock(int arrayIndex)
@@ -653,6 +674,11 @@ void deleteBlock(int arrayIndex)
 		blockArray.array[i] = blockArray.array[i + 1];
 	blockArray.array[blockArray.rear - 1] = -1;
 	blockArray.rear--;
+	int infoX = INFO_ORIGIN_X + 2;
+	int infoY = INFO_ORIGIN_Y + 1;
+	SetCurrentCursorPos(infoX, infoY + 7);
+	printf("COMMAND BLOCK COUNT : %d  ", --blockCount);
+	removeAllBlockArray();
 }
 
 void changeSpeed()
@@ -670,6 +696,26 @@ void changeSpeed()
 	default:
 		break;
 	}
+	int speedX = SPEED_ORIGIN_X + 2;
+	int speedY = SPEED_ORIGIN_Y + 2;
+	speed += 1;
+	if (speed == 4)
+	{
+		SetCurrentCursorPos(speedX, speedY);
+		speed = 1;
+		printf("      ");
+	}
+	SetCurrentCursorPos(speedX, speedY);
+	if (speed == 1)
+		printf("‚ñ∂");
+	else if (speed == 2)
+		printf("‚ñ∂‚ñ∂");
+	else if (speed == 3)
+		printf("‚ñ∂‚ñ∂‚ñ∂");
+	speedX += 2;
+	speedY += 2;
+	SetCurrentCursorPos(speedX, speedY);
+	printf("%d", speed);
 }
 
 void emptyBlockArray()
@@ -691,7 +737,7 @@ void resetStage()
 	drawMap();
 }
 
-// ø¿∫Í¡ß∆Æ ∫Ì∑œ ±‚¥… ºˆ«‡ «‘ºˆ
+// Ïò§Î∏åÏ†ùÌä∏ Î∏îÎ°ù Í∏∞Îä• ÏàòÌñâ Ìï®Ïàò
 void goStraight()
 {
 	deletePC(player);
@@ -748,19 +794,19 @@ void useKey()
 		return;
 	int x = GBOARD_ORIGIN_X + 2;
 	int y = GBOARD_ORIGIN_Y + 1;
-	if (map[curStageInfo][player.x - 1][player.y] == 4) // ¡¬√¯ ƒ≠¿Ã ¡¬π∞ºË¿Œ ∞ÊøÏ
+	if (map[curStageInfo][player.x - 1][player.y] == 4) // Ï¢åÏ∏° Ïπ∏Ïù¥ Ï¢åÎ¨ºÏá†Ïù∏ Í≤ΩÏö∞
 	{
 		drawObject(x + (6 * (player.x - 1)), y + (3 * player.y), 1);
 	}
-	else if (map[curStageInfo][player.x + 1][player.y] == 4) // øÏ√¯ ƒ≠¿Ã ¡¬π∞ºË¿Œ ∞ÊøÏ
+	else if (map[curStageInfo][player.x + 1][player.y] == 4) // Ïö∞Ï∏° Ïπ∏Ïù¥ Ï¢åÎ¨ºÏá†Ïù∏ Í≤ΩÏö∞
 	{
 		drawObject(x + (6 * (player.x + 1)), y + (3 * player.y), 1);
 	}
-	else if (map[curStageInfo][player.x][player.y + 1] == 4) // ¿ß ƒ≠¿Ã ¡¬π∞ºË¿Œ ∞ÊøÏ
+	else if (map[curStageInfo][player.x][player.y + 1] == 4) // ÏúÑ Ïπ∏Ïù¥ Ï¢åÎ¨ºÏá†Ïù∏ Í≤ΩÏö∞
 	{
 		drawObject(x + (6 * player.x), y + (3 * (player.y + 1)), 1);
 	}
-	else if (map[curStageInfo][player.x][player.y - 1] == 4) // æ∆∑° ƒ≠¿Ã ¡¬π∞ºË¿Œ ∞ÊøÏ
+	else if (map[curStageInfo][player.x][player.y - 1] == 4) // ÏïÑÎûò Ïπ∏Ïù¥ Ï¢åÎ¨ºÏá†Ïù∏ Í≤ΩÏö∞
 	{
 		drawObject(x + (6 * player.x), y + (3 * (player.y - 1)), 1);
 	}
@@ -773,19 +819,19 @@ void useShield()
 		return;
 	int x = GBOARD_ORIGIN_X + 2;
 	int y = GBOARD_ORIGIN_Y + 1;
-	if (map[curStageInfo][player.x - 1][player.y] == 2) // ¡¬√¯ ƒ≠¿Ã ¿Âæ÷π∞¿Œ ∞ÊøÏ
+	if (map[curStageInfo][player.x - 1][player.y] == 2) // Ï¢åÏ∏° Ïπ∏Ïù¥ Ïû•Ïï†Î¨ºÏù∏ Í≤ΩÏö∞
 	{
 		drawObject(x + (6 * (player.x - 1)), y + (3 * player.y), 1);
 	}
-	else if (map[curStageInfo][player.x + 1][player.y] == 2) // øÏ√¯ ƒ≠¿Ã ¿Âæ÷π∞¿Œ ∞ÊøÏ
+	else if (map[curStageInfo][player.x + 1][player.y] == 2) // Ïö∞Ï∏° Ïπ∏Ïù¥ Ïû•Ïï†Î¨ºÏù∏ Í≤ΩÏö∞
 	{
 		drawObject(x + (6 * (player.x + 1)), y + (3 * player.y), 1);
 	}
-	else if (map[curStageInfo][player.x][player.y + 1] == 2) // ¿ß ƒ≠¿Ã ¿Âæ÷π∞¿Œ ∞ÊøÏ
+	else if (map[curStageInfo][player.x][player.y + 1] == 2) // ÏúÑ Ïπ∏Ïù¥ Ïû•Ïï†Î¨ºÏù∏ Í≤ΩÏö∞
 	{
 		drawObject(x + (6 * player.x), y + (3 * (player.y + 1)), 1);
 	}
-	else if (map[curStageInfo][player.x][player.y - 1] == 2) // æ∆∑° ƒ≠¿Ã ¿Âæ÷π∞¿Œ ∞ÊøÏ
+	else if (map[curStageInfo][player.x][player.y - 1] == 2) // ÏïÑÎûò Ïπ∏Ïù¥ Ïû•Ïï†Î¨ºÏù∏ Í≤ΩÏö∞
 	{
 		drawObject(x + (6 * player.x), y + (3 * (player.y - 1)), 1);
 	}
@@ -794,7 +840,7 @@ void useShield()
 
 void usePortal()
 {
-	if (map[curStageInfo][player.x][player.y] == 3) // «ˆ¿Á ¿ßƒ°∞° ∆˜≈ª¿Œ ∞ÊøÏ
+	if (map[curStageInfo][player.x][player.y] == 3) // ÌòÑÏû¨ ÏúÑÏπòÍ∞Ä Ìè¨ÌÉàÏù∏ Í≤ΩÏö∞
 	{
 		for (int i = 0; i < 12; i++)
 			for (int j = 0; j < 12; j++)
@@ -809,50 +855,289 @@ void usePortal()
 	}
 }
 
-// ¿”Ω√ ∞‘¿” Ω√¿€ «‘ºˆ
-void startGame() {
+//Ïä§ÌÅ¨Î°§Î∞î ÏÇ≠Ï†úÌïòÎäî Î∞©Î≤ï
+void remove_scrollbar()
+{
+	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);//Ìï∏Îì§ ÏÑ§Ï†ï
+	CONSOLE_SCREEN_BUFFER_INFO info;
 
-	initBlockArray();
-	drawUI();
-	// resetStage();
-	player = initialPCPos[curStageInfo];
+	GetConsoleScreenBufferInfo(handle, &info);//ÏΩòÏÜî Ïä§ÌÅ¨Î¶∞ Î≤ÑÌçºÍ∞í Í∞ÄÏ†∏Ïò§Í∏∞
 
-	for (int i = 0; i < 4; i++)
-		addBlock(0);
-	addBlock(1);
-	for (int i = 0; i < 4; i++)
-		addBlock(0);
-	showBlockArray();
-	for (int i = 0; ; i++)
+	COORD new_size =
 	{
-		showPC(player);
-		if (blockArray.array[i] == -1)
-			break;
-		switch (blockArray.array[i])
-		{
-		case 0:
-			goStraight();
-			break;
-		case 1:
-			turnLeft();
-			break;
-		case 2:
-			turnRight();
-			break;
-		case 3:
-			gatherItem();
-			break;
-		case 4:
-			useKey();
-			break;
-		case 5:
-			useShield();
-			break;
-		case 6:
-			usePortal();
-			break;
-		default:
-			break;
+		//ÏΩòÏÜîÏùò cols, lines ÌÅ¨Í∏∞Î≥¥Îã§ Ïä§ÌÅ¨Î¶∞Î≤ÑÌçºÏùò ÌÅ¨Í∏∞Î•º 1 Ï§ÑÏó¨Ï£ºÎ©¥ Ïä§ÌÅ¨Î°§ Î∞îÍ∞Ä ÏÇ¨ÎùºÏßÑÎã§.
+		info.srWindow.Right - info.srWindow.Left + 1,//ÏΩòÏÜîÏ∞Ω ÏÇ¨Ïù¥Ï¶à Í∞ÄÎ°ú()
+		info.srWindow.Bottom - info.srWindow.Top + 1 //ÏΩòÏÜîÏ∞Ω ÏÇ¨Ïù¥Ï¶à ÏÑ∏Î°ú
+	};
+
+	SetConsoleScreenBufferSize(handle, new_size);// Ï†ÅÏö©
+}
+void BasicSetting() {
+	HANDLE CIN, COUT;
+	CIN = GetStdHandle(STD_INPUT_HANDLE);
+	COUT = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	remove_scrollbar(); //Ïä§ÌÅ¨Î°§Î∞î ÏÇ≠Ï†ú(ÏúÑÏóêÏÑú ÎßåÎì† Ìï®Ïàò ÏÇ¨Ïö©)
+	//SetWindowLong(GetConsoleWindow(), GWL_STYLE, WS_CAPTION); //Ï∞ΩÏä§ÌÉÄÏùºÎ≥ÄÍ≤Ω
+
+	//ÏûÖÎ†• Ïª§ÏÑú Ïà®Í∏∞Í∏∞
+	CONSOLE_CURSOR_INFO curInfo = { 1 };
+	//curInfo.dwSize = 1; //Ïª§ÏÑú ÍµµÍ∏∞ (1 ~ 100)
+	//curInfo.bVisible = FALSE; //Ïª§ÏÑú Visible TRUE(Î≥¥ÏûÑ) FALSE(Ïà®ÍπÄ)-Í∏∞Î≥∏
+	SetConsoleCursorInfo(COUT, &curInfo);
+
+	//ÎßàÏö∞Ïä§ Ìé∏Ïßë ÎßâÍ∏∞(ÎßàÏö∞Ïä§Î°ú ÎìúÎûòÍ∑∏ÌïòÎ©¥ Í∏Ä Î≥µÏÇ¨Ìï†ÎïåÏ≤òÎüº Î∞ïÏä§ ÏÉùÍ∏∞ÎäîÍ±∞ ÎßâÍ∏∞)
+	DWORD prevMode;
+	GetConsoleMode(CIN, &prevMode);
+	SetConsoleMode(CIN, prevMode & ~ENABLE_QUICK_EDIT_MODE);
+
+	SetConsoleMode(COUT, ENABLE_PROCESSED_INPUT | ENABLE_MOUSE_INPUT);// ?‚òÖ ÎßàÏö∞Ïä§ ÏûÖÎ†•Î™®ÎìúÎ°ú Î≥ÄÍ≤Ω
+}
+int CheckMouse()
+{
+
+	HANDLE CIN, COUT;
+	CIN = GetStdHandle(STD_INPUT_HANDLE);// Ìï∏Îì§ ÏÑ§Ï†ï
+	COUT = GetStdHandle(STD_OUTPUT_HANDLE);// Ìï∏Îì§ ÏÑ§Ï†ï
+	DWORD mode;
+
+	GetConsoleMode(CIN, &mode); // ÎßàÏö∞Ïä§ Ïû¨ÌôúÏÑ±Ìôî ?‚òÖÏó¨Í∏∞ÏÑú DWORD Í∞íÏùÑ Î∞õÎäîÎã§
+	SetConsoleMode(CIN, mode | ENABLE_MOUSE_INPUT);// ÎßàÏö∞Ïä§ Ïû¨ÌôúÏÑ±Ìôî(ÎßåÏïΩ system() Ìï®ÏàòÎ•º ÏÇ¨Ïö©Ìï† Ïãú ÎßàÏö∞Ïä§ Ïû¨ÌôúÏÑ±ÌôîÎ•º Ìï¥Ï£ºÏñ¥Ïïº ÌïúÎã§.)
+
+	FlushConsoleInputBuffer(CIN);//ÏΩòÏÜî ÏûÖÎ†• Î≤ÑÌçºÎ•º ÌîåÎü¨ÏãúÌï©ÎãàÎã§. ÌòÑÏû¨ ÏûÖÎ†• Î≤ÑÌçºÏóê ÏûàÎäî Î™®Îì† ÏûÖÎ†• Î†àÏΩîÎìúÎäî ÏÇ≠Ï†úÎê©ÎãàÎã§.
+	ReadConsoleInput(CIN, &rec, 1, &dwNOER); // ÏΩòÏÜîÏ∞Ω ÏûÖÎ†•ÏùÑ Î∞õÏïÑÎì§ÏûÑ. 
+	FlushConsoleInputBuffer(CIN);
+	if (rec.EventType == MOUSE_EVENT) // ÎßàÏö∞Ïä§ Ïù¥Î≤§Ìä∏Ïùº Í≤ΩÏö∞
+	{
+		//Ïñ¥Îñ§ Î©îÎâ¥Î•º ÎàåÎ†ÄÎäîÏßÄ ÏïåÍ≤åÌïòÍ∏∞ ÏúÑÌï¥ÏÑú(Ìï¥Îãπ Î©îÎâ¥Ïùò Ï¢åÌëúÎûë ÎπÑÍµê)
+		mouse_x = rec.Event.MouseEvent.dwMousePosition.X; // ÎßàÏö∞Ïä§Ïùò XÍ∞í Î∞õÏïÑÏò¥ 
+		mouse_y = rec.Event.MouseEvent.dwMousePosition.Y; // ÎßàÏö∞Ïä§Ïùò YÍ∞í Î∞õÏïÑÏò¥ 
+
+		if (rec.Event.MouseEvent.dwButtonState & FROM_LEFT_1ST_BUTTON_PRESSED) { // Ï¢åÏ∏° Î≤ÑÌäºÏù¥ ÌÅ¥Î¶≠ÎêòÏóàÏùÑ Í≤ΩÏö∞
+			return 1;
 		}
 	}
+	return 0;//Í∑∏ Ïô∏ ÌôúÎèôÏùºÍ≤ΩÏö∞(ÌÇ§Î≥¥Îìú, ÎßàÏö∞Ïä§ ÎìúÎûòÍ∑∏ Îì±Îì±)
+}
+
+// ÏûÑÏãú Í≤åÏûÑ ÏãúÏûë Ìï®Ïàò
+void startGame() {
+	BasicSetting();
+	initBlockArray();
+	drawUI();
+
+	// resetStage();
+	player = initialPCPos[curStageInfo];
+	showBlockArray();
+	showPC(player);
+	while (1)
+	{
+		int m = CheckMouse();
+		if (m == 1)
+		{
+			if (mouse_x >= BLOCK_ORIGIN_X && mouse_x <= BLOCK_ORIGIN_X + 2 * 6 && mouse_y >= BLOCK_ORIGIN_Y && mouse_y <= BLOCK_ORIGIN_Y + BLOCK_HEIGHT) // straight Î≤ÑÌäº ÌÅ¥Î¶≠Ïãú
+			{
+				addBlock(0);
+				showBlockArray();
+			}
+			else if (mouse_x >= BLOCK_ORIGIN_X + 2 * 6 && mouse_x <= BLOCK_ORIGIN_X + 2 * 12 && mouse_y >= BLOCK_ORIGIN_Y && mouse_y <= BLOCK_ORIGIN_Y + BLOCK_HEIGHT) // turnleftÎ≤ÑÌäº ÌÅ¥Î¶≠Ïãú
+			{
+				addBlock(1);
+				showBlockArray();
+			}
+			else if (mouse_x >= BLOCK_ORIGIN_X + 2 * 12 && mouse_x <= BLOCK_ORIGIN_X + 2 * 18 && mouse_y >= BLOCK_ORIGIN_Y && mouse_y <= BLOCK_ORIGIN_Y + BLOCK_HEIGHT) // turnrightÎ≤ÑÌäº ÌÅ¥Î¶≠Ïãú
+			{
+				addBlock(2);
+				showBlockArray();
+			}
+			else if (mouse_x >= BLOCK_ORIGIN_X + 2 * 18 && mouse_x <= BLOCK_ORIGIN_X + 2 * 24 && mouse_y >= BLOCK_ORIGIN_Y && mouse_y <= BLOCK_ORIGIN_Y + BLOCK_HEIGHT) // gatherItemÎ≤ÑÌäº ÌÅ¥Î¶≠Ïãú
+			{
+				addBlock(3);
+				showBlockArray();
+			}
+			else if (mouse_x >= BLOCK_ORIGIN_X + 2 * 24 && mouse_x <= BLOCK_ORIGIN_X + 2 * 30 && mouse_y >= BLOCK_ORIGIN_Y && mouse_y <= BLOCK_ORIGIN_Y + BLOCK_HEIGHT) // useKeyÎ≤ÑÌäº ÌÅ¥Î¶≠Ïãú
+			{
+				addBlock(4);
+				showBlockArray();
+			}
+			else if (mouse_x >= BLOCK_ORIGIN_X + 2 * 30 && mouse_x <= BLOCK_ORIGIN_X + 2 * 36 && mouse_y >= BLOCK_ORIGIN_Y && mouse_y <= BLOCK_ORIGIN_Y + BLOCK_HEIGHT) // useShieldÎ≤ÑÌäº ÌÅ¥Î¶≠Ïãú
+			{
+				addBlock(5);
+				showBlockArray();
+			}
+			else if (mouse_x >= BLOCK_ORIGIN_X + 2 * 36 && mouse_x <= BLOCK_ORIGIN_X + 2 * 42 && mouse_y >= BLOCK_ORIGIN_Y && mouse_y <= BLOCK_ORIGIN_Y + BLOCK_HEIGHT) // usePortalÎ≤ÑÌäº ÌÅ¥Î¶≠Ïãú
+			{
+				addBlock(6);
+				showBlockArray();
+			}
+			else if (mouse_x >= PS_ORIGIN_X && mouse_x <= PS_ORIGIN_X + 2 * PS_WIDTH + 2 && mouse_y >= PS_ORIGIN_Y && mouse_y <= PS_ORIGIN_Y + PS_HEIGHT) // playÎ≤ÑÌäº ÌÅ¥Î¶≠Ïãú
+				for (int i = 0; ; i++)
+				{
+					showPC(player);
+					if (blockArray.array[i] == -1)
+						break;
+					switch (blockArray.array[i])
+					{
+					case 0:
+						goStraight();
+						break;
+					case 1:
+						turnLeft();
+						break;
+					case 2:
+						turnRight();
+						break;
+					case 3:
+						gatherItem();
+						break;
+					case 4:
+						useKey();
+						break;
+					case 5:
+						useShield();
+						break;
+					case 6:
+						usePortal();
+						break;
+					default:
+						break;
+					}
+				}
+			else if (mouse_x >= SPEED_ORIGIN_X && mouse_x <= SPEED_ORIGIN_X + 2 * SPEED_WIDTH && mouse_y >= SPEED_ORIGIN_Y && mouse_y <= SPEED_ORIGIN_Y + SPEED_HEIGHT) // speedÎ≤ÑÌäº ÌÅ¥Î¶≠Ïãú
+			{
+				changeSpeed();
+			}
+			else if (mouse_x >= RESET_ORIGIN_X && mouse_x <= RESET_ORIGIN_X + 2 * RESET_WIDTH && mouse_y >= RESET_ORIGIN_Y && mouse_y <= RESET_ORIGIN_Y + RESET_HEIGHT) // resetÎ≤ÑÌäº ÌÅ¥Î¶≠Ïãú
+			{
+				resetStage(); //resetStageÌï®Ïàò ÏàòÏ†ï ÌïÑÏöî
+			}
+
+			//// Î∏îÎ°ù Î∞∞Ïó¥ ÏÇ≠Ï†ú(Ï≤´ Î≤àÏß∏ Ï§Ñ)
+			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * 6 && mouse_y >= BLOCK_ARRAY_ORIGIN_Y && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + 6) // straight Î≤ÑÌäº ÌÅ¥Î¶≠Ïãú
+			{
+				deleteBlock(0);
+				showBlockArray();
+			}
+			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X + 2 * 6 && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * 12 && mouse_y >= BLOCK_ARRAY_ORIGIN_Y && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + 6) // turnleftÎ≤ÑÌäº ÌÅ¥Î¶≠Ïãú
+			{
+				deleteBlock(1);
+				showBlockArray();
+			}
+			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X + 2 * 12 && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * 18 && mouse_y >= BLOCK_ARRAY_ORIGIN_Y && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + 6) // turnrightÎ≤ÑÌäº ÌÅ¥Î¶≠Ïãú
+			{
+				deleteBlock(2);
+				showBlockArray();
+			}
+			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X + 2 * 18 && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * 24 && mouse_y >= BLOCK_ARRAY_ORIGIN_Y && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + 6) // gatherItemÎ≤ÑÌäº ÌÅ¥Î¶≠Ïãú
+			{
+				deleteBlock(3);
+				showBlockArray();
+			}
+			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X + 2 * 24 && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * 30 && mouse_y >= BLOCK_ARRAY_ORIGIN_Y && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + 6) // useKeyÎ≤ÑÌäº ÌÅ¥Î¶≠Ïãú
+			{
+				deleteBlock(4);
+				showBlockArray();
+			}
+			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X + 2 * 30 && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * 36 && mouse_y >= BLOCK_ARRAY_ORIGIN_Y && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + 6) // useShieldÎ≤ÑÌäº ÌÅ¥Î¶≠Ïãú
+			{
+				deleteBlock(5);
+				showBlockArray();
+			}
+			//Îëê Î≤àÏß∏ Ï§Ñ
+			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * 6 && mouse_y >= BLOCK_ARRAY_ORIGIN_Y + 6 && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + 2 * 6) // straight Î≤ÑÌäº ÌÅ¥Î¶≠Ïãú
+			{
+				deleteBlock(6);
+				showBlockArray();
+			}
+			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X + 2 * 6 && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * 12 && mouse_y >= BLOCK_ARRAY_ORIGIN_Y + 6 && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + 2 * 6) // turnleftÎ≤ÑÌäº ÌÅ¥Î¶≠Ïãú
+			{
+				deleteBlock(7);
+				showBlockArray();
+			}
+			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X + 2 * 12 && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * 18 && mouse_y >= BLOCK_ARRAY_ORIGIN_Y + 6 && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + 2 * 6) // turnrightÎ≤ÑÌäº ÌÅ¥Î¶≠Ïãú
+			{
+				deleteBlock(8);
+				showBlockArray();
+			}
+			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X + 2 * 18 && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * 24 && mouse_y >= BLOCK_ARRAY_ORIGIN_Y + 6 && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + 2 * 6) // gatherItemÎ≤ÑÌäº ÌÅ¥Î¶≠Ïãú
+			{
+				deleteBlock(9);
+				showBlockArray();
+			}
+			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X + 2 * 24 && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * 30 && mouse_y >= BLOCK_ARRAY_ORIGIN_Y + 6 && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + 2 * 6) // useKeyÎ≤ÑÌäº ÌÅ¥Î¶≠Ïãú
+			{
+				deleteBlock(10);
+				showBlockArray();
+			}
+			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X + 2 * 30 && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * 36 && mouse_y >= BLOCK_ARRAY_ORIGIN_Y + 6 && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + 2 * 6) // useShieldÎ≤ÑÌäº ÌÅ¥Î¶≠Ïãú
+			{
+				deleteBlock(11);
+				showBlockArray();
+			}
+			//ÏÑ∏ Î≤àÏß∏ Ï§Ñ
+			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * 6 && mouse_y >= BLOCK_ARRAY_ORIGIN_Y + 2 * 6 && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + 3 * 6) // straight Î≤ÑÌäº ÌÅ¥Î¶≠Ïãú
+			{
+				deleteBlock(12);
+				showBlockArray();
+			}
+			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X + 2 * 6 && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * 12 && mouse_y >= BLOCK_ARRAY_ORIGIN_Y + 2 * 6 && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + 3 * 6) // turnleftÎ≤ÑÌäº ÌÅ¥Î¶≠Ïãú
+			{
+				deleteBlock(13);
+				showBlockArray();
+			}
+			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X + 2 * 12 && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * 18 && mouse_y >= BLOCK_ARRAY_ORIGIN_Y + 2 * 6 && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + 3 * 6) // turnrightÎ≤ÑÌäº ÌÅ¥Î¶≠Ïãú
+			{
+				deleteBlock(14);
+				showBlockArray();
+			}
+			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X + 2 * 18 && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * 24 && mouse_y >= BLOCK_ARRAY_ORIGIN_Y + 2 * 6 && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + 3 * 6) // gatherItemÎ≤ÑÌäº ÌÅ¥Î¶≠Ïãú
+			{
+				deleteBlock(15);
+				showBlockArray();
+			}
+			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X + 2 * 24 && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * 30 && mouse_y >= BLOCK_ARRAY_ORIGIN_Y + 2 * 6 && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + 3 * 6) // useKeyÎ≤ÑÌäº ÌÅ¥Î¶≠Ïãú
+			{
+				deleteBlock(16);
+				showBlockArray();
+			}
+			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X + 2 * 30 && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * 36 && mouse_y >= BLOCK_ARRAY_ORIGIN_Y + 2 * 6 && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + 3 * 6) // useShieldÎ≤ÑÌäº ÌÅ¥Î¶≠Ïãú
+			{
+				deleteBlock(17);
+				showBlockArray();
+			}
+			//ÎÑ§ Î≤àÏß∏ Ï§Ñ
+			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * 6 && mouse_y >= BLOCK_ARRAY_ORIGIN_Y + 3 * 6 && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + 4 * 6) // straight Î≤ÑÌäº ÌÅ¥Î¶≠Ïãú
+			{
+				deleteBlock(18);
+				showBlockArray();
+				}
+			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X + 2 * 6 && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * 12 && mouse_y >= BLOCK_ARRAY_ORIGIN_Y + 3 * 6 && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + 4 * 6) // turnleftÎ≤ÑÌäº ÌÅ¥Î¶≠Ïãú
+			{
+				deleteBlock(19);
+				showBlockArray();
+				}
+			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X + 2 * 12 && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * 18 && mouse_y >= BLOCK_ARRAY_ORIGIN_Y + 3 * 6 && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + 4 * 6) // turnrightÎ≤ÑÌäº ÌÅ¥Î¶≠Ïãú
+			{
+				deleteBlock(20);
+				showBlockArray();
+				}
+			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X + 2 * 18 && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * 24 && mouse_y >= BLOCK_ARRAY_ORIGIN_Y + 3 * 6 && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + 4 * 6) // gatherItemÎ≤ÑÌäº ÌÅ¥Î¶≠Ïãú
+			{
+				deleteBlock(21);
+				showBlockArray();
+				}
+			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X + 2 * 24 && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * 30 && mouse_y >= BLOCK_ARRAY_ORIGIN_Y + 3 * 6 && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + 4 * 6) // useKeyÎ≤ÑÌäº ÌÅ¥Î¶≠Ïãú
+			{
+				deleteBlock(22);
+				showBlockArray();
+				}
+			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X + 2 * 30 && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * 36 && mouse_y >= BLOCK_ARRAY_ORIGIN_Y + 3 * 6 && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + 4 * 6) // useShieldÎ≤ÑÌäº ÌÅ¥Î¶≠Ïãú
+			{
+				deleteBlock(23);
+				showBlockArray();
+			}
+
+		}
+	}
+	
 }
