@@ -103,9 +103,6 @@ PCInfo player;
 int key = 0;
 int shield = 0;
 
-void SetCurrentCursorPos(int x, int y);
-COORD GetCurrentCursorPos();
-
 void drawScreen();
 void drawGameBoard();
 void drawBlock();
