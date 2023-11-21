@@ -523,10 +523,8 @@ void showBlockArray()
 {
 	int blockArrayX = BLOCK_ARRAY_ORIGIN_X + 2;
 	int blockArrayY = BLOCK_ARRAY_ORIGIN_Y + 1;
-	for (int i = 0; i < 24; i++)
+	for (int i = 0; i < 24 && blockArray.array[i] != -1; i++)
 	{
-		if (blockArray.array[i] == -1)
-			break;
 		if (i % 6 == 0 && i != 0)
 		{
 			blockArrayX = BLOCK_ARRAY_ORIGIN_X + 2;
@@ -607,7 +605,7 @@ void showPC(PCInfo player)
 		break;
 	}
 	Sleep(simulationSpeed);
-	if (map[curStageInfo][player.x][player.y] == 2) // 현재 위치가 함정일 경우
+	if (map[curStageInfo][player.y][player.x] == 2) // 현재 위치가 함정일 경우
 	{
 		if (shield == 0)
 		{
@@ -794,19 +792,19 @@ void useKey()
 		return;
 	int x = GBOARD_ORIGIN_X + 2;
 	int y = GBOARD_ORIGIN_Y + 1;
-	if (map[curStageInfo][player.x - 1][player.y] == 4) // 좌측 칸이 좌물쇠인 경우
+	if (map[curStageInfo][player.x - 1][player.y] == 4) // 좌측 칸이 자물쇠인 경우
 	{
 		drawObject(x + (6 * (player.x - 1)), y + (3 * player.y), 1);
 	}
-	else if (map[curStageInfo][player.x + 1][player.y] == 4) // 우측 칸이 좌물쇠인 경우
+	else if (map[curStageInfo][player.x + 1][player.y] == 4) // 우측 칸이 자물쇠인 경우
 	{
 		drawObject(x + (6 * (player.x + 1)), y + (3 * player.y), 1);
 	}
-	else if (map[curStageInfo][player.x][player.y + 1] == 4) // 위 칸이 좌물쇠인 경우
+	else if (map[curStageInfo][player.x][player.y + 1] == 4) // 위 칸이 자물쇠인 경우
 	{
 		drawObject(x + (6 * player.x), y + (3 * (player.y + 1)), 1);
 	}
-	else if (map[curStageInfo][player.x][player.y - 1] == 4) // 아래 칸이 좌물쇠인 경우
+	else if (map[curStageInfo][player.x][player.y - 1] == 4) // 아래 칸이 자물쇠인 경우
 	{
 		drawObject(x + (6 * player.x), y + (3 * (player.y - 1)), 1);
 	}
@@ -872,6 +870,7 @@ void remove_scrollbar()
 
 	SetConsoleScreenBufferSize(handle, new_size);// 적용
 }
+
 void BasicSetting() {
 	HANDLE CIN, COUT;
 	CIN = GetStdHandle(STD_INPUT_HANDLE);
@@ -893,9 +892,9 @@ void BasicSetting() {
 
 	SetConsoleMode(COUT, ENABLE_PROCESSED_INPUT | ENABLE_MOUSE_INPUT);// ?★ 마우스 입력모드로 변경
 }
+
 int CheckMouse()
 {
-
 	HANDLE CIN, COUT;
 	CIN = GetStdHandle(STD_INPUT_HANDLE);// 핸들 설정
 	COUT = GetStdHandle(STD_OUTPUT_HANDLE);// 핸들 설정
@@ -913,7 +912,7 @@ int CheckMouse()
 		mouse_x = rec.Event.MouseEvent.dwMousePosition.X; // 마우스의 X값 받아옴 
 		mouse_y = rec.Event.MouseEvent.dwMousePosition.Y; // 마우스의 Y값 받아옴 
 
-		if (rec.Event.MouseEvent.dwButtonState & FROM_LEFT_1ST_BUTTON_PRESSED) { // 좌측 버튼이 클릭되었을 경우
+		if (rec.Event.MouseEvent.dwButtonState & FROM_LEFT_1ST_BUTTON_PRESSED && !(rec.Event.MouseEvent.dwEventFlags & MOUSE_MOVED)) { // 좌측 버튼이 클릭되었을 경우(드래그 시 연속 입력 X)
 			return 1;
 		}
 	}
@@ -971,11 +970,9 @@ void startGame() {
 				showBlockArray();
 			}
 			else if (mouse_x >= PS_ORIGIN_X && mouse_x <= PS_ORIGIN_X + 2 * PS_WIDTH + 2 && mouse_y >= PS_ORIGIN_Y && mouse_y <= PS_ORIGIN_Y + PS_HEIGHT) // play버튼 클릭시
-				for (int i = 0; ; i++)
+			{
+				for (int i = 0; i < 24 && blockArray.array[i] != -1; i++)
 				{
-					showPC(player);
-					if (blockArray.array[i] == -1)
-						break;
 					switch (blockArray.array[i])
 					{
 					case 0:
@@ -1002,7 +999,9 @@ void startGame() {
 					default:
 						break;
 					}
+					showPC(player);
 				}
+			}
 			else if (mouse_x >= SPEED_ORIGIN_X && mouse_x <= SPEED_ORIGIN_X + 2 * SPEED_WIDTH && mouse_y >= SPEED_ORIGIN_Y && mouse_y <= SPEED_ORIGIN_Y + SPEED_HEIGHT) // speed버튼 클릭시
 			{
 				changeSpeed();

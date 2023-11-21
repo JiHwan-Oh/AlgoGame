@@ -105,9 +105,6 @@ PCInfo player;
 int key = 0;
 int shield = 0;
 
-void SetCurrentCursorPos(int x, int y);
-COORD GetCurrentCursorPos();
-
 int mouse;//클릭중인가 판단요소
 int mouse_x;//마우스 커서 x축
 int mouse_y;//마우스 커서 y축
