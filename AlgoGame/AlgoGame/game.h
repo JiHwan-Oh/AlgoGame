@@ -117,26 +117,25 @@
 
 #endif
 
-Queue blockArray;
-int simulationSpeed = SPEED_NORMAL;
-int speed = 1;
-int blockCount = 0;
-int curStageInfo = 9;
+Queue blockArray;					// 블록 배열 정보
+int simulationSpeed = SPEED_NORMAL;	// 현재 시뮬레이션 배속(시간 정보)
+int speed = 1;						// 현재 시뮬레이션 배속 Index
+int blockCount = 0;					// 현재 블록 개수
+int curStageInfo = 0;				// 현재 스테이지 정보
 PCInfo player;						// 현재 PC 정보
-int key = 0;
-int shield = 0;
+int key = 0;						// 현재 열쇠 아이템 개수
+int shield = 0;						// 현재 실드 아이템 개수
 
-int mouse;//클릭중인가 판단요소
-int mouse_x;//마우스 커서 x축
-int mouse_y;//마우스 커서 y축
+int mouse;	// 클릭 중인가 판단요소
+int mouse_x;// 마우스 커서 x축
+int mouse_y;// 마우스 커서 y축
 
-INPUT_RECORD rec;//﻿★ INPUT_RECORD 는 마우스 이벤트 정보들을 가지고있다,
+INPUT_RECORD rec;	//﻿★ INPUT_RECORD 는 마우스 이벤트 정보들을 가지고있다,
 DWORD        dwNOER;//★ 참고로 DWORD는 unsigned long 을 뜻한다 0~4294967295 (0 ~ 2^32-1)
 
 void remove_scrollbar();
 void BasicSetting();
 int CheckMouse();
-
 
 void drawScreen();
 void drawGameBoard();
@@ -177,5 +176,9 @@ void gatherItem();
 void useKey();
 void useShield();
 void usePortal();
+void executeBlock();
+int checkStageClear();
+int checkTrap();
+void checkEvent();
 void startGame();
 
