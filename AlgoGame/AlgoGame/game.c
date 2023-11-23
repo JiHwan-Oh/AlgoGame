@@ -361,6 +361,8 @@ void drawBlockCountInfo() {
 	int infoX = INFO_ORIGIN_X + 2;
 	int infoY = INFO_ORIGIN_Y + 1;
 	SetCurrentCursorPos(infoX, infoY + 7);
+	printf("                          ");
+	SetCurrentCursorPos(infoX, infoY + 7);
 	printf("[COMMAND BLOCK COUNT] : %d", blockCount);
 }
 
@@ -729,6 +731,9 @@ void removeAllBlockArray()
 			}
 		blockArrayX += 12;
 	}
+	blockCount = 0;
+	drawBlockCountInfo();
+
 }
 
 void showPC()
@@ -865,16 +870,22 @@ void changeSpeed()
 	printf("%d", speed);
 }
 
-void emptyBlockArray()
+void resetBlockArray()
 {
-	for (int i = 0; i < QUEUE_MAX; i++)
-		blockArray.array[i] = -1;
+	initBlockArray();
 	removeAllBlockArray();
 	showBlockArray();
 }
 
 void resetPlayer() {
 	player = initialPCPos[curStageInfo];
+	showPC();
+}
+
+void resetItem() {
+	key = 0;
+	shield = 0;
+	drawItemInfo();
 }
 
 void resetStage()
@@ -882,8 +893,8 @@ void resetStage()
 	removeMap();
 	drawMap();
 	resetPlayer();
-	showPC();
-	emptyBlockArray();
+	resetItem();
+	resetBlockArray();
 }
 
 // 오브젝트 블록 기능 수행 함수

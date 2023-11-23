@@ -168,7 +168,7 @@ int isBlockArrayFull();
 void addBlock(int objectIndex);
 void deleteBlock(int arrayIndex);
 void changeSpeed();
-void emptyBlockArray();
+void resetBlockArray();
 void resetStage();
 void goStraight();
 void turnLeft();
