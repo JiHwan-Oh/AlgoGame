@@ -4,6 +4,8 @@
 #define MAP_WIDTH 12
 #define MAP_HEIGHT 12
 
+int clearmap[MAP_COUNT] = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
+
 int map[MAP_COUNT][MAP_WIDTH][MAP_HEIGHT] =
 {
 	// STAGE 1-1
