@@ -3,7 +3,7 @@
 int main()
 {
 	init();
-
+	drawTitle();
 	startGame();
 
 	/*
