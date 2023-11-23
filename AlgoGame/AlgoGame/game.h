@@ -24,6 +24,27 @@
 #ifndef UI_INFO
 #define UI_INFO
 
+// 시작버튼
+#define START_WIDTH 10
+#define START_HEIGHT 4
+
+#define START_ORIGIN_X 65
+#define START_ORIGIN_Y 20
+
+// 메뉴얼버튼
+#define MANUAL_WIDTH 10
+#define MANUAL_HEIGHT 4
+
+#define MANUAL_ORIGIN_X 65
+#define MANUAL_ORIGIN_Y 25
+
+// 메뉴얼 뒤로가기버튼
+#define MANUAL_BACK_WIDTH 10
+#define MANUAL_BACK_HEIGHT 4
+
+#define MANUAL_BACK_ORIGIN_X 122
+#define MANUAL_BACK_ORIGIN_Y 3
+
 // 스크린
 #define SCREEN_WIDTH 75
 #define SCREEN_HEIGHT 46
@@ -136,6 +157,10 @@ void clearBlockArray();
 void showPC(PCInfo player);
 void deletePC(PCInfo player);
 void drawUI();
+
+void drawTitle();
+void drawManual();
+void removeAll();
 
 void initBlockArray();
 int isBlockArrayFull();
