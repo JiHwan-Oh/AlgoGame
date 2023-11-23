@@ -13,7 +13,6 @@ void removeAll()
 
 int drawTitleButton()
 {
-	drawScreen();
 	int chapx = 25;
 	int chapy = 10;
 	int color[9] = { 4, 6, 14, 10, 11, 9, 13, 7, 8 };
@@ -152,6 +151,7 @@ int drawTitleButton()
 int drawTitle()
 {
 	BasicSetting();
+	drawScreen();
 	drawTitleButton();
 	while (1)
 	{
@@ -187,6 +187,57 @@ int drawManual()
 {
 	drawScreen();
 	int x, y;
+	int blockPosX = 6;
+	int blockPosY = 5;
+	for (int i = 0; i < 7; i++)
+	{
+		SetCurrentCursorPos(blockPosX, blockPosY);
+		for (int y = 0; y < 5; y++)
+			for (int x = 0; x < 5; x++)
+			{
+				SetCurrentCursorPos(blockPosX + (x * 2), blockPosY + y);
+				if (block[i][y][x] == 1)
+					printf("■");
+			}
+		blockPosY += 6;
+	}
+	SetCurrentCursorPos(6, 2); 
+	printf("→,← : 화살표가 플레이어 캐릭터 입니다. 화살표가 가리키는 방향이 플레이어가 바라보는 방향입니다.");
+	SetCurrentCursorPos(6, 3);
+	printf("     아래에 있는 명령블록들을 이용해 캐릭터를 움직일 수 있습니다.");
+
+	SetCurrentCursorPos(18, 7); // 전진
+	printf(": 캐릭터가 바라보는 방향으로 한 칸 전진합니다.   예)                  >>>");
+	drawObject(74, 6, 1); drawObject(80, 6, 1); drawObject(94, 6, 1); drawObject(100, 6, 1);
+	SetCurrentCursorPos(76, 7); printf("→"); SetCurrentCursorPos(102, 7); printf("→");
+
+	SetCurrentCursorPos(18, 13); // 좌측
+	printf(": 캐릭터가 왼쪽을 바라보게 합니다.   예) 캐릭터가 → 였다면 이 명령블록 사용후 캐릭터는 ↑ 이 됩니다.");
+	SetCurrentCursorPos(18, 19); // 우측
+	printf(": 캐릭터가 오른쪽을 바라보게 합니다.   예) 캐릭터가 → 였다면 이 명령블록 사용후 캐릭터는 ↓ 이 됩니다.");
+
+	SetCurrentCursorPos(18, 25); // 아이템 획득
+	printf(": 캐릭터가 위치한 칸에 있는 아이템을 획득합니다.        예)  열쇠 :             실드:");
+	SetCurrentCursorPos(18, 26); 
+	printf("  화면 우측 상단에 보유한 아이템 갯수가 표시됩니다.");
+	drawObject(86, 24, 5); drawObject(104, 24, 6);
+	SetCurrentCursorPos(88, 25); printf("→"); SetCurrentCursorPos(106, 25); printf("→");
+
+	SetCurrentCursorPos(18, 31); // key 사용
+	printf(": 캐릭터가 위치한 칸의 상하좌우 칸이 벽일 경우 지나갈 수 있는 길로 주변 칸을 변경합니다.      예)                >>>");
+	drawObject(120, 31, 1); drawObject(120, 28, 4); drawObject(140, 31, 1); drawObject(140, 28, 1);
+	SetCurrentCursorPos(122, 32); printf("↑"); SetCurrentCursorPos(142, 32); printf("↑");
+
+	SetCurrentCursorPos(18, 37); // shield 사용
+	printf(": 캐릭터가 바로 다음 전진하는 칸이 가시밭 길 이더라도 캐릭터가 죽지 않습니다.       예)                    >>>");
+	drawObject(110, 36, 1); drawObject(116, 36, 2); drawObject(130, 36, 1); drawObject(136, 36, 2);
+	SetCurrentCursorPos(112, 37); printf("→"); SetCurrentCursorPos(138, 37); printf("→");
+
+	SetCurrentCursorPos(18, 43); // portal 사용
+	printf(": 캐릭터가 포탈 칸에 있을 때 사용할 경우. 다른 포탈 칸으로 캐릭터를 이동시킵니다.    예)");
+	drawObject(110, 42, 1); drawObject(116, 42, 3); drawObject(130, 42, 3); drawObject(136, 42, 1);
+	SetCurrentCursorPos(118, 43); printf("→"); SetCurrentCursorPos(132, 43); printf("→");
+
 	for (y = 0; y <= MANUAL_BACK_HEIGHT; y++)
 	{
 		SetCurrentCursorPos(MANUAL_BACK_ORIGIN_X, MANUAL_BACK_ORIGIN_Y + y);
@@ -642,6 +693,8 @@ void showStageInfo()
 	}
 	int infoX = INFO_ORIGIN_X + 2;
 	int infoY = INFO_ORIGIN_Y + 1;
+	SetCurrentCursorPos(infoX, infoY);
+	printf("[CHAPTER] :   , [STAGE] :   ");
 	SetCurrentCursorPos(infoX, infoY);
 	printf("[CHAPTER] : %d, [STAGE] : %d", curStageInfo / 10 + 1, curStageInfo % 10 + 1);
 	SetCurrentCursorPos(infoX, infoY + 3);
@@ -1372,7 +1425,7 @@ int CheckMouse()
 		//어떤 메뉴를 눌렀는지 알게하기 위해서(해당 메뉴의 좌표랑 비교)
 		mouse_x = rec.Event.MouseEvent.dwMousePosition.X; // 마우스의 X값 받아옴 
 		mouse_y = rec.Event.MouseEvent.dwMousePosition.Y; // 마우스의 Y값 받아옴 
-
+		
 		if (rec.Event.MouseEvent.dwButtonState & FROM_LEFT_1ST_BUTTON_PRESSED && !(rec.Event.MouseEvent.dwEventFlags & MOUSE_MOVED)) { // 좌측 버튼이 클릭되었을 경우(드래그 시 연속 입력 X)
 			return 1;
 		}
@@ -1398,6 +1451,7 @@ void startGame() {
 				int clickedX = mouse_x - BLOCK_ORIGIN_X;
 				int blockIndex = clickedX / 12;
 				addBlock(blockIndex);
+				removeAllBlockArray();
 				showBlockArray();
 			}
 			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * BLOCK_ARRAY_WIDTH && mouse_y >= BLOCK_ARRAY_ORIGIN_Y && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + BLOCK_ARRAY_HEIGHT) // 블록 배열 클릭시 삭제
@@ -1406,6 +1460,7 @@ void startGame() {
 				int clickedY = mouse_y - BLOCK_ARRAY_ORIGIN_Y;
 				int blockarrayIndex = clickedX / 12 + clickedY/6 * 6;
 				deleteBlock(blockarrayIndex);
+				removeAllBlockArray();
 				showBlockArray();
 			}
 			else if (mouse_x >= PS_ORIGIN_X && mouse_x <= PS_ORIGIN_X + 2 * PS_WIDTH + 2 && mouse_y >= PS_ORIGIN_Y && mouse_y <= PS_ORIGIN_Y + PS_HEIGHT) // play버튼 클릭시

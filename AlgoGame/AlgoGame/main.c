@@ -3,7 +3,6 @@
 int main()
 {
 	init();
-
 	while (1) {
 		if (drawTitle())
 		{
@@ -18,9 +17,5 @@ int main()
 				break;
 		}
 	}
-
-
-	SetCurrentCursorPos(20, 20);
-
 	return 0;
 }
