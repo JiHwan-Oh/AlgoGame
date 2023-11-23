@@ -1119,39 +1119,11 @@ void startGame() {
 		int m = CheckMouse();
 		if (m == 1)
 		{
-			if (mouse_x >= BLOCK_ORIGIN_X && mouse_x <= BLOCK_ORIGIN_X + 2 * 6 && mouse_y >= BLOCK_ORIGIN_Y && mouse_y <= BLOCK_ORIGIN_Y + BLOCK_HEIGHT) // straight 버튼 클릭시
+			if (mouse_x >= BLOCK_ORIGIN_X && mouse_x <= BLOCK_ORIGIN_X + 2 * 42 && mouse_y >= BLOCK_ORIGIN_Y && mouse_y <= BLOCK_ORIGIN_Y + BLOCK_HEIGHT) // 블록 버튼 클릭시
 			{
-				addBlock(0);
-				showBlockArray();
-			}
-			else if (mouse_x >= BLOCK_ORIGIN_X + 2 * 6 && mouse_x <= BLOCK_ORIGIN_X + 2 * 12 && mouse_y >= BLOCK_ORIGIN_Y && mouse_y <= BLOCK_ORIGIN_Y + BLOCK_HEIGHT) // turnleft버튼 클릭시
-			{
-				addBlock(1);
-				showBlockArray();
-			}
-			else if (mouse_x >= BLOCK_ORIGIN_X + 2 * 12 && mouse_x <= BLOCK_ORIGIN_X + 2 * 18 && mouse_y >= BLOCK_ORIGIN_Y && mouse_y <= BLOCK_ORIGIN_Y + BLOCK_HEIGHT) // turnright버튼 클릭시
-			{
-				addBlock(2);
-				showBlockArray();
-			}
-			else if (mouse_x >= BLOCK_ORIGIN_X + 2 * 18 && mouse_x <= BLOCK_ORIGIN_X + 2 * 24 && mouse_y >= BLOCK_ORIGIN_Y && mouse_y <= BLOCK_ORIGIN_Y + BLOCK_HEIGHT) // gatherItem버튼 클릭시
-			{
-				addBlock(3);
-				showBlockArray();
-			}
-			else if (mouse_x >= BLOCK_ORIGIN_X + 2 * 24 && mouse_x <= BLOCK_ORIGIN_X + 2 * 30 && mouse_y >= BLOCK_ORIGIN_Y && mouse_y <= BLOCK_ORIGIN_Y + BLOCK_HEIGHT) // useKey버튼 클릭시
-			{
-				addBlock(4);
-				showBlockArray();
-			}
-			else if (mouse_x >= BLOCK_ORIGIN_X + 2 * 30 && mouse_x <= BLOCK_ORIGIN_X + 2 * 36 && mouse_y >= BLOCK_ORIGIN_Y && mouse_y <= BLOCK_ORIGIN_Y + BLOCK_HEIGHT) // useShield버튼 클릭시
-			{
-				addBlock(5);
-				showBlockArray();
-			}
-			else if (mouse_x >= BLOCK_ORIGIN_X + 2 * 36 && mouse_x <= BLOCK_ORIGIN_X + 2 * 42 && mouse_y >= BLOCK_ORIGIN_Y && mouse_y <= BLOCK_ORIGIN_Y + BLOCK_HEIGHT) // usePortal버튼 클릭시
-			{
-				addBlock(6);
+				int clickedX = mouse_x - BLOCK_ORIGIN_X;
+				int blockIndex = clickedX / 12;
+				addBlock(blockIndex);
 				showBlockArray();
 			}
 			else if (mouse_x >= PS_ORIGIN_X && mouse_x <= PS_ORIGIN_X + 2 * PS_WIDTH + 2 && mouse_y >= PS_ORIGIN_Y && mouse_y <= PS_ORIGIN_Y + PS_HEIGHT) // play버튼 클릭시
@@ -1295,8 +1267,6 @@ void startGame() {
 				deleteBlock(23);
 				showBlockArray();
 			}
-
 		}
-	}
-	
+	}	
 }
