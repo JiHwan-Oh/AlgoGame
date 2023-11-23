@@ -3,17 +3,181 @@
 
 void removeAll()
 {
-	for (int i = 2; i < 148; i++)
-		for (int j = 2; j < 46; j++)
+	for (int i = 2; i < 150; i++)
+		for (int j = 1; j < 46; j++)
 		{
 			SetCurrentCursorPos(i, j);
 			printf("  ");
 		}
 }
 
+
+int drawStageSelect()
+{
+	drawScreen();
+	SetCurrentCursorPos(6, 3);
+	printf("스테이지를 선택하세요!!");
+	int chapx = 50;
+	int chapy = 3;
+	for (int i = 0; i < 3; i++)
+	{
+		if (i == 0)
+		{
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 2);
+		}
+		if (i == 1)
+		{
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 3);
+			chapx -= 6;
+		}
+		if (i == 2)
+		{
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);
+		}
+		for (int j = 0; j < 6; j++)
+		{
+			for (int x = 0; x < 5; x++)
+			{
+				for (int y = 0; y < 5; y++)
+				{
+					SetCurrentCursorPos(chapx + (x * 2), chapy + y);
+					if (chapter[i][j][y][x] == 1)
+						printf("■");
+				}
+			}
+			chapx += 12;
+		}
+		chapx = 50;
+		chapy += 14;
+	}
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+	int x, y, plusx = 14, plusy = 14;
+	for (int i = 0; i < 3; i++)
+	{
+		if (i == 0)
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 2);
+		else if (i == 1)
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 3);
+		else if (i == 2)
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);
+		for (int j = 0; j < 10; j++)
+		{
+			SetCurrentCursorPos(SELECT_ORIGIN_X + plusx * j + 6, SELECT_ORIGIN_Y + plusy * i + 1);
+			printf("%d", j + 1);
+			SetCurrentCursorPos(SELECT_ORIGIN_X + plusx * j + 3, SELECT_ORIGIN_Y + plusy * i + 3);
+			printf("☆ ☆ ☆");
+			for (y = 0; y <= SELECT_HEIGHT; y++)
+			{
+				SetCurrentCursorPos(SELECT_ORIGIN_X + plusx * j, SELECT_ORIGIN_Y + y + plusy * i);
+				if (y == SELECT_HEIGHT)
+					printf("┗");
+				else if (y == 0)
+					printf("┏");
+				else
+					printf("┃");
+			}
+			for (y = 0; y <= SELECT_HEIGHT; y++)
+			{
+				SetCurrentCursorPos(SELECT_ORIGIN_X + (SELECT_WIDTH + 1) * 2 + plusx * j, SELECT_ORIGIN_Y + y + plusy * i);
+				if (y == SELECT_HEIGHT)
+					printf("┛");
+				else if (y == 0)
+					printf("┓");
+				else
+					printf("┃");
+			}
+			for (x = 1; x < SELECT_WIDTH + 1; x++)
+			{
+				SetCurrentCursorPos(SELECT_ORIGIN_X + x * 2 + plusx * j, SELECT_ORIGIN_Y + plusy * i);
+				printf("━");
+			}
+			for (x = 1; x < SELECT_WIDTH + 1; x++)
+			{
+				SetCurrentCursorPos(SELECT_ORIGIN_X + x * 2 + plusx * j, SELECT_ORIGIN_Y + SELECT_HEIGHT + plusy * i);
+				printf("━");
+			}
+		}
+	}
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+	for (y = 0; y <= SELECT_BACK_HEIGHT; y++)
+	{
+		SetCurrentCursorPos(SELECT_BACK_ORIGIN_X, SELECT_BACK_ORIGIN_Y + y);
+		if (y == SELECT_BACK_HEIGHT)
+			printf("┗");
+		else if (y == 0)
+			printf("┏");
+		else
+			printf("┃");
+	}
+	for (y = 0; y <= SELECT_BACK_HEIGHT; y++)
+	{
+		SetCurrentCursorPos(SELECT_BACK_ORIGIN_X + (SELECT_BACK_WIDTH + 1) * 2, SELECT_BACK_ORIGIN_Y + y);
+		if (y == SELECT_BACK_HEIGHT)
+			printf("┛");
+		else if (y == 0)
+			printf("┓");
+		else
+			printf("┃");
+	}
+	for (x = 1; x < SELECT_BACK_WIDTH + 1; x++)
+	{
+		SetCurrentCursorPos(SELECT_BACK_ORIGIN_X + x * 2, SELECT_BACK_ORIGIN_Y);
+		printf("━");
+	}
+	for (x = 1; x < SELECT_BACK_WIDTH + 1; x++)
+	{
+		SetCurrentCursorPos(SELECT_BACK_ORIGIN_X + x * 2, SELECT_BACK_ORIGIN_Y + SELECT_BACK_HEIGHT);
+		printf("━");
+	}
+	int backX = SELECT_BACK_ORIGIN_X + 8;
+	int backY = SELECT_BACK_ORIGIN_Y + 2;
+	SetCurrentCursorPos(backX, backY);
+	printf("뒤로가기");
+	while (1)
+	{
+		int m = CheckMouse();
+
+		if (m == 1)
+		{
+			if (mouse_x >= SELECT_BACK_ORIGIN_X && mouse_x <= SELECT_BACK_ORIGIN_X + 2 * SELECT_BACK_WIDTH && mouse_y >= SELECT_BACK_ORIGIN_Y && mouse_y <= SELECT_BACK_ORIGIN_Y + SELECT_BACK_HEIGHT) // start 버튼 클릭시
+			{
+				removeAll();
+				return 0;
+			}
+
+			// 스테이지 선택
+			if (mouse_x >= SELECT_ORIGIN_X && mouse_x <= SELECT_ORIGIN_X + 28 * SELECT_WIDTH && mouse_y >= SELECT_ORIGIN_Y && mouse_y <= SELECT_ORIGIN_Y + SELECT_HEIGHT) // easy 스테이지 버튼 클릭시
+			{
+				int clickedX = mouse_x - SELECT_ORIGIN_X;
+				curStageInfo = clickedX / 14;
+				removeAll();
+				return 1;
+			}
+			else if (mouse_x >= SELECT_ORIGIN_X && mouse_x <= SELECT_ORIGIN_X + 28 * SELECT_WIDTH && mouse_y >= SELECT_ORIGIN_Y + 14 && mouse_y <= SELECT_ORIGIN_Y + SELECT_HEIGHT + 14) // normal 스테이지 버튼 클릭시
+			{
+				int clickedX = mouse_x - SELECT_ORIGIN_X;
+				curStageInfo = clickedX / 14 + 10;
+				removeAll();
+				return 1;
+			}
+			else if (mouse_x >= SELECT_ORIGIN_X && mouse_x <= SELECT_ORIGIN_X + 28 * SELECT_WIDTH && mouse_y >= SELECT_ORIGIN_Y + 28 && mouse_y <= SELECT_ORIGIN_Y + SELECT_HEIGHT + 28) // hard 스테이지 버튼 클릭시
+			{
+				int clickedX = mouse_x - SELECT_ORIGIN_X;
+				curStageInfo = clickedX / 14 + 20;
+				removeAll();
+				return 1;
+			}
+		}
+	}
+}
+
+
+
 void drawTitle()
 {
 	BasicSetting();
+	SetCurrentCursorPos(6, 3);
+	printf("마우스로 클릭하여 시작하세요!!");
 	while (1)
 	{
 		drawScreen();
@@ -105,9 +269,44 @@ void drawTitle()
 
 void drawManual()
 {
+	drawScreen();
+	int x, y;
+	for (y = 0; y <= MANUAL_BACK_HEIGHT; y++)
+	{
+		SetCurrentCursorPos(MANUAL_BACK_ORIGIN_X, MANUAL_BACK_ORIGIN_Y + y);
+		if (y == MANUAL_BACK_HEIGHT)
+			printf("┗");
+		else if (y == 0)
+			printf("┏");
+		else
+			printf("┃");
+	}
+	for (y = 0; y <= MANUAL_BACK_HEIGHT; y++)
+	{
+		SetCurrentCursorPos(MANUAL_BACK_ORIGIN_X + (MANUAL_BACK_WIDTH + 1) * 2, MANUAL_BACK_ORIGIN_Y + y);
+		if (y == MANUAL_BACK_HEIGHT)
+			printf("┛");
+		else if (y == 0)
+			printf("┓");
+		else
+			printf("┃");
+	}
+	for (x = 1; x < MANUAL_BACK_WIDTH + 1; x++)
+	{
+		SetCurrentCursorPos(MANUAL_BACK_ORIGIN_X + x * 2, MANUAL_BACK_ORIGIN_Y);
+		printf("━");
+	}
+	for (x = 1; x < MANUAL_BACK_WIDTH + 1; x++)
+	{
+		SetCurrentCursorPos(MANUAL_BACK_ORIGIN_X + x * 2, MANUAL_BACK_ORIGIN_Y + MANUAL_BACK_HEIGHT);
+		printf("━");
+	}
+	int backX = MANUAL_BACK_ORIGIN_X + 8;
+	int backY = MANUAL_BACK_ORIGIN_Y + 2;
+	SetCurrentCursorPos(backX, backY);
+	printf("뒤로가기");
 	while (1)
 	{
-		drawScreen();
 		int m = CheckMouse();
 		if (m == 1)
 		{
@@ -117,41 +316,6 @@ void drawManual()
 				return;
 			}
 		}
-		int x, y;
-		for (y = 0; y <= MANUAL_BACK_HEIGHT; y++)
-		{
-			SetCurrentCursorPos(MANUAL_BACK_ORIGIN_X, MANUAL_BACK_ORIGIN_Y + y);
-			if (y == MANUAL_BACK_HEIGHT)
-				printf("┗");
-			else if (y == 0)
-				printf("┏");
-			else
-				printf("┃");
-		}
-		for (y = 0; y <= MANUAL_BACK_HEIGHT; y++)
-		{
-			SetCurrentCursorPos(MANUAL_BACK_ORIGIN_X + (MANUAL_BACK_WIDTH + 1) * 2, MANUAL_BACK_ORIGIN_Y + y);
-			if (y == MANUAL_BACK_HEIGHT)
-				printf("┛");
-			else if (y == 0)
-				printf("┓");
-			else
-				printf("┃");
-		}
-		for (x = 1; x < MANUAL_BACK_WIDTH + 1; x++)
-		{
-			SetCurrentCursorPos(MANUAL_BACK_ORIGIN_X + x * 2, MANUAL_BACK_ORIGIN_Y);
-			printf("━");
-		}
-		for (x = 1; x < MANUAL_BACK_WIDTH + 1; x++)
-		{
-			SetCurrentCursorPos(MANUAL_BACK_ORIGIN_X + x * 2, MANUAL_BACK_ORIGIN_Y + MANUAL_BACK_HEIGHT);
-			printf("━");
-		}
-		int backX = MANUAL_BACK_ORIGIN_X + 8;
-		int backY = MANUAL_BACK_ORIGIN_Y + 2;
-		SetCurrentCursorPos(backX, backY);
-		printf("뒤로가기");
 	}
 }
 
@@ -1119,11 +1283,19 @@ void startGame() {
 		int m = CheckMouse();
 		if (m == 1)
 		{
-			if (mouse_x >= BLOCK_ORIGIN_X && mouse_x <= BLOCK_ORIGIN_X + 2 * 42 && mouse_y >= BLOCK_ORIGIN_Y && mouse_y <= BLOCK_ORIGIN_Y + BLOCK_HEIGHT) // 블록 버튼 클릭시
+			if (mouse_x >= BLOCK_ORIGIN_X && mouse_x <= BLOCK_ORIGIN_X + 2 * BLOCK_WIDTH && mouse_y >= BLOCK_ORIGIN_Y && mouse_y <= BLOCK_ORIGIN_Y + BLOCK_HEIGHT) // 블록 버튼 클릭시
 			{
 				int clickedX = mouse_x - BLOCK_ORIGIN_X;
 				int blockIndex = clickedX / 12;
 				addBlock(blockIndex);
+				showBlockArray();
+			}
+			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * BLOCK_ARRAY_WIDTH && mouse_y >= BLOCK_ARRAY_ORIGIN_Y && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + BLOCK_ARRAY_HEIGHT) // 블록 배열 클릭시 삭제
+			{
+				int clickedX = mouse_x - BLOCK_ARRAY_ORIGIN_X;
+				int clickedY = mouse_y - BLOCK_ARRAY_ORIGIN_Y;
+				int blockarrayIndex = clickedX / 12 + clickedY/6 * 6;
+				deleteBlock(blockarrayIndex);
 				showBlockArray();
 			}
 			else if (mouse_x >= PS_ORIGIN_X && mouse_x <= PS_ORIGIN_X + 2 * PS_WIDTH + 2 && mouse_y >= PS_ORIGIN_Y && mouse_y <= PS_ORIGIN_Y + PS_HEIGHT) // play버튼 클릭시
@@ -1142,130 +1314,10 @@ void startGame() {
 			{
 				resetStage(); //resetStage함수 수정 필요
 			}
-
-			//// 블록 배열 삭제(첫 번째 줄)
-			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * 6 && mouse_y >= BLOCK_ARRAY_ORIGIN_Y && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + 6) // straight 버튼 클릭시
+			else if (mouse_x >=BACK_ORIGIN_X && mouse_x <= BACK_ORIGIN_X + 2 * BACK_WIDTH && mouse_y >= BACK_ORIGIN_Y && mouse_y <= BACK_ORIGIN_Y + BACK_HEIGHT) // reset버튼 클릭시
 			{
-				deleteBlock(0);
-				showBlockArray();
-			}
-			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X + 2 * 6 && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * 12 && mouse_y >= BLOCK_ARRAY_ORIGIN_Y && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + 6) // turnleft버튼 클릭시
-			{
-				deleteBlock(1);
-				showBlockArray();
-			}
-			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X + 2 * 12 && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * 18 && mouse_y >= BLOCK_ARRAY_ORIGIN_Y && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + 6) // turnright버튼 클릭시
-			{
-				deleteBlock(2);
-				showBlockArray();
-			}
-			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X + 2 * 18 && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * 24 && mouse_y >= BLOCK_ARRAY_ORIGIN_Y && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + 6) // gatherItem버튼 클릭시
-			{
-				deleteBlock(3);
-				showBlockArray();
-			}
-			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X + 2 * 24 && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * 30 && mouse_y >= BLOCK_ARRAY_ORIGIN_Y && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + 6) // useKey버튼 클릭시
-			{
-				deleteBlock(4);
-				showBlockArray();
-			}
-			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X + 2 * 30 && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * 36 && mouse_y >= BLOCK_ARRAY_ORIGIN_Y && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + 6) // useShield버튼 클릭시
-			{
-				deleteBlock(5);
-				showBlockArray();
-			}
-			//두 번째 줄
-			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * 6 && mouse_y >= BLOCK_ARRAY_ORIGIN_Y + 6 && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + 2 * 6) // straight 버튼 클릭시
-			{
-				deleteBlock(6);
-				showBlockArray();
-			}
-			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X + 2 * 6 && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * 12 && mouse_y >= BLOCK_ARRAY_ORIGIN_Y + 6 && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + 2 * 6) // turnleft버튼 클릭시
-			{
-				deleteBlock(7);
-				showBlockArray();
-			}
-			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X + 2 * 12 && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * 18 && mouse_y >= BLOCK_ARRAY_ORIGIN_Y + 6 && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + 2 * 6) // turnright버튼 클릭시
-			{
-				deleteBlock(8);
-				showBlockArray();
-			}
-			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X + 2 * 18 && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * 24 && mouse_y >= BLOCK_ARRAY_ORIGIN_Y + 6 && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + 2 * 6) // gatherItem버튼 클릭시
-			{
-				deleteBlock(9);
-				showBlockArray();
-			}
-			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X + 2 * 24 && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * 30 && mouse_y >= BLOCK_ARRAY_ORIGIN_Y + 6 && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + 2 * 6) // useKey버튼 클릭시
-			{
-				deleteBlock(10);
-				showBlockArray();
-			}
-			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X + 2 * 30 && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * 36 && mouse_y >= BLOCK_ARRAY_ORIGIN_Y + 6 && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + 2 * 6) // useShield버튼 클릭시
-			{
-				deleteBlock(11);
-				showBlockArray();
-			}
-			//세 번째 줄
-			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * 6 && mouse_y >= BLOCK_ARRAY_ORIGIN_Y + 2 * 6 && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + 3 * 6) // straight 버튼 클릭시
-			{
-				deleteBlock(12);
-				showBlockArray();
-			}
-			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X + 2 * 6 && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * 12 && mouse_y >= BLOCK_ARRAY_ORIGIN_Y + 2 * 6 && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + 3 * 6) // turnleft버튼 클릭시
-			{
-				deleteBlock(13);
-				showBlockArray();
-			}
-			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X + 2 * 12 && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * 18 && mouse_y >= BLOCK_ARRAY_ORIGIN_Y + 2 * 6 && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + 3 * 6) // turnright버튼 클릭시
-			{
-				deleteBlock(14);
-				showBlockArray();
-			}
-			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X + 2 * 18 && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * 24 && mouse_y >= BLOCK_ARRAY_ORIGIN_Y + 2 * 6 && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + 3 * 6) // gatherItem버튼 클릭시
-			{
-				deleteBlock(15);
-				showBlockArray();
-			}
-			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X + 2 * 24 && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * 30 && mouse_y >= BLOCK_ARRAY_ORIGIN_Y + 2 * 6 && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + 3 * 6) // useKey버튼 클릭시
-			{
-				deleteBlock(16);
-				showBlockArray();
-			}
-			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X + 2 * 30 && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * 36 && mouse_y >= BLOCK_ARRAY_ORIGIN_Y + 2 * 6 && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + 3 * 6) // useShield버튼 클릭시
-			{
-				deleteBlock(17);
-				showBlockArray();
-			}
-			//네 번째 줄
-			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * 6 && mouse_y >= BLOCK_ARRAY_ORIGIN_Y + 3 * 6 && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + 4 * 6) // straight 버튼 클릭시
-			{
-				deleteBlock(18);
-				showBlockArray();
-				}
-			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X + 2 * 6 && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * 12 && mouse_y >= BLOCK_ARRAY_ORIGIN_Y + 3 * 6 && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + 4 * 6) // turnleft버튼 클릭시
-			{
-				deleteBlock(19);
-				showBlockArray();
-				}
-			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X + 2 * 12 && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * 18 && mouse_y >= BLOCK_ARRAY_ORIGIN_Y + 3 * 6 && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + 4 * 6) // turnright버튼 클릭시
-			{
-				deleteBlock(20);
-				showBlockArray();
-				}
-			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X + 2 * 18 && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * 24 && mouse_y >= BLOCK_ARRAY_ORIGIN_Y + 3 * 6 && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + 4 * 6) // gatherItem버튼 클릭시
-			{
-				deleteBlock(21);
-				showBlockArray();
-				}
-			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X + 2 * 24 && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * 30 && mouse_y >= BLOCK_ARRAY_ORIGIN_Y + 3 * 6 && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + 4 * 6) // useKey버튼 클릭시
-			{
-				deleteBlock(22);
-				showBlockArray();
-				}
-			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X + 2 * 30 && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * 36 && mouse_y >= BLOCK_ARRAY_ORIGIN_Y + 3 * 6 && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + 4 * 6) // useShield버튼 클릭시
-			{
-				deleteBlock(23);
-				showBlockArray();
+				removeAll();
+				return;
 			}
 		}
 	}	

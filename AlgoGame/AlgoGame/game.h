@@ -42,8 +42,22 @@
 #define MANUAL_BACK_WIDTH 10
 #define MANUAL_BACK_HEIGHT 4
 
-#define MANUAL_BACK_ORIGIN_X 122
-#define MANUAL_BACK_ORIGIN_Y 3
+#define MANUAL_BACK_ORIGIN_X 126
+#define MANUAL_BACK_ORIGIN_Y 2
+
+// 스테이지 선택 뒤로가기버튼
+#define SELECT_BACK_WIDTH 10
+#define SELECT_BACK_HEIGHT 4
+
+#define SELECT_BACK_ORIGIN_X 126
+#define SELECT_BACK_ORIGIN_Y 2
+
+// 스테이지 버튼
+#define SELECT_WIDTH 5
+#define SELECT_HEIGHT 5
+
+#define SELECT_ORIGIN_X 7
+#define SELECT_ORIGIN_Y 9
 
 // 스크린
 #define SCREEN_WIDTH 75
@@ -121,7 +135,7 @@ Queue blockArray;
 int simulationSpeed = SPEED_NORMAL;
 int speed = 1;
 int blockCount = 0;
-int curStageInfo = 9;
+int curStageInfo = 0;
 PCInfo player;
 int key = 0;
 int shield = 0;
@@ -161,6 +175,7 @@ void drawUI();
 void drawTitle();
 void drawManual();
 void removeAll();
+int drawStageSelect();
 
 void initBlockArray();
 int isBlockArrayFull();
