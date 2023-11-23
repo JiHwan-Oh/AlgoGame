@@ -853,6 +853,36 @@ void usePortal()
 	}
 }
 
+// 블록 기능 수행
+void executeBlock(int index) {
+	switch (blockArray.array[index])
+	{
+	case 0:
+		goStraight();
+		break;
+	case 1:
+		turnLeft();
+		break;
+	case 2:
+		turnRight();
+		break;
+	case 3:
+		gatherItem();
+		break;
+	case 4:
+		useKey();
+		break;
+	case 5:
+		useShield();
+		break;
+	case 6:
+		usePortal();
+		break;
+	default:
+		break;
+	}
+}
+
 //스크롤바 삭제하는 방법
 void remove_scrollbar()
 {
@@ -973,32 +1003,7 @@ void startGame() {
 			{
 				for (int i = 0; i < 24 && blockArray.array[i] != -1; i++)
 				{
-					switch (blockArray.array[i])
-					{
-					case 0:
-						goStraight();
-						break;
-					case 1:
-						turnLeft();
-						break;
-					case 2:
-						turnRight();
-						break;
-					case 3:
-						gatherItem();
-						break;
-					case 4:
-						useKey();
-						break;
-					case 5:
-						useShield();
-						break;
-					case 6:
-						usePortal();
-						break;
-					default:
-						break;
-					}
+					executeBlock(i);
 					showPC(player);
 				}
 			}
