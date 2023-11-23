@@ -121,7 +121,7 @@ Queue blockArray;
 int simulationSpeed = SPEED_NORMAL;
 int speed = 1;
 int blockCount = 0;
-int curStageInfo = 0;
+int curStageInfo = 9;
 PCInfo player;
 int key = 0;
 int shield = 0;
