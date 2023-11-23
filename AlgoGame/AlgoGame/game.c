@@ -11,10 +11,234 @@ void removeAll()
 		}
 }
 
+int drawTitleButton()
+{
+	drawScreen();
+	int chapx = 25;
+	int chapy = 10;
+	int color[9] = { 4, 6, 14, 10, 11, 9, 13, 7, 8 };
+	for (int i = 0; i < 2; i++)
+	{
+		for (int j = 0; j < 9; j++)
+		{
+			if (i == 0)
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color[j]);
+			else
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 8);
+			for (int x = 0; x < 5; x++)
+			{
+				for (int y = 0; y < 5; y++)
+				{
+					SetCurrentCursorPos(chapx + (x * 2), chapy + y);
+					if (title[i][j][y][x] == 1)
+						printf("■");
+				}
+			}
+			chapx += 12;
+		}
+		chapx = 40;
+		chapy += 6;
+	}
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+	SetCurrentCursorPos(62, 23);
+	printf("마우스로 클릭하여 시작하세요!!");
+	int x, y;
+	for (y = 0; y <= START_HEIGHT; y++)
+	{
+		SetCurrentCursorPos(START_ORIGIN_X, START_ORIGIN_Y + y);
+		if (y == START_HEIGHT)
+			printf("┗");
+		else if (y == 0)
+			printf("┏");
+		else
+			printf("┃");
+	}
+	for (y = 0; y <= START_HEIGHT; y++)
+	{
+		SetCurrentCursorPos(START_ORIGIN_X + (START_WIDTH + 1) * 2, START_ORIGIN_Y + y);
+		if (y == START_HEIGHT)
+			printf("┛");
+		else if (y == 0)
+			printf("┓");
+		else
+			printf("┃");
+	}
+	for (x = 1; x < START_WIDTH + 1; x++)
+	{
+		SetCurrentCursorPos(START_ORIGIN_X + x * 2, START_ORIGIN_Y);
+		printf("━");
+	}
+	for (x = 1; x < START_WIDTH + 1; x++)
+	{
+		SetCurrentCursorPos(START_ORIGIN_X + x * 2, START_ORIGIN_Y + START_HEIGHT);
+		printf("━");
+	}
+	int startX = START_ORIGIN_X + 8;
+	int startY = START_ORIGIN_Y + 2;
+	SetCurrentCursorPos(startX, startY);
+	printf("시작하기");
+
+	for (y = 0; y <= MANUAL_HEIGHT; y++)
+	{
+		SetCurrentCursorPos(MANUAL_ORIGIN_X, MANUAL_ORIGIN_Y + y);
+		if (y == MANUAL_HEIGHT)
+			printf("┗");
+		else if (y == 0)
+			printf("┏");
+		else
+			printf("┃");
+	}
+	for (y = 0; y <= MANUAL_HEIGHT; y++)
+	{
+		SetCurrentCursorPos(MANUAL_ORIGIN_X + (MANUAL_WIDTH + 1) * 2, MANUAL_ORIGIN_Y + y);
+		if (y == MANUAL_HEIGHT)
+			printf("┛");
+		else if (y == 0)
+			printf("┓");
+		else
+			printf("┃");
+	}
+	for (x = 1; x < MANUAL_WIDTH + 1; x++)
+	{
+		SetCurrentCursorPos(MANUAL_ORIGIN_X + x * 2, MANUAL_ORIGIN_Y);
+		printf("━");
+	}
+	for (x = 1; x < MANUAL_WIDTH + 1; x++)
+	{
+		SetCurrentCursorPos(MANUAL_ORIGIN_X + x * 2, MANUAL_ORIGIN_Y + MANUAL_HEIGHT);
+		printf("━");
+	}
+	int manualX = MANUAL_ORIGIN_X + 8;
+	int manualY = MANUAL_ORIGIN_Y + 2;
+	SetCurrentCursorPos(manualX, manualY);
+	printf("게임설명");
+
+	for (y = 0; y <= TERMINATE_HEIGHT; y++)
+	{
+		SetCurrentCursorPos(TERMINATE_ORIGIN_X, TERMINATE_ORIGIN_Y + y);
+		if (y == TERMINATE_HEIGHT)
+			printf("┗");
+		else if (y == 0)
+			printf("┏");
+		else
+			printf("┃");
+	}
+	for (y = 0; y <= TERMINATE_HEIGHT; y++)
+	{
+		SetCurrentCursorPos(TERMINATE_ORIGIN_X + (TERMINATE_WIDTH + 1) * 2, TERMINATE_ORIGIN_Y + y);
+		if (y == TERMINATE_HEIGHT)
+			printf("┛");
+		else if (y == 0)
+			printf("┓");
+		else
+			printf("┃");
+	}
+	for (x = 1; x < TERMINATE_WIDTH + 1; x++)
+	{
+		SetCurrentCursorPos(TERMINATE_ORIGIN_X + x * 2, TERMINATE_ORIGIN_Y);
+		printf("━");
+	}
+	for (x = 1; x < TERMINATE_WIDTH + 1; x++)
+	{
+		SetCurrentCursorPos(TERMINATE_ORIGIN_X + x * 2, TERMINATE_ORIGIN_Y + TERMINATE_HEIGHT);
+		printf("━");
+	}
+	int terminateX = TERMINATE_ORIGIN_X + 8;
+	int terminateY = TERMINATE_ORIGIN_Y + 2;
+	SetCurrentCursorPos(terminateX, terminateY);
+	printf("게임종료");
+}
+
+int drawTitle()
+{
+	BasicSetting();
+	drawTitleButton();
+	while (1)
+	{
+		drawTitleButton();
+		int m = CheckMouse();
+		if (m == 1)
+		{
+			if (mouse_x >= START_ORIGIN_X && mouse_x <= START_ORIGIN_X + 2 * START_WIDTH && mouse_y >= START_ORIGIN_Y && mouse_y <= START_ORIGIN_Y + START_HEIGHT) // start 버튼 클릭시
+			{
+				removeAll();
+				return 0;
+			}
+			else if (mouse_x >= MANUAL_ORIGIN_X && mouse_x <= MANUAL_ORIGIN_X + 2 * MANUAL_WIDTH && mouse_y >= MANUAL_ORIGIN_Y && mouse_y <= MANUAL_ORIGIN_Y + MANUAL_HEIGHT) // manual 버튼 클릭시
+			{
+				removeAll();
+				if (drawManual())
+				{
+					removeAll();
+					continue;;
+				}
+				return 0;
+			}
+			else if (mouse_x >= TERMINATE_ORIGIN_X && mouse_x <= TERMINATE_ORIGIN_X + 2 * TERMINATE_WIDTH && mouse_y >= TERMINATE_ORIGIN_Y && mouse_y <= TERMINATE_ORIGIN_Y + TERMINATE_HEIGHT) // manual 버튼 클릭시
+			{
+				removeAll();
+				return 1;
+			}
+		}
+	}
+}
+
+int drawManual()
+{
+	drawScreen();
+	int x, y;
+	for (y = 0; y <= MANUAL_BACK_HEIGHT; y++)
+	{
+		SetCurrentCursorPos(MANUAL_BACK_ORIGIN_X, MANUAL_BACK_ORIGIN_Y + y);
+		if (y == MANUAL_BACK_HEIGHT)
+			printf("┗");
+		else if (y == 0)
+			printf("┏");
+		else
+			printf("┃");
+	}
+	for (y = 0; y <= MANUAL_BACK_HEIGHT; y++)
+	{
+		SetCurrentCursorPos(MANUAL_BACK_ORIGIN_X + (MANUAL_BACK_WIDTH + 1) * 2, MANUAL_BACK_ORIGIN_Y + y);
+		if (y == MANUAL_BACK_HEIGHT)
+			printf("┛");
+		else if (y == 0)
+			printf("┓");
+		else
+			printf("┃");
+	}
+	for (x = 1; x < MANUAL_BACK_WIDTH + 1; x++)
+	{
+		SetCurrentCursorPos(MANUAL_BACK_ORIGIN_X + x * 2, MANUAL_BACK_ORIGIN_Y);
+		printf("━");
+	}
+	for (x = 1; x < MANUAL_BACK_WIDTH + 1; x++)
+	{
+		SetCurrentCursorPos(MANUAL_BACK_ORIGIN_X + x * 2, MANUAL_BACK_ORIGIN_Y + MANUAL_BACK_HEIGHT);
+		printf("━");
+	}
+	int backX = MANUAL_BACK_ORIGIN_X + 8;
+	int backY = MANUAL_BACK_ORIGIN_Y + 2;
+	SetCurrentCursorPos(backX, backY);
+	printf("뒤로가기");
+	while (1)
+	{
+		int m = CheckMouse();
+		if (m == 1)
+		{
+			if (mouse_x >= MANUAL_BACK_ORIGIN_X && mouse_x <= MANUAL_BACK_ORIGIN_X + 2 * MANUAL_BACK_WIDTH && mouse_y >= MANUAL_BACK_ORIGIN_Y && mouse_y <= MANUAL_BACK_ORIGIN_Y + MANUAL_BACK_HEIGHT) // 듀토리얼에서 뒤로가기 버튼 클릭시
+			{
+				removeAll();
+				return 1;
+			}
+		}
+	}
+}
+
 int drawStageSelect()
 {
 	drawScreen();
-	SetCurrentCursorPos(6, 3);
+	SetCurrentCursorPos(12, 5);
 	printf("스테이지를 선택하세요!!");
 	int chapx = 50;
 	int chapy = 3;
@@ -64,7 +288,7 @@ int drawStageSelect()
 			SetCurrentCursorPos(SELECT_ORIGIN_X + plusx * j + 6, SELECT_ORIGIN_Y + plusy * i + 1);
 			printf("%d", j + 1);
 			SetCurrentCursorPos(SELECT_ORIGIN_X + plusx * j + 3, SELECT_ORIGIN_Y + plusy * i + 3);
-			if(clearmap[10*i + j] == 0)
+			if (clearmap[10 * i + j] == 0)
 				printf("☆ ☆ ☆");
 			else
 				printf("★ ★ ★");
@@ -172,155 +396,6 @@ int drawStageSelect()
 		}
 	}
 }
-
-
-
-void drawTitle()
-{
-	BasicSetting();
-	SetCurrentCursorPos(6, 3);
-	printf("마우스로 클릭하여 시작하세요!!");
-	while (1)
-	{
-		drawScreen();
-		int m = CheckMouse();
-		if (m == 1)
-		{
-			if (mouse_x >= START_ORIGIN_X && mouse_x <= START_ORIGIN_X + 2 * START_WIDTH && mouse_y >= START_ORIGIN_Y && mouse_y <= START_ORIGIN_Y + START_HEIGHT) // start 버튼 클릭시
-			{
-				removeAll();
-				return;
-			}
-			else if (mouse_x >= MANUAL_ORIGIN_X && mouse_x <= MANUAL_ORIGIN_X + 2 * MANUAL_WIDTH && mouse_y >= MANUAL_ORIGIN_Y && mouse_y <= MANUAL_ORIGIN_Y + MANUAL_HEIGHT) // manual 버튼 클릭시
-			{
-				removeAll();
-				drawManual();
-			}
-		}
-		int x, y;
-		for (y = 0; y <= START_HEIGHT; y++)
-		{
-			SetCurrentCursorPos(START_ORIGIN_X, START_ORIGIN_Y + y);
-			if (y == START_HEIGHT)
-				printf("┗");
-			else if (y == 0)
-				printf("┏");
-			else
-				printf("┃");
-		}
-		for (y = 0; y <= START_HEIGHT; y++)
-		{
-			SetCurrentCursorPos(START_ORIGIN_X + (START_WIDTH + 1) * 2, START_ORIGIN_Y + y);
-			if (y == START_HEIGHT)
-				printf("┛");
-			else if (y == 0)
-				printf("┓");
-			else
-				printf("┃");
-		}
-		for (x = 1; x < START_WIDTH + 1; x++)
-		{
-			SetCurrentCursorPos(START_ORIGIN_X + x * 2, START_ORIGIN_Y);
-			printf("━");
-		}
-		for (x = 1; x < START_WIDTH + 1; x++)
-		{
-			SetCurrentCursorPos(START_ORIGIN_X + x * 2, START_ORIGIN_Y + START_HEIGHT);
-			printf("━");
-		}
-		int startX = START_ORIGIN_X + 8;
-		int startY = START_ORIGIN_Y + 2;
-		SetCurrentCursorPos(startX, startY);
-		printf("시작하기");
-		for (y = 0; y <= MANUAL_HEIGHT; y++)
-		{
-			SetCurrentCursorPos(MANUAL_ORIGIN_X, MANUAL_ORIGIN_Y + y);
-			if (y == MANUAL_HEIGHT)
-				printf("┗");
-			else if (y == 0)
-				printf("┏");
-			else
-				printf("┃");
-		}
-		for (y = 0; y <= MANUAL_HEIGHT; y++)
-		{
-			SetCurrentCursorPos(MANUAL_ORIGIN_X + (MANUAL_WIDTH + 1) * 2, MANUAL_ORIGIN_Y + y);
-			if (y == MANUAL_HEIGHT)
-				printf("┛");
-			else if (y == 0)
-				printf("┓");
-			else
-				printf("┃");
-		}
-		for (x = 1; x < MANUAL_WIDTH + 1; x++)
-		{
-			SetCurrentCursorPos(MANUAL_ORIGIN_X + x * 2, MANUAL_ORIGIN_Y);
-			printf("━");
-		}
-		for (x = 1; x < MANUAL_WIDTH + 1; x++)
-		{
-			SetCurrentCursorPos(MANUAL_ORIGIN_X + x * 2, MANUAL_ORIGIN_Y + MANUAL_HEIGHT);
-			printf("━");
-		}
-		int manualX = MANUAL_ORIGIN_X + 8;
-		int manualY = MANUAL_ORIGIN_Y + 2;
-		SetCurrentCursorPos(manualX, manualY);
-		printf("게임설명");
-	}
-}
-
-void drawManual()
-{
-	drawScreen();
-	int x, y;
-	for (y = 0; y <= MANUAL_BACK_HEIGHT; y++)
-	{
-		SetCurrentCursorPos(MANUAL_BACK_ORIGIN_X, MANUAL_BACK_ORIGIN_Y + y);
-		if (y == MANUAL_BACK_HEIGHT)
-			printf("┗");
-		else if (y == 0)
-			printf("┏");
-		else
-			printf("┃");
-	}
-	for (y = 0; y <= MANUAL_BACK_HEIGHT; y++)
-	{
-		SetCurrentCursorPos(MANUAL_BACK_ORIGIN_X + (MANUAL_BACK_WIDTH + 1) * 2, MANUAL_BACK_ORIGIN_Y + y);
-		if (y == MANUAL_BACK_HEIGHT)
-			printf("┛");
-		else if (y == 0)
-			printf("┓");
-		else
-			printf("┃");
-	}
-	for (x = 1; x < MANUAL_BACK_WIDTH + 1; x++)
-	{
-		SetCurrentCursorPos(MANUAL_BACK_ORIGIN_X + x * 2, MANUAL_BACK_ORIGIN_Y);
-		printf("━");
-	}
-	for (x = 1; x < MANUAL_BACK_WIDTH + 1; x++)
-	{
-		SetCurrentCursorPos(MANUAL_BACK_ORIGIN_X + x * 2, MANUAL_BACK_ORIGIN_Y + MANUAL_BACK_HEIGHT);
-		printf("━");
-	}
-	int backX = MANUAL_BACK_ORIGIN_X + 8;
-	int backY = MANUAL_BACK_ORIGIN_Y + 2;
-	SetCurrentCursorPos(backX, backY);
-	printf("뒤로가기");
-	while (1)
-	{
-		int m = CheckMouse();
-		if (m == 1)
-		{
-			if (mouse_x >= MANUAL_BACK_ORIGIN_X && mouse_x <= MANUAL_BACK_ORIGIN_X + 2 * MANUAL_BACK_WIDTH && mouse_y >= MANUAL_BACK_ORIGIN_Y && mouse_y <= MANUAL_BACK_ORIGIN_Y + MANUAL_BACK_HEIGHT) // start 버튼 클릭시
-			{
-				removeAll();
-				return;
-			}
-		}
-	}
-}
-
 // UI 모듈
 
 void drawScreen()

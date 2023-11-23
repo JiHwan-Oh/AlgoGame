@@ -11,7 +11,7 @@ void RemoveCursor()
 void init()
 {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-	system("mode con cols=154 lines=52");
+	system("mode con cols=154 lines=47");
 	RemoveCursor();
 }
 

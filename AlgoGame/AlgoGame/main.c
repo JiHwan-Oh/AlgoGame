@@ -5,7 +5,11 @@ int main()
 	init();
 
 	while (1) {
-		drawTitle();
+		if (drawTitle())
+		{
+			system("cls");
+			return;
+		}
 		while (1)
 		{
 			if (drawStageSelect())
@@ -14,10 +18,9 @@ int main()
 				break;
 		}
 	}
-	
 
-	SetCurrentCursorPos(0, 42);
-	printf("\n\n\n\n\n");
+
+	SetCurrentCursorPos(20, 20);
 
 	return 0;
 }
