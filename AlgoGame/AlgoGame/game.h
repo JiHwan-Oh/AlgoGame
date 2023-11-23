@@ -122,7 +122,7 @@ int simulationSpeed = SPEED_NORMAL;
 int speed = 1;
 int blockCount = 0;
 int curStageInfo = 9;
-PCInfo player;
+PCInfo player;						// 현재 PC 정보
 int key = 0;
 int shield = 0;
 
@@ -142,6 +142,8 @@ void drawScreen();
 void drawGameBoard();
 void drawBlock();
 void drawBlockArray();
+void drawItemInfo();
+void drawBlockCountInfo();
 void showStageInfo();
 void drawPlayStopButton();
 void drawResetButton();
@@ -153,9 +155,8 @@ void removeMap();
 void drawMap();
 void showBlockArray();
 void removeAllBlockArray();
-void clearBlockArray();
-void showPC(PCInfo player);
-void deletePC(PCInfo player);
+void showPC();
+void deletePC();
 void drawUI();
 
 void drawTitle();
