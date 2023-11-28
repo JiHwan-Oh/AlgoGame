@@ -1555,7 +1555,7 @@ void startStage() {
 				if (blockIndex < blockLimit[curStageInfo]) {
 					addBlock(blockIndex);
 					removeAllBlockArray();
-					showBlockArray();
+					showBlockArray(999);
 				}
 			}
 			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * BLOCK_ARRAY_WIDTH && mouse_y >= BLOCK_ARRAY_ORIGIN_Y && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + BLOCK_ARRAY_HEIGHT) // 블록 배열 클릭시 삭제
@@ -1573,7 +1573,7 @@ void startStage() {
 				for (int i = 0; i < 24 && blockArray.array[i] != -1; i++)
 				{
 					executeBlock(i);
-					showBlockArray(i);
+					showBlockArray(i);	
 					Sleep(simulationSpeed);
 					event = checkEvent();
 					if (event == EVENT_STAGE_CLEAR) // 스테이지 클리어 시 StageClear 화면 출력, 맵 초기화 후 현재 명령 블록 수행 종료
