@@ -486,11 +486,11 @@ PCInfo initialPCPos[MAP_COUNT] = {
 	// STAGE 1-8
 	{3, 8, 1},
 	// STAGE 1-9
-	{1, 9, 1},
+	{5, 9, 0},
 	// STAGE 1-10
 	{3, 10, 3},
 	// STAGE 2-1
-	{4, 5, 1},
+	{1, 9, 1},
 	// STAGE 2-2
 	{1, 3, 1},
 	// STAGE 2-3

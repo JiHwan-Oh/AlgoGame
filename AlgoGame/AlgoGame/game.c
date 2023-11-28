@@ -563,7 +563,6 @@ void drawBlock()
 	int blockPosY = 40;
 	for (int i = 0; i < blockLimit[curStageInfo]; i++)
 	{
-		SetCurrentCursorPos(blockPosX, blockPosY);
 		for (int y = 0; y < 5; y++)
 			for (int x = 0; x < 5; x++)
 			{
@@ -1582,6 +1581,7 @@ void startStage() {
 						clearmap[curStageInfo] = 1;
 						curStageInfo++;
 						showStageInfo();
+						drawBlock();
 						resetStage();
 						break;
 					}

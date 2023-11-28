@@ -202,7 +202,7 @@ void changeSpeed();
 void resetBlockArray();
 void resetStage();
 void stopSimulation();
-void hitmoment();
+void hitMoment();
 void goStraight();
 void turnLeft();
 void turnRight();
