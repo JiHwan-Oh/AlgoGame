@@ -15,7 +15,7 @@ int drawTitleButton()
 {
 	int chapx = 25;
 	int chapy = 10;
-	int color[9] = { 4, 6, 14, 10, 11, 9, 13, 7, 8 };
+	int color[9] = { 4, 6, 14, 10, 11, 9, 5, 7, 15 };
 	for (int i = 0; i < 2; i++)
 	{
 		for (int j = 0; j < 9; j++)
@@ -35,7 +35,7 @@ int drawTitleButton()
 			}
 			chapx += 12;
 		}
-		chapx = 40;
+		chapx = 42;
 		chapy += 6;
 	}
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
@@ -202,7 +202,7 @@ int drawManual()
 		blockPosY += 6;
 	}
 	SetCurrentCursorPos(6, 2); 
-	printf("→,← : 화살표가 플레이어 캐릭터 입니다. 화살표가 가리키는 방향이 플레이어가 바라보는 방향입니다.");
+	printf("→ : 화살표가 플레이어 캐릭터 입니다. 화살표가 가리키는 방향이 플레이어가 바라보는 방향입니다.");
 	SetCurrentCursorPos(6, 3);
 	printf("     아래에 있는 명령블록들을 이용해 캐릭터를 움직일 수 있습니다.");
 
