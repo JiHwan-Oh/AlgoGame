@@ -1594,7 +1594,7 @@ void startStage() {
 					if (blockArray.array[i + 1] == -1 || i + 1 == 24)
 						showBlockArray(999);
 				}
-				if (!(event == EVENT_STAGE_CLEAR && event == EVENT_TRAP))	// 명령 블록을 모두 수행한 후에도 스테이지를 클리어하지 못했다면 시뮬레이션 종료
+				if (event != EVENT_STAGE_CLEAR && event != EVENT_TRAP)	// 명령 블록을 모두 수행한 후에도 스테이지를 클리어하지 못했다면 시뮬레이션 종료
 				{
 					stopSimulation();
 					// $$ 목표 지점에 도달하지 못했다는 Dialogue 출력
