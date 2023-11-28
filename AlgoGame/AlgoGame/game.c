@@ -1216,6 +1216,7 @@ void stopSimulation() {
 	drawMap();
 	resetPlayer();
 	resetItem();
+	showBlockArray(999);
 }
 
 // 오브젝트 블록 기능 수행 함수
