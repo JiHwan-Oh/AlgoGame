@@ -1559,6 +1559,8 @@ void startStage() {
 			}
 			else if (mouse_x >= BACK_ORIGIN_X && mouse_x <= BACK_ORIGIN_X + 2 * BACK_WIDTH && mouse_y >= BACK_ORIGIN_Y && mouse_y <= BACK_ORIGIN_Y + BACK_HEIGHT) // exit버튼 클릭시
 			{
+				resetBlockCount();
+				resetItem();
 				removeAll();
 				return;
 			}
