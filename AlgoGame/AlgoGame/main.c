@@ -12,7 +12,7 @@ int main()
 		while (1)
 		{
 			if (drawStageSelect())
-				startGame();
+				startStage();
 			else
 				break;
 		}

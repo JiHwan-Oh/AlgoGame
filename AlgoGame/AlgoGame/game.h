@@ -138,6 +138,15 @@
 
 #endif
 
+#ifndef EVENT_INFO
+#define EVENT_INFO
+
+#define EVENT_NONE 0
+#define EVENT_STAGE_CLEAR 1
+#define EVENT_TRAP 2
+
+#endif
+
 Queue blockArray;					// 블록 배열 정보
 int simulationSpeed = SPEED_NORMAL;	// 현재 시뮬레이션 배속(시간 정보)
 int speed = 1;						// 현재 시뮬레이션 배속 Index
@@ -168,7 +177,7 @@ void showStageInfo();
 void drawPlayStopButton();
 void drawResetButton();
 void drawExitButton();
-void showSpeedButton();
+void drawSpeedButton();
 void drawDialogue();
 void drawObject(int x, int y, int idx);
 void removeMap();
@@ -179,6 +188,7 @@ void showPC();
 void deletePC();
 void drawUI();
 
+void drawTitleButton();
 int drawTitle();
 int drawManual();
 void removeAll();
@@ -191,6 +201,7 @@ void deleteBlock(int arrayIndex);
 void changeSpeed();
 void resetBlockArray();
 void resetStage();
+void stopSimulation();
 void goStraight();
 void turnLeft();
 void turnRight();
@@ -200,7 +211,8 @@ void useShield();
 void usePortal();
 void executeBlock();
 int checkStageClear();
+int checkWall();
 int checkTrap();
-void checkEvent();
-void startGame();
+int checkEvent();
+void startStage();
 
