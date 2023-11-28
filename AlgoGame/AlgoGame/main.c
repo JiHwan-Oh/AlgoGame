@@ -7,7 +7,7 @@ int main()
 		if (drawTitle())
 		{
 			system("cls");
-			return;
+			return 0;
 		}
 		while (1)
 		{

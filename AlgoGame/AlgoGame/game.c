@@ -14,7 +14,7 @@ void drawTitleButton()
 {
 	int chapx = 25;
 	int chapy = 10;
-	int color[9] = { 4, 6, 14, 10, 11, 9, 13, 7, 8 };
+	int color[9] = { 4, 6, 14, 10, 11, 9, 5, 7, 15 };
 	for (int i = 0; i < 2; i++)
 	{
 		for (int j = 0; j < 9; j++)
@@ -34,7 +34,7 @@ void drawTitleButton()
 			}
 			chapx += 12;
 		}
-		chapx = 40;
+		chapx = 42;
 		chapy += 6;
 	}
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
@@ -201,7 +201,7 @@ int drawManual()
 		blockPosY += 6;
 	}
 	SetCurrentCursorPos(6, 2); 
-	printf("→,← : 화살표가 플레이어 캐릭터 입니다. 화살표가 가리키는 방향이 플레이어가 바라보는 방향입니다.");
+	printf("→ : 화살표가 플레이어 캐릭터 입니다. 화살표가 가리키는 방향이 플레이어가 바라보는 방향입니다.");
 	SetCurrentCursorPos(6, 3);
 	printf("     아래에 있는 명령블록들을 이용해 캐릭터를 움직일 수 있습니다.");
 
@@ -983,7 +983,7 @@ void drawMap()
 		}
 }
 
-void showBlockArray()
+void showBlockArray(int idx)
 {
 	int blockArrayX = BLOCK_ARRAY_ORIGIN_X + 2;
 	int blockArrayY = BLOCK_ARRAY_ORIGIN_Y + 1;
@@ -999,7 +999,16 @@ void showBlockArray()
 			{
 				SetCurrentCursorPos(blockArrayX + (x * 2), blockArrayY + y);
 				if (block[blockArray.array[i]][y][x] == 1)
+				{
+					if (i == idx)
+					{
+						SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);
+						printf("■");
+						SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+						continue;
+					}
 					printf("■");
+				}
 			}
 		blockArrayX += 12;
 	}
@@ -1153,7 +1162,7 @@ void resetBlockArray()
 {
 	initBlockArray();
 	removeAllBlockArray();
-	showBlockArray();
+	showBlockArray(999);
 }
 
 void resetPlayer() {
@@ -1183,12 +1192,29 @@ void resetStage()
 	resetBlockArray();
 }
 
+void hitMoment()
+{
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), (4 << 4) + 15);
+	for (int i = 0; i < GBOARD_HEIGHT-1; i++)
+	{
+		SetCurrentCursorPos(4, i + 2);
+		printf("                                                                        ");
+	}
+	Sleep(50);
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+	for (int i = 0; i < GBOARD_HEIGHT - 1; i++)
+	{
+		SetCurrentCursorPos(4, i + 2);
+		printf("                                                                        ");
+	}
+}
 // 시뮬레이션 종료 함수
 void stopSimulation() {
 	removeMap();
 	drawMap();
 	resetPlayer();
 	resetItem();
+	showBlockArray(999);
 }
 
 // 오브젝트 블록 기능 수행 함수
@@ -1515,7 +1541,7 @@ void startStage() {
 	initBlockArray();
 	drawUI();
 	player = initialPCPos[curStageInfo];
-	showBlockArray();
+	showBlockArray(999);
 	showPC();
 	while (1)
 	{
@@ -1539,7 +1565,7 @@ void startStage() {
 				int blockarrayIndex = clickedX / 12 + clickedY / 6 * 6;
 				deleteBlock(blockarrayIndex);
 				removeAllBlockArray();
-				showBlockArray();
+				showBlockArray(999);
 			}
 			else if (mouse_x >= PS_ORIGIN_X && mouse_x <= PS_ORIGIN_X + 2 * PS_WIDTH + 2 && mouse_y >= PS_ORIGIN_Y && mouse_y <= PS_ORIGIN_Y + PS_HEIGHT) // play버튼 클릭시
 			{
@@ -1547,6 +1573,7 @@ void startStage() {
 				for (int i = 0; i < 24 && blockArray.array[i] != -1; i++)
 				{
 					executeBlock(i);
+					showBlockArray(i);
 					Sleep(simulationSpeed);
 					event = checkEvent();
 					if (event == EVENT_STAGE_CLEAR) // 스테이지 클리어 시 StageClear 화면 출력, 맵 초기화 후 현재 명령 블록 수행 종료
@@ -1560,9 +1587,12 @@ void startStage() {
 					}
 					else if (event == EVENT_TRAP)	// 함정 충돌 시 현재 시뮬레이션 종료 후 현재 명령 블록 수행 종료
 					{
+						hitMoment();
 						stopSimulation();
 						break;
 					}
+					if (blockArray.array[i + 1] == -1 || i + 1 == 24)
+						showBlockArray(999);
 				}
 				if (!(event == EVENT_STAGE_CLEAR && event == EVENT_TRAP))	// 명령 블록을 모두 수행한 후에도 스테이지를 클리어하지 못했다면 시뮬레이션 종료
 				{
