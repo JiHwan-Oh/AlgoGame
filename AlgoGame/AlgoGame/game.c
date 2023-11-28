@@ -1275,6 +1275,31 @@ void gatherItem()
 	}
 }
 
+void usePortal()
+{
+	if (map[curStageInfo][player.y][player.x] == 3)	// 현재 위치가 포탈인 경우
+	{
+		int isTeleported = 0;
+		for (int i = 0; i < 12; i++)
+		{
+			for (int j = 0; j < 12; j++)
+			{
+				if (map[curStageInfo][i][j] == 3 && player.x != j && player.y != i)
+				{
+					deletePC();
+					player.x = j;
+					player.y = i;
+					showPC();
+					isTeleported = 1;
+					break;
+				}
+			}
+			if (isTeleported)
+				break;
+		}
+	}
+}
+
 void useKey()
 {
 	if (key == 0)
@@ -1325,25 +1350,9 @@ void useShield()
 	shield--;
 }
 
-void usePortal()
-{
-	if (map[curStageInfo][player.x][player.y] == 3) // 현재 위치가 포탈인 경우
-	{
-		for (int i = 0; i < 12; i++)
-			for (int j = 0; j < 12; j++)
-			{
-				if (map[curStageInfo][j][i] == 3 && player.x != i && player.y != j)
-				{
-					player.x = i;
-					player.y = j;
-					return;
-				}
-			}
-	}
-}
-
 // 블록 기능 수행
-void executeBlock(int index) {
+void executeBlock(int index)
+{
 	switch (blockArray.array[index])
 	{
 	case 0:
@@ -1356,16 +1365,18 @@ void executeBlock(int index) {
 		turnRight();
 		break;
 	case 3:
-		gatherItem();
+		usePortal();
 		break;
 	case 4:
-		useKey();
+		gatherItem();
 		break;
 	case 5:
-		useShield();
+		useKey();
 		break;
 	case 6:
-		usePortal();
+		useShield();
+		break;
+	case 7:
 		break;
 	default:
 		break;
@@ -1373,14 +1384,16 @@ void executeBlock(int index) {
 }
 
 // 스테이지 클리어 조건을 만족(도착점에 도달)했다면 1, 만족하지 않았다면 0 반환
-int checkStageClear() {
+int checkStageClear()
+{
 	if (map[curStageInfo][player.y][player.x] == 7) {
 		return 1;
 	}
 	return 0;
 }
 
-int checkWall() {
+int checkWall()
+{
 	int nextPosX = player.x;
 	int nextPosY = player.y;
 
@@ -1407,18 +1420,26 @@ int checkWall() {
 }
 
 // 함정과 충돌했다면 1 반환, 충돌하지 않았다면 0 반환
-int checkTrap() {
+int checkTrap()
+{
 	if (map[curStageInfo][player.y][player.x] == 2) // 현재 위치가 함정일 경우
-	{
 		return 1;
-	}
 	return 0;
 }
 
-int checkEvent() {
+// 포탈과 충돌했다면 1 반환, 충돌하지 않았다면 0 반환
+int checkPortal()
+{
+	if (map[curStageInfo][player.y][player.x] == 3) // 현재 위치가 포탈인 경우
+		return 1;
+	return 0;
+}
+
+int checkEvent()
+{
 	if (checkStageClear()) return EVENT_STAGE_CLEAR;
 	if (checkTrap()) return EVENT_TRAP;
-	return 0;
+	return EVENT_NONE;
 }
 
 //스크롤바 삭제하는 방법
@@ -1543,7 +1564,7 @@ void startStage() {
 						break;
 					}
 				}
-				if (event == EVENT_NONE)		// 명령 블록을 모두 수행한 후에도 스테이지를 클리어하지 못했다면 시뮬레이션 종료
+				if (!(event == EVENT_STAGE_CLEAR && event == EVENT_TRAP))	// 명령 블록을 모두 수행한 후에도 스테이지를 클리어하지 못했다면 시뮬레이션 종료
 				{
 					stopSimulation();
 					// $$ 목표 지점에 도달하지 못했다는 Dialogue 출력
