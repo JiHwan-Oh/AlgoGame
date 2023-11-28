@@ -1,6 +1,5 @@
 ﻿#include "game.h"
 
-
 void removeAll()
 {
 	for (int i = 2; i < 152; i++)
@@ -11,7 +10,7 @@ void removeAll()
 		}
 }
 
-int drawTitleButton()
+void drawTitleButton()
 {
 	int chapx = 25;
 	int chapy = 10;
@@ -447,6 +446,7 @@ int drawStageSelect()
 		}
 	}
 }
+
 // UI 모듈
 
 void drawScreen()
@@ -820,7 +820,7 @@ void drawExitButton()
 	printf("EXIT");
 }
 
-void showSpeedButton()
+void drawSpeedButton()
 {
 	int x, y;
 	for (y = 0; y <= SPEED_HEIGHT; y++)
@@ -1048,10 +1048,6 @@ void showPC()
 	default:
 		break;
 	}
-	// 분리 필요
-	Sleep(simulationSpeed);
-	
-	//
 }
 
 void deletePC()
@@ -1073,7 +1069,7 @@ void drawUI()
 	drawResetButton();
 	drawDialogue();
 	drawExitButton();
-	showSpeedButton();
+	drawSpeedButton();
 	drawMap();
 }
 
@@ -1178,6 +1174,7 @@ void resetBlockCount() {
 	drawBlockCountInfo();
 }
 
+// 스테이지 재시작 함수
 void resetStage()
 {
 	removeMap();
@@ -1188,39 +1185,80 @@ void resetStage()
 	resetBlockArray();
 }
 
+// 시뮬레이션 종료 함수
+void stopSimulation() {
+	removeMap();
+	drawMap();
+	resetPlayer();
+	resetItem();
+}
+
 // 오브젝트 블록 기능 수행 함수
 void goStraight()
 {
 	deletePC();
-	switch (player.dir)
-	{
-	case 0:
-		player.y -= 1;
-		break;
-	case 1:
-		player.x += 1;
-		break;
-	case 2:
-		player.y += 1;
-		break;
-	case 3:
-		player.x -= 1;
-		break;
-	default:
-		break;
+	if (!checkWall()) {
+		
+		switch (player.dir)
+		{
+		case 0:
+			player.y -= 1;
+			break;
+		case 1:
+			player.x += 1;
+			break;
+		case 2:
+			player.y += 1;
+			break;
+		case 3:
+			player.x -= 1;
+			break;
+		default:
+			break;
+		}
 	}
+	else {
+		// PC 색상을 빨간색으로 잠시 변경 후 다시 원래 색으로 되돌림
+		int x = GBOARD_ORIGIN_X + 4;
+		int y = GBOARD_ORIGIN_Y + 2;
+		SetCurrentCursorPos(x + (6 * player.x), y + (3 * player.y));
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);
+		switch (player.dir)
+		{
+		case 0:
+			printf("↑");
+			break;
+		case 1:
+			printf("→");
+			break;
+		case 2:
+			printf("↓");
+			break;
+		case 3:
+			printf("←");
+		default:
+			break;
+		}
+		Sleep(simulationSpeed);
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+		deletePC();
+		// $$ 앞이 벽이라 지나갈 수 없다는 Dialogue 출력
+	}
+	showPC();
 }
 
 void turnLeft()
 {
 	deletePC();
 	player.dir = (player.dir + 3) % 4;
+	showPC();
 }
 
 void turnRight()
 {
 	deletePC();
 	player.dir = (player.dir + 5) % 4;
+	showPC();
 }
 
 void gatherItem()
@@ -1336,34 +1374,53 @@ void executeBlock(int index) {
 	}
 }
 
+// 스테이지 클리어 조건을 만족(도착점에 도달)했다면 1, 만족하지 않았다면 0 반환
 int checkStageClear() {
 	if (map[curStageInfo][player.y][player.x] == 7) {
-		// StageClear 화면 출력
-		clearmap[curStageInfo] = 1;
-		curStageInfo++;
-		showStageInfo();
-		resetStage();
 		return 1;
 	}
 	return 0;
 }
 
+int checkWall() {
+	int nextPosX = player.x;
+	int nextPosY = player.y;
+
+	switch (player.dir) {
+	case 0:
+		nextPosY -= 1;
+		break;
+	case 1:
+		nextPosX += 1;
+		break;
+	case 2:
+		nextPosY += 1;
+		break;
+	case 3:
+		nextPosX -= 1;
+		break;
+	default:
+		break;
+	}
+
+	if (map[curStageInfo][nextPosY][nextPosX] == 0 || nextPosX < 0 || nextPosX >= 12 || nextPosY < 0 || nextPosY >= 12)
+		return 1;
+	return 0;
+}
+
+// 함정과 충돌했다면 1 반환, 충돌하지 않았다면 0 반환
 int checkTrap() {
 	if (map[curStageInfo][player.y][player.x] == 2) // 현재 위치가 함정일 경우
 	{
-		if (shield == 0)
-		{
-			resetStage();
-			return 1;
-		}
+		return 1;
 	}
 	return 0;
 }
 
-void checkEvent() {
-	if (checkStageClear()) return;
-	// if (checkWall()) return;
-	if (checkTrap()) return;
+int checkEvent() {
+	if (checkStageClear()) return EVENT_STAGE_CLEAR;
+	if (checkTrap()) return EVENT_TRAP;
+	return 0;
 }
 
 //스크롤바 삭제하는 방법
@@ -1433,8 +1490,8 @@ int CheckMouse()
 	return 0;//그 외 활동일경우(키보드, 마우스 드래그 등등)
 }
 
-// 임시 게임 시작 함수
-void startGame() {
+// 스테이지 시작 함수
+void startStage() {
 	BasicSetting();
 	initBlockArray();
 	drawUI();
@@ -1465,11 +1522,31 @@ void startGame() {
 			}
 			else if (mouse_x >= PS_ORIGIN_X && mouse_x <= PS_ORIGIN_X + 2 * PS_WIDTH + 2 && mouse_y >= PS_ORIGIN_Y && mouse_y <= PS_ORIGIN_Y + PS_HEIGHT) // play버튼 클릭시
 			{
+				int event = -1;
 				for (int i = 0; i < 24 && blockArray.array[i] != -1; i++)
 				{
 					executeBlock(i);
-					showPC();
-					checkEvent();
+					Sleep(simulationSpeed);
+					event = checkEvent();
+					if (event == EVENT_STAGE_CLEAR) // 스테이지 클리어 시 StageClear 화면 출력, 맵 초기화 후 현재 명령 블록 수행 종료
+					{
+						// StageClear 화면 출력
+						clearmap[curStageInfo] = 1;
+						curStageInfo++;
+						showStageInfo();
+						resetStage();
+						break;
+					}
+					else if (event == EVENT_TRAP)	// 함정 충돌 시 현재 시뮬레이션 종료 후 현재 명령 블록 수행 종료
+					{
+						stopSimulation();
+						break;
+					}
+				}
+				if (event == EVENT_NONE)		// 명령 블록을 모두 수행한 후에도 스테이지를 클리어하지 못했다면 시뮬레이션 종료
+				{
+					stopSimulation();
+					// $$ 목표 지점에 도달하지 못했다는 Dialogue 출력
 				}
 			}
 			else if (mouse_x >= SPEED_ORIGIN_X && mouse_x <= SPEED_ORIGIN_X + 2 * SPEED_WIDTH && mouse_y >= SPEED_ORIGIN_Y && mouse_y <= SPEED_ORIGIN_Y + SPEED_HEIGHT) // speed버튼 클릭시
