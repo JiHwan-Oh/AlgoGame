@@ -561,7 +561,7 @@ void drawBlock()
 
 	int blockPosX = 4;
 	int blockPosY = 40;
-	for (int i = 0; i < 7; i++)
+	for (int i = 0; i < blockLimit[curStageInfo]; i++)
 	{
 		SetCurrentCursorPos(blockPosX, blockPosY);
 		for (int y = 0; y < 5; y++)
@@ -857,10 +857,9 @@ void drawSpeedButton()
 	int speedY = SPEED_ORIGIN_Y + 2;
 	SetCurrentCursorPos(speedX, speedY);
 	printf("▶    ");
-	speedX += 2;
 	speedY += 2;
 	SetCurrentCursorPos(speedX, speedY);
-	printf("1");
+	printf("1배속");
 }
 
 void drawDialogue()
@@ -1145,10 +1144,9 @@ void changeSpeed()
 		printf("▶▶  ");
 	else if (speed == 3)
 		printf("▶▶▶");
-	speedX += 2;
 	speedY += 2;
 	SetCurrentCursorPos(speedX, speedY);
-	printf("%d", speed);
+	printf("%d배속", speed);
 }
 
 void resetBlockArray()
@@ -1507,15 +1505,17 @@ void startStage() {
 			{
 				int clickedX = mouse_x - BLOCK_ORIGIN_X;
 				int blockIndex = clickedX / 12;
-				addBlock(blockIndex);
-				removeAllBlockArray();
-				showBlockArray();
+				if (blockIndex < blockLimit[curStageInfo]) {
+					addBlock(blockIndex);
+					removeAllBlockArray();
+					showBlockArray();
+				}
 			}
 			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * BLOCK_ARRAY_WIDTH && mouse_y >= BLOCK_ARRAY_ORIGIN_Y && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + BLOCK_ARRAY_HEIGHT) // 블록 배열 클릭시 삭제
 			{
 				int clickedX = mouse_x - BLOCK_ARRAY_ORIGIN_X;
 				int clickedY = mouse_y - BLOCK_ARRAY_ORIGIN_Y;
-				int blockarrayIndex = clickedX / 12 + clickedY/6 * 6;
+				int blockarrayIndex = clickedX / 12 + clickedY / 6 * 6;
 				deleteBlock(blockarrayIndex);
 				removeAllBlockArray();
 				showBlockArray();

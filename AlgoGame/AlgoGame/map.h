@@ -522,3 +522,66 @@ PCInfo initialPCPos[MAP_COUNT] = {
 	// STAGE 3-10
 	{4, 5, 1}
 };
+
+int blockLimit[MAP_COUNT] = {
+	// STAGE 1-1
+	1,
+	// STAGE 1-2
+	2,
+	// STAGE 1-3
+	3,
+	// STAGE 1-4
+	3,
+	// STAGE 1-5
+	3,
+	// STAGE 1-6
+	3,
+	// STAGE 1-7
+	3,
+	// STAGE 1-8
+	3,
+	// STAGE 1-9
+	3,
+	// STAGE 1-10
+	3,
+	// STAGE 2-1
+	4,
+	// STAGE 2-2
+	4,
+	// STAGE 2-3
+	4,
+	// STAGE 2-4
+	4,
+	// STAGE 2-5
+	4,
+	// STAGE 2-6
+	4,
+	// STAGE 2-7
+	4,
+	// STAGE 2-8
+	4,
+	// STAGE 2-9
+	4,
+	// STAGE 2-10
+	4,
+	// STAGE 3-1
+	4,
+	// STAGE 3-2
+	4,
+	// STAGE 3-3
+	4,
+	// STAGE 3-4
+	4,
+	// STAGE 3-5
+	4,
+	// STAGE 3-6
+	4,
+	// STAGE 3-7
+	4,
+	// STAGE 3-8
+	4,
+	// STAGE 3-9
+	4,
+	// STAGE 3-10
+	4
+};
