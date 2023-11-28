@@ -1555,7 +1555,7 @@ void startStage() {
 				if (blockIndex < blockLimit[curStageInfo]) {
 					addBlock(blockIndex);
 					removeAllBlockArray();
-					showBlockArray();
+					showBlockArray(999);
 				}
 			}
 			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * BLOCK_ARRAY_WIDTH && mouse_y >= BLOCK_ARRAY_ORIGIN_Y && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + BLOCK_ARRAY_HEIGHT) // 블록 배열 클릭시 삭제
