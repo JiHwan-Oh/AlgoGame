@@ -645,7 +645,7 @@ void drawItemInfo() {
 	int infoX = INFO_ORIGIN_X + 2;
 	int infoY = INFO_ORIGIN_Y + 1;
 	SetCurrentCursorPos(infoX, infoY + 4);
-	printf("★ : %d           ♠ : %d", key, jump);
+	printf("KEY : %d        JUMP : %d", key, jump);
 }
 
 void drawBlockCountInfo() {
