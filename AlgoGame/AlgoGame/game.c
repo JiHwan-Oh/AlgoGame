@@ -563,7 +563,6 @@ void drawBlock()
 	int blockPosY = 40;
 	for (int i = 0; i < blockLimit[curStageInfo]; i++)
 	{
-		SetCurrentCursorPos(blockPosX, blockPosY);
 		for (int y = 0; y < 5; y++)
 			for (int x = 0; x < 5; x++)
 			{
@@ -1582,6 +1581,7 @@ void startStage() {
 						clearmap[curStageInfo] = 1;
 						curStageInfo++;
 						showStageInfo();
+						drawBlock();
 						resetStage();
 						break;
 					}
@@ -1594,7 +1594,7 @@ void startStage() {
 					if (blockArray.array[i + 1] == -1 || i + 1 == 24)
 						showBlockArray(999);
 				}
-				if (!(event == EVENT_STAGE_CLEAR && event == EVENT_TRAP))	// 명령 블록을 모두 수행한 후에도 스테이지를 클리어하지 못했다면 시뮬레이션 종료
+				if (event != EVENT_STAGE_CLEAR && event != EVENT_TRAP)	// 명령 블록을 모두 수행한 후에도 스테이지를 클리어하지 못했다면 시뮬레이션 종료
 				{
 					stopSimulation();
 					// $$ 목표 지점에 도달하지 못했다는 Dialogue 출력
