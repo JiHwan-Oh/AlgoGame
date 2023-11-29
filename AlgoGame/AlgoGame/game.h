@@ -154,7 +154,7 @@ int blockCount = 0;					// 현재 블록 개수
 int curStageInfo = 0;				// 현재 스테이지 정보
 PCInfo player;						// 현재 PC 정보
 int key = 0;						// 현재 열쇠 아이템 개수
-int shield = 0;						// 현재 실드 아이템 개수
+int jump = 0;						// 현재 점프 아이템 개수
 
 int mouse;	// 클릭 중인가 판단요소
 int mouse_x;// 마우스 커서 x축
@@ -173,7 +173,7 @@ void drawBlock();
 void drawBlockArray();
 void drawItemInfo();
 void drawBlockCountInfo();
-void showStageInfo();
+void drawStageInfo();
 void drawPlayStopButton();
 void drawResetButton();
 void drawExitButton();
@@ -209,10 +209,10 @@ void turnRight();
 void gatherItem();
 void usePortal();
 void useKey();
-void useShield();
+void useJump();
 void executeBlock();
 int checkStageClear();
-int checkWall();
+int checkWall(int distance);
 int checkTrap();
 int checkEvent();
 void startStage();

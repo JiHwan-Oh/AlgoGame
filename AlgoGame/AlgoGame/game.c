@@ -645,7 +645,7 @@ void drawItemInfo() {
 	int infoX = INFO_ORIGIN_X + 2;
 	int infoY = INFO_ORIGIN_Y + 1;
 	SetCurrentCursorPos(infoX, infoY + 4);
-	printf("★ : %d           ♥ : %d", key, shield);
+	printf("★ : %d           ♠ : %d", key, jump);
 }
 
 void drawBlockCountInfo() {
@@ -657,7 +657,7 @@ void drawBlockCountInfo() {
 	printf("[COMMAND BLOCK COUNT] : %d", blockCount);
 }
 
-void showStageInfo()
+void drawStageInfo()
 {
 	int x, y;
 	for (y = 0; y <= INFO_HEIGHT; y++)
@@ -946,7 +946,7 @@ void drawObject(int x, int y, int idx)
 				printf("☆");
 				break;
 			case 6:
-				printf("♡");
+				printf("♤");
 				break;
 			default:
 				break;
@@ -1071,7 +1071,7 @@ void drawUI()
 	drawGameBoard();
 	drawBlock();
 	drawBlockArray();
-	showStageInfo();
+	drawStageInfo();
 	drawPlayStopButton();
 	drawResetButton();
 	drawDialogue();
@@ -1171,7 +1171,7 @@ void resetPlayer() {
 
 void resetItem() {
 	key = 0;
-	shield = 0;
+	jump = 0;
 	drawItemInfo();
 }
 
@@ -1220,7 +1220,7 @@ void stopSimulation() {
 void goStraight()
 {
 	deletePC();
-	if (!checkWall()) {
+	if (!checkWall(1)) {
 		
 		switch (player.dir)
 		{
@@ -1286,18 +1286,15 @@ void turnRight()
 
 void gatherItem()
 {
-	int x = GBOARD_ORIGIN_X + 2;
-	int y = GBOARD_ORIGIN_Y + 1;
-	if (map[curStageInfo][player.x][player.y] == 5)
+	if (map[curStageInfo][player.y][player.x] == 5)
 	{
-		drawObject(x + (6 * player.x), y + (3 * player.y), 1);
 		key++;
 	}
-	else if (map[curStageInfo][player.x][player.y] == 6)
+	else if (map[curStageInfo][player.y][player.x] == 6)
 	{
-		drawObject(x + (6 * player.x), y + (3 * player.y), 1);
-		shield++;
+		jump++;
 	}
+	drawItemInfo();
 }
 
 void usePortal()
@@ -1350,29 +1347,32 @@ void useKey()
 	key--;
 }
 
-void useShield()
+void useJump()
 {
-	if (shield == 0)
+	if (jump == 0)
 		return;
-	int x = GBOARD_ORIGIN_X + 2;
-	int y = GBOARD_ORIGIN_Y + 1;
-	if (map[curStageInfo][player.x - 1][player.y] == 2) // 좌측 칸이 장애물인 경우
-	{
-		drawObject(x + (6 * (player.x - 1)), y + (3 * player.y), 1);
+	deletePC();
+	if (!checkWall(2)) {
+		switch (player.dir)
+		{
+		case 0:
+			player.y -= 2;
+			break;
+		case 1:
+			player.x += 2;
+			break;
+		case 2:
+			player.y += 2;
+			break;
+		case 3:
+			player.x -= 2;
+			break;
+		default:
+			break;
+		}
 	}
-	else if (map[curStageInfo][player.x + 1][player.y] == 2) // 우측 칸이 장애물인 경우
-	{
-		drawObject(x + (6 * (player.x + 1)), y + (3 * player.y), 1);
-	}
-	else if (map[curStageInfo][player.x][player.y + 1] == 2) // 위 칸이 장애물인 경우
-	{
-		drawObject(x + (6 * player.x), y + (3 * (player.y + 1)), 1);
-	}
-	else if (map[curStageInfo][player.x][player.y - 1] == 2) // 아래 칸이 장애물인 경우
-	{
-		drawObject(x + (6 * player.x), y + (3 * (player.y - 1)), 1);
-	}
-	shield--;
+	showPC();
+	jump--;
 }
 
 // 블록 기능 수행
@@ -1399,7 +1399,7 @@ void executeBlock(int index)
 		useKey();
 		break;
 	case 6:
-		useShield();
+		useJump();
 		break;
 	case 7:
 		break;
@@ -1417,23 +1417,23 @@ int checkStageClear()
 	return 0;
 }
 
-int checkWall()
+int checkWall(int distance)
 {
 	int nextPosX = player.x;
 	int nextPosY = player.y;
 
 	switch (player.dir) {
 	case 0:
-		nextPosY -= 1;
+		nextPosY -= distance;
 		break;
 	case 1:
-		nextPosX += 1;
+		nextPosX += distance;
 		break;
 	case 2:
-		nextPosY += 1;
+		nextPosY += distance;
 		break;
 	case 3:
-		nextPosX -= 1;
+		nextPosX -= distance;
 		break;
 	default:
 		break;
@@ -1580,7 +1580,7 @@ void startStage() {
 						// StageClear 화면 출력
 						clearmap[curStageInfo] = 1;
 						curStageInfo++;
-						showStageInfo();
+						drawStageInfo();
 						drawBlock();
 						resetStage();
 						break;
