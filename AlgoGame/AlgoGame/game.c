@@ -702,7 +702,7 @@ void drawStageInfo()
 	drawBlockCountInfo();
 }
 
-void drawPlayStopButton()
+void drawPlayButton()
 {
 	int x, y;
 	for (y = 0; y <= PS_HEIGHT; y++)
@@ -855,10 +855,23 @@ void drawSpeedButton()
 	int speedX = SPEED_ORIGIN_X + 2;
 	int speedY = SPEED_ORIGIN_Y + 2;
 	SetCurrentCursorPos(speedX, speedY);
-	printf("▶    ");
+	switch (speed)
+	{
+	case 1:
+		printf("▶    ");
+		break;
+	case 2:
+		printf("▶▶  ");
+		break;
+	case 3:
+		printf("▶▶▶");
+		break;
+	default:
+		break;
+	}
 	speedY += 2;
 	SetCurrentCursorPos(speedX, speedY);
-	printf("1배속");
+	printf("%d배속", speed);
 }
 
 void drawDialogue()
@@ -1072,7 +1085,7 @@ void drawUI()
 	drawBlock();
 	drawBlockArray();
 	drawStageInfo();
-	drawPlayStopButton();
+	drawPlayButton();
 	drawResetButton();
 	drawDialogue();
 	drawExitButton();
@@ -1286,6 +1299,8 @@ void turnRight()
 
 void gatherItem()
 {
+	int x = GBOARD_ORIGIN_X + 2;
+	int y = GBOARD_ORIGIN_Y + 1;
 	if (map[curStageInfo][player.y][player.x] == 5)
 	{
 		key++;
@@ -1294,6 +1309,10 @@ void gatherItem()
 	{
 		jump++;
 	}
+	else
+		return;
+	drawObject(x + (6 * player.x), y + (3 * player.y), 1);
+	showPC();
 	drawItemInfo();
 }
 

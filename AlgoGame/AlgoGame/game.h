@@ -174,7 +174,7 @@ void drawBlockArray();
 void drawItemInfo();
 void drawBlockCountInfo();
 void drawStageInfo();
-void drawPlayStopButton();
+void drawPlayButton();
 void drawResetButton();
 void drawExitButton();
 void drawSpeedButton();
