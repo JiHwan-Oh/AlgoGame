@@ -155,6 +155,21 @@ int curStageInfo = 0;				// 현재 스테이지 정보
 PCInfo player;						// 현재 PC 정보
 int key = 0;						// 현재 열쇠 아이템 개수
 int jump = 0;						// 현재 점프 아이템 개수
+int curMap[MAP_WIDTH][MAP_HEIGHT] =	// 현재 스테이지 맵 정보
+{
+		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+};
 
 int mouse;	// 클릭 중인가 판단요소
 int mouse_x;// 마우스 커서 x축
@@ -194,6 +209,7 @@ int drawManual();
 void removeAll();
 int drawStageSelect();
 
+void loadMapInfo();
 void initBlockArray();
 int isBlockArrayFull();
 void addBlock(int objectIndex);

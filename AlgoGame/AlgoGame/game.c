@@ -970,10 +970,11 @@ void drawMap()
 {
 	int x = GBOARD_ORIGIN_X + 2;
 	int y = GBOARD_ORIGIN_Y + 1;
+
 	for (int i = 0; i < 12; i++)
 		for (int j = 0; j < 12; j++)
 		{
-			int index = map[curStageInfo][i][j];
+			int index = curMap[i][j];
 			if (index == 7) // 도착점 빨간색
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);
 			else
@@ -1082,6 +1083,12 @@ void drawUI()
 
 // Stage 모듈
 
+void loadMapInfo() {
+	for (int i = 0; i < MAP_HEIGHT; i++)
+		for (int j = 0; j < MAP_WIDTH; j++)
+			curMap[i][j] = map[curStageInfo][i][j];
+}
+
 void initBlockArray()
 {
 	for (int i = 0; i < QUEUE_MAX; i++)
@@ -1184,6 +1191,7 @@ void resetBlockCount() {
 void resetStage()
 {
 	removeMap();
+	loadMapInfo();
 	drawMap();
 	resetPlayer();
 	resetItem();
@@ -1210,6 +1218,7 @@ void hitMoment()
 // 시뮬레이션 종료 함수
 void stopSimulation() {
 	removeMap();
+	loadMapInfo();
 	drawMap();
 	resetPlayer();
 	resetItem();
@@ -1286,12 +1295,20 @@ void turnRight()
 
 void gatherItem()
 {
-	if (map[curStageInfo][player.y][player.x] == 5)
+	int x = GBOARD_ORIGIN_X + 2;
+	int y = GBOARD_ORIGIN_Y + 1;
+	if (curMap[player.y][player.x] == 5)
 	{
+		curMap[player.y][player.x] = 1;
+		drawObject(x + (6 * player.x), y + (3 * player.y), 1);
+		showPC();
 		key++;
 	}
-	else if (map[curStageInfo][player.y][player.x] == 6)
+	else if (curMap[player.y][player.x] == 6)
 	{
+		curMap[player.y][player.x] = 1;
+		drawObject(x + (6 * player.x), y + (3 * player.y), 1);
+		showPC();
 		jump++;
 	}
 	drawItemInfo();
@@ -1299,14 +1316,14 @@ void gatherItem()
 
 void usePortal()
 {
-	if (map[curStageInfo][player.y][player.x] == 3)	// 현재 위치가 포탈인 경우
+	if (curMap[player.y][player.x] == 3)	// 현재 위치가 포탈인 경우
 	{
 		int isTeleported = 0;
 		for (int i = 0; i < 12; i++)
 		{
 			for (int j = 0; j < 12; j++)
 			{
-				if (map[curStageInfo][i][j] == 3 && player.x != j && player.y != i)
+				if (curMap[i][j] == 3 && player.x != j && player.y != i)
 				{
 					deletePC();
 					player.x = j;
@@ -1328,20 +1345,24 @@ void useKey()
 		return;
 	int x = GBOARD_ORIGIN_X + 2;
 	int y = GBOARD_ORIGIN_Y + 1;
-	if (map[curStageInfo][player.x - 1][player.y] == 4) // 좌측 칸이 자물쇠인 경우
+	if (curMap[player.x - 1][player.y] == 4) // 좌측 칸이 자물쇠인 경우
 	{
+		curMap[player.x - 1][player.y] = 1;
 		drawObject(x + (6 * (player.x - 1)), y + (3 * player.y), 1);
 	}
-	else if (map[curStageInfo][player.x + 1][player.y] == 4) // 우측 칸이 자물쇠인 경우
+	else if (curMap[player.x + 1][player.y] == 4) // 우측 칸이 자물쇠인 경우
 	{
+		curMap[player.x + 1][player.y] = 1;
 		drawObject(x + (6 * (player.x + 1)), y + (3 * player.y), 1);
 	}
-	else if (map[curStageInfo][player.x][player.y + 1] == 4) // 위 칸이 자물쇠인 경우
+	else if (curMap[player.x][player.y + 1] == 4) // 위 칸이 자물쇠인 경우
 	{
+		curMap[player.x][player.y - 1] = 1;
 		drawObject(x + (6 * player.x), y + (3 * (player.y + 1)), 1);
 	}
-	else if (map[curStageInfo][player.x][player.y - 1] == 4) // 아래 칸이 자물쇠인 경우
+	else if (curMap[player.x][player.y - 1] == 4) // 아래 칸이 자물쇠인 경우
 	{
+		curMap[player.x][player.y + 1] = 1;
 		drawObject(x + (6 * player.x), y + (3 * (player.y - 1)), 1);
 	}
 	key--;
@@ -1411,7 +1432,7 @@ void executeBlock(int index)
 // 스테이지 클리어 조건을 만족(도착점에 도달)했다면 1, 만족하지 않았다면 0 반환
 int checkStageClear()
 {
-	if (map[curStageInfo][player.y][player.x] == 7) {
+	if (curMap[player.y][player.x] == 7) {
 		return 1;
 	}
 	return 0;
@@ -1439,7 +1460,7 @@ int checkWall(int distance)
 		break;
 	}
 
-	if (map[curStageInfo][nextPosY][nextPosX] == 0 || nextPosX < 0 || nextPosX >= 12 || nextPosY < 0 || nextPosY >= 12)
+	if (curMap[nextPosY][nextPosX] == 0 || curMap[nextPosY][nextPosX] == 4 || nextPosX < 0 || nextPosX >= 12 || nextPosY < 0 || nextPosY >= 12)
 		return 1;
 	return 0;
 }
@@ -1447,7 +1468,7 @@ int checkWall(int distance)
 // 함정과 충돌했다면 1 반환, 충돌하지 않았다면 0 반환
 int checkTrap()
 {
-	if (map[curStageInfo][player.y][player.x] == 2) // 현재 위치가 함정일 경우
+	if (curMap[player.y][player.x] == 2) // 현재 위치가 함정일 경우
 		return 1;
 	return 0;
 }
@@ -1455,7 +1476,7 @@ int checkTrap()
 // 포탈과 충돌했다면 1 반환, 충돌하지 않았다면 0 반환
 int checkPortal()
 {
-	if (map[curStageInfo][player.y][player.x] == 3) // 현재 위치가 포탈인 경우
+	if (curMap[player.y][player.x] == 3) // 현재 위치가 포탈인 경우
 		return 1;
 	return 0;
 }
@@ -1538,6 +1559,7 @@ int CheckMouse()
 void startStage() {
 	BasicSetting();
 	initBlockArray();
+	loadMapInfo();
 	drawUI();
 	player = initialPCPos[curStageInfo];
 	showBlockArray(999);
