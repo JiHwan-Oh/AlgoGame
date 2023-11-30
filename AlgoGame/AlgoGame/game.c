@@ -1314,7 +1314,7 @@ void gatherItem()
 	{
 		key++;
 	}
-	else if (map[curStageInfo][player.y][player.x] == 6)
+	else if (curMap[player.y][player.x] == 6)
 	{
 		jump++;
 	}
@@ -1356,26 +1356,27 @@ void useKey()
 		return;
 	int x = GBOARD_ORIGIN_X + 2;
 	int y = GBOARD_ORIGIN_Y + 1;
-	if (curMap[player.x - 1][player.y] == 4) // 좌측 칸이 자물쇠인 경우
+	if (curMap[player.y][player.x - 1] == 4) // 좌측 칸이 자물쇠인 경우
 	{
-		curMap[player.x - 1][player.y] = 1;
+		curMap[player.y][player.x - 1] = 1;
 		drawObject(x + (6 * (player.x - 1)), y + (3 * player.y), 1);
 	}
-	else if (curMap[player.x + 1][player.y] == 4) // 우측 칸이 자물쇠인 경우
+	else if (curMap[player.y][player.x + 1] == 4) // 우측 칸이 자물쇠인 경우
 	{
-		curMap[player.x + 1][player.y] = 1;
+		curMap[player.y][player.x + 1] = 1;
 		drawObject(x + (6 * (player.x + 1)), y + (3 * player.y), 1);
 	}
-	else if (curMap[player.x][player.y + 1] == 4) // 위 칸이 자물쇠인 경우
+	else if (curMap[player.y - 1][player.x] == 4) // 위 칸이 자물쇠인 경우
 	{
-		curMap[player.x][player.y - 1] = 1;
-		drawObject(x + (6 * player.x), y + (3 * (player.y + 1)), 1);
-	}
-	else if (curMap[player.x][player.y - 1] == 4) // 아래 칸이 자물쇠인 경우
-	{
-		curMap[player.x][player.y + 1] = 1;
+		curMap[player.y - 1][player.x] = 1;
 		drawObject(x + (6 * player.x), y + (3 * (player.y - 1)), 1);
 	}
+	else if (curMap[player.y + 1][player.x] == 4) // 아래 칸이 자물쇠인 경우
+	{
+		curMap[player.y + 1][player.x] = 1;
+		drawObject(x + (6 * player.x), y + (3 * (player.y + 1)), 1);
+	}
+	showPC();
 	key--;
 }
 
