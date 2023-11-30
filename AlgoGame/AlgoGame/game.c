@@ -702,7 +702,7 @@ void drawStageInfo()
 	drawBlockCountInfo();
 }
 
-void drawPlayStopButton()
+void drawPlayButton()
 {
 	int x, y;
 	for (y = 0; y <= PS_HEIGHT; y++)
@@ -855,10 +855,23 @@ void drawSpeedButton()
 	int speedX = SPEED_ORIGIN_X + 2;
 	int speedY = SPEED_ORIGIN_Y + 2;
 	SetCurrentCursorPos(speedX, speedY);
-	printf("▶    ");
+	switch (speed)
+	{
+	case 1:
+		printf("▶    ");
+		break;
+	case 2:
+		printf("▶▶  ");
+		break;
+	case 3:
+		printf("▶▶▶");
+		break;
+	default:
+		break;
+	}
 	speedY += 2;
 	SetCurrentCursorPos(speedX, speedY);
-	printf("1배속");
+	printf("%d배속", speed);
 }
 
 void drawDialogue()
@@ -1073,7 +1086,7 @@ void drawUI()
 	drawBlock();
 	drawBlockArray();
 	drawStageInfo();
-	drawPlayStopButton();
+	drawPlayButton();
 	drawResetButton();
 	drawDialogue();
 	drawExitButton();
@@ -1299,18 +1312,16 @@ void gatherItem()
 	int y = GBOARD_ORIGIN_Y + 1;
 	if (curMap[player.y][player.x] == 5)
 	{
-		curMap[player.y][player.x] = 1;
-		drawObject(x + (6 * player.x), y + (3 * player.y), 1);
-		showPC();
 		key++;
 	}
-	else if (curMap[player.y][player.x] == 6)
+	else if (map[curStageInfo][player.y][player.x] == 6)
 	{
-		curMap[player.y][player.x] = 1;
-		drawObject(x + (6 * player.x), y + (3 * player.y), 1);
-		showPC();
 		jump++;
 	}
+	else
+		return;
+	drawObject(x + (6 * player.x), y + (3 * player.y), 1);
+	showPC();
 	drawItemInfo();
 }
 
@@ -1594,7 +1605,7 @@ void startStage() {
 				for (int i = 0; i < 24 && blockArray.array[i] != -1; i++)
 				{
 					executeBlock(i);
-					showBlockArray(i);
+					showBlockArray(i);	
 					Sleep(simulationSpeed);
 					event = checkEvent();
 					if (event == EVENT_STAGE_CLEAR) // 스테이지 클리어 시 StageClear 화면 출력, 맵 초기화 후 현재 명령 블록 수행 종료
