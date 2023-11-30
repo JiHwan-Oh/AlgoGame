@@ -1129,8 +1129,6 @@ void addBlock(int objectIndex)
 
 void deleteBlock(int arrayIndex)
 {
-	if (blockArray.array[arrayIndex] == -1)
-		return;
 	for (int i = arrayIndex; i < blockArray.rear - 1; i++)
 		blockArray.array[i] = blockArray.array[i + 1];
 	blockArray.array[blockArray.rear - 1] = -1;
@@ -1595,10 +1593,12 @@ void startStage() {
 			{
 				int clickedX = mouse_x - BLOCK_ARRAY_ORIGIN_X;
 				int clickedY = mouse_y - BLOCK_ARRAY_ORIGIN_Y;
-				int blockarrayIndex = clickedX / 12 + clickedY / 6 * 6;
-				deleteBlock(blockarrayIndex);
-				removeAllBlockArray();
-				showBlockArray(999);
+				int blockArrayIndex = clickedX / 12 + clickedY / 6 * 6;
+				if (blockArrayIndex >= 0 && blockArrayIndex < 24 && blockArray.array[blockArrayIndex] != -1) {
+					deleteBlock(blockArrayIndex);
+					removeAllBlockArray();
+					showBlockArray(999);
+				}
 			}
 			else if (mouse_x >= PS_ORIGIN_X && mouse_x <= PS_ORIGIN_X + 2 * PS_WIDTH + 2 && mouse_y >= PS_ORIGIN_Y && mouse_y <= PS_ORIGIN_Y + PS_HEIGHT) // play버튼 클릭시
 			{
