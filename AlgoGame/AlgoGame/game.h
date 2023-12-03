@@ -232,4 +232,3 @@ int checkWall(int distance);
 int checkTrap();
 int checkEvent();
 void startStage();
-

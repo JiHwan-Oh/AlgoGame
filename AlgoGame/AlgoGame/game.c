@@ -216,7 +216,7 @@ int drawManual()
 	printf(": 캐릭터가 오른쪽을 바라보게 합니다.   예) 캐릭터가 → 였다면 이 명령블록 사용후 캐릭터는 ↓ 이 됩니다.");
 
 	SetCurrentCursorPos(18, 25); // 아이템 획득
-	printf(": 캐릭터가 위치한 칸에 있는 아이템을 획득합니다.        예)  열쇠 :             실드:");
+	printf(": 캐릭터가 위치한 칸에 있는 아이템을 획득합니다.        예)  열쇠 :             점프:");
 	SetCurrentCursorPos(18, 26); 
 	printf("  화면 우측 상단에 보유한 아이템 갯수가 표시됩니다.");
 	drawObject(86, 24, 5); drawObject(104, 24, 6);
@@ -1332,7 +1332,7 @@ void usePortal()
 		{
 			for (int j = 0; j < 12; j++)
 			{
-				if (curMap[i][j] == 3 && player.x != j && player.y != i)
+				if (curMap[i][j] == 3 && !(player.x == j && player.y == i))
 				{
 					deletePC();
 					player.x = j;
@@ -1376,6 +1376,7 @@ void useKey()
 	}
 	showPC();
 	key--;
+	drawStageInfo();
 }
 
 void useJump()
@@ -1404,6 +1405,7 @@ void useJump()
 	}
 	showPC();
 	jump--;
+	drawStageInfo();
 }
 
 // 블록 기능 수행
