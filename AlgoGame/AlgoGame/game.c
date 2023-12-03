@@ -173,7 +173,7 @@ int drawTitle()
 				}
 				return 0;
 			}
-			else if (mouse_x >= TERMINATE_ORIGIN_X && mouse_x <= TERMINATE_ORIGIN_X + 2 * TERMINATE_WIDTH && mouse_y >= TERMINATE_ORIGIN_Y && mouse_y <= TERMINATE_ORIGIN_Y + TERMINATE_HEIGHT) // manual 버튼 클릭시
+			else if (mouse_x >= TERMINATE_ORIGIN_X && mouse_x <= TERMINATE_ORIGIN_X + 2 * TERMINATE_WIDTH && mouse_y >= TERMINATE_ORIGIN_Y && mouse_y <= TERMINATE_ORIGIN_Y + TERMINATE_HEIGHT) // 종료 버튼 클릭시
 			{
 				removeAll();
 				return 1;
@@ -1500,6 +1500,155 @@ int checkEvent()
 	return EVENT_NONE;
 }
 
+int drawStageClear()
+{
+	removeAll();
+	int chapx = 48;
+	int chapy = 4;
+	if (curStageInfo /10 == 0)
+	{
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 2);
+	}
+	else if (curStageInfo / 10 == 1)
+	{
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 3);
+		chapx -= 10;
+	}
+	else if (curStageInfo / 10 == 2)
+	{
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);
+	}
+	for (int j = 0; j < 6; j++)
+	{
+		for (int x = 0; x < 5; x++)
+		{
+			for (int y = 0; y < 5; y++)
+			{
+				SetCurrentCursorPos(chapx + (x * 2), chapy + y);
+				if (chapter[curStageInfo / 10][j][y][x] == 1)
+					printf("■");
+			}
+		}
+		chapx += 12;
+	}
+	chapx = 100;
+	chapy = 4;
+	if (curStageInfo / 10 == 1)
+		chapx += 10;
+	for (int x = 0; x < 5; x++)
+	{
+		for (int y = 0; y < 5; y++)
+		{
+			SetCurrentCursorPos(chapx + (x * 2), chapy + y);
+			if (num[curStageInfo%10][y][x] == 1)
+				printf("■");
+		}
+	}
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+	chapx = 46;
+	chapy = 11;
+	for (int j = 0; j < 6; j++)
+	{
+		for (int x = 0; x < 5; x++)
+		{
+			for (int y = 0; y < 5; y++)
+			{
+				SetCurrentCursorPos(chapx + (x * 2), chapy + y);
+				if (clear[j][y][x] == 1)
+					printf("■");
+			}
+		}
+		chapx += 12;
+	}
+	int x, y;
+	for (y = 0; y <= NEXT_STAGE_HEIGHT; y++)
+	{
+		SetCurrentCursorPos(NEXT_STAGE_ORIGIN_X, NEXT_STAGE_ORIGIN_Y + y);
+		if (y == NEXT_STAGE_HEIGHT)
+			printf("┗");
+		else if (y == 0)
+			printf("┏");
+		else
+			printf("┃");
+	}
+	for (y = 0; y <= NEXT_STAGE_HEIGHT; y++)
+	{
+		SetCurrentCursorPos(NEXT_STAGE_ORIGIN_X + (NEXT_STAGE_WIDTH + 1) * 2, NEXT_STAGE_ORIGIN_Y + y);
+		if (y == NEXT_STAGE_HEIGHT)
+			printf("┛");
+		else if (y == 0)
+			printf("┓");
+		else
+			printf("┃");
+	}
+	for (x = 1; x < NEXT_STAGE_WIDTH + 1; x++)
+	{
+		SetCurrentCursorPos(NEXT_STAGE_ORIGIN_X + x * 2, NEXT_STAGE_ORIGIN_Y);
+		printf("━");
+	}
+	for (x = 1; x < NEXT_STAGE_WIDTH + 1; x++)
+	{
+		SetCurrentCursorPos(NEXT_STAGE_ORIGIN_X + x * 2, NEXT_STAGE_ORIGIN_Y + NEXT_STAGE_HEIGHT);
+		printf("━");
+	}
+	int nextstageX = NEXT_STAGE_ORIGIN_X + 8;
+	int nextstageY = NEXT_STAGE_ORIGIN_Y + 2;
+	SetCurrentCursorPos(nextstageX, nextstageY);
+	printf("다음 스테이지 시작하기 ");
+
+	for (y = 0; y <= OTHER_STAGE_HEIGHT; y++)
+	{
+		SetCurrentCursorPos(OTHER_STAGE_ORIGIN_X, OTHER_STAGE_ORIGIN_Y + y);
+		if (y == OTHER_STAGE_HEIGHT)
+			printf("┗");
+		else if (y == 0)
+			printf("┏");
+		else
+			printf("┃");
+	}
+	for (y = 0; y <= OTHER_STAGE_HEIGHT; y++)
+	{
+		SetCurrentCursorPos(OTHER_STAGE_ORIGIN_X + (OTHER_STAGE_WIDTH + 1) * 2, OTHER_STAGE_ORIGIN_Y + y);
+		if (y == OTHER_STAGE_HEIGHT)
+			printf("┛");
+		else if (y == 0)
+			printf("┓");
+		else
+			printf("┃");
+	}
+	for (x = 1; x < OTHER_STAGE_WIDTH + 1; x++)
+	{
+		SetCurrentCursorPos(OTHER_STAGE_ORIGIN_X + x * 2, OTHER_STAGE_ORIGIN_Y);
+		printf("━");
+	}
+	for (x = 1; x < OTHER_STAGE_WIDTH + 1; x++)
+	{
+		SetCurrentCursorPos(OTHER_STAGE_ORIGIN_X + x * 2, OTHER_STAGE_ORIGIN_Y + OTHER_STAGE_HEIGHT);
+		printf("━");
+	}
+	int otherstageX = OTHER_STAGE_ORIGIN_X + 6;
+	int otherstageY = OTHER_STAGE_ORIGIN_Y + 2;
+	SetCurrentCursorPos(otherstageX, otherstageY);
+	printf("스테이지 선택으로 돌아가기");
+	while (1)
+	{
+		int m = CheckMouse();
+		if (m == 1)
+		{
+			if (mouse_x >= START_ORIGIN_X && mouse_x <= START_ORIGIN_X + 2 * START_WIDTH && mouse_y >= START_ORIGIN_Y && mouse_y <= START_ORIGIN_Y + START_HEIGHT) // start 버튼 클릭시
+			{
+				removeAll();
+				return 1;
+			}
+			else if (mouse_x >= OTHER_STAGE_ORIGIN_X && mouse_x <= OTHER_STAGE_ORIGIN_X + 2 * OTHER_STAGE_WIDTH && mouse_y >= OTHER_STAGE_ORIGIN_Y && mouse_y <= OTHER_STAGE_ORIGIN_Y + OTHER_STAGE_HEIGHT) // manual 버튼 클릭시
+			{
+				removeAll();
+				return 0;
+			}
+		}
+	}
+}
+
 //스크롤바 삭제하는 방법
 void remove_scrollbar()
 {
@@ -1540,6 +1689,46 @@ void BasicSetting() {
 	SetConsoleMode(COUT, ENABLE_PROCESSED_INPUT | ENABLE_MOUSE_INPUT);// ?★ 마우스 입력모드로 변경
 }
 
+void getSavedFile()
+{
+	char* filename = "c:\\tmp\\test.txt";
+	FILE* file = fopen(filename, "r");
+	// 파일이 존재하지 않을 경우 오류 메시지 출력 후 종료
+	if (file == NULL) {
+		//fprintf(stderr, "파일을 열 수 없습니다: %s\n", filename);
+		return 1;
+	}
+
+	// 파일에서 숫자 읽어서 배열에 저장
+	for (int i = 0; i < MAP_COUNT; i++) {
+		// 파일에서 한 글자씩 읽어서 int로 변환하여 배열에 저장
+		int value;
+		if (fscanf(file, "%d", &value) != 1) {
+			fprintf(stderr, "파일 형식이 올바르지 않습니다.\n");
+			fclose(file);
+			break;
+		}
+		clearmap[i] = value;
+	}
+	fclose(file);
+}
+void setSaveFile()
+{
+	char* filename = "c:\\tmp\\test.txt";
+	FILE* file = fopen(filename, "w");
+	if (file == NULL) {
+		//fprintf(stderr, "파일을 열 수 없습니다: %s\n", filename);
+		return 1;
+	}
+
+	// 배열 값을 파일에 쓰기
+	for (int i = 0; i < MAP_COUNT; i++) {
+		fprintf(file, "%d ", clearmap[i]);
+	}
+
+	// 파일 닫기
+	fclose(file);
+}
 // 마우스 클릭 확인 및 좌표 반환
 int CheckMouse()
 {
@@ -1613,13 +1802,23 @@ void startStage() {
 					event = checkEvent();
 					if (event == EVENT_STAGE_CLEAR) // 스테이지 클리어 시 StageClear 화면 출력, 맵 초기화 후 현재 명령 블록 수행 종료
 					{
-						// StageClear 화면 출력
-						clearmap[curStageInfo] = 1;
-						curStageInfo++;
-						drawStageInfo();
-						drawBlock();
-						resetStage();
-						break;
+						if (drawStageClear())
+						{
+							// StageClear 화면 출력
+							clearmap[curStageInfo] = 1;
+							curStageInfo++;
+							resetStage();
+							drawUI();
+							showPC();
+							break;
+						}
+						else
+						{
+							clearmap[curStageInfo] = 1;
+							curStageInfo++;
+							removeAll();
+							return;
+						}
 					}
 					else if (event == EVENT_TRAP)	// 함정 충돌 시 현재 시뮬레이션 종료 후 현재 명령 블록 수행 종료
 					{

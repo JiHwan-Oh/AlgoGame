@@ -1,4 +1,5 @@
-﻿#include "main.h"
+﻿#pragma warning(disable:4996)
+#include "main.h"
 
 #ifndef __BLOCK_H__
 #define __BLOCK_H__
@@ -65,6 +66,20 @@
 
 #define SELECT_ORIGIN_X 7
 #define SELECT_ORIGIN_Y 9
+
+// 다음 스테이지 시작 버튼
+#define NEXT_STAGE_WIDTH 17
+#define NEXT_STAGE_HEIGHT 4
+
+#define NEXT_STAGE_ORIGIN_X 60
+#define NEXT_STAGE_ORIGIN_Y 25
+
+// 다른 스테이지 시작 버튼
+#define OTHER_STAGE_WIDTH 17
+#define OTHER_STAGE_HEIGHT 4
+
+#define OTHER_STAGE_ORIGIN_X 60
+#define OTHER_STAGE_ORIGIN_Y 30
 
 // 스크린
 #define SCREEN_WIDTH 75
@@ -178,6 +193,8 @@ int mouse_y;// 마우스 커서 y축
 INPUT_RECORD rec;	//﻿★ INPUT_RECORD 는 마우스 이벤트 정보들을 가지고있다,
 DWORD        dwNOER;//★ 참고로 DWORD는 unsigned long 을 뜻한다 0~4294967295 (0 ~ 2^32-1)
 
+void getSavedFile();
+void setSaveFile();
 void remove_scrollbar();
 void BasicSetting();
 int CheckMouse();
@@ -208,6 +225,7 @@ int drawTitle();
 int drawManual();
 void removeAll();
 int drawStageSelect();
+int drawStageClear();
 
 void loadMapInfo();
 void initBlockArray();

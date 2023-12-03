@@ -13,6 +13,7 @@ void init()
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 	system("mode con cols=154 lines=47");
 	RemoveCursor();
+	getSavedFile();
 }
 
 void SetCurrentCursorPos(int x, int y)
