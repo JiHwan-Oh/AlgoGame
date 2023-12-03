@@ -1558,6 +1558,14 @@ int drawStageClear()
 		}
 		chapx += 12;
 	}
+	chapx = 66;
+	chapy = 19;
+	SetCurrentCursorPos(chapx, chapy);
+	printf("사용한 명령 블럭의 개수 : %d", blockCount);
+	chapx = 70;
+	chapy = 21;
+	SetCurrentCursorPos(chapx, chapy);
+	printf("획득한 별 : ★ ★ ★");
 	int x, y;
 	for (y = 0; y <= NEXT_STAGE_HEIGHT; y++)
 	{
@@ -1756,7 +1764,6 @@ int CheckMouse()
 
 // 스테이지 시작 함수
 void startStage() {
-	BasicSetting();
 	initBlockArray();
 	loadMapInfo();
 	drawUI();
