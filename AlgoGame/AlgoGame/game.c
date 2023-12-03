@@ -338,10 +338,22 @@ int drawStageSelect()
 			SetCurrentCursorPos(SELECT_ORIGIN_X + plusx * j + 6, SELECT_ORIGIN_Y + plusy * i + 1);
 			printf("%d", j + 1);
 			SetCurrentCursorPos(SELECT_ORIGIN_X + plusx * j + 3, SELECT_ORIGIN_Y + plusy * i + 3);
-			if (clearmap[10 * i + j] == 0)
+			switch (stageClearInfo[10 * i + j]) {
+			case 0:
 				printf("☆ ☆ ☆");
-			else
+				break;
+			case 1:
+				printf("★ ☆ ☆");
+				break;
+			case 2:
+				printf("★ ★ ☆");
+				break;
+			case 3:
 				printf("★ ★ ★");
+				break;
+			default:
+				break;
+			}
 			for (y = 0; y <= SELECT_HEIGHT; y++)
 			{
 				SetCurrentCursorPos(SELECT_ORIGIN_X + plusx * j, SELECT_ORIGIN_Y + y + plusy * i);
@@ -1591,9 +1603,9 @@ int drawStageClear()
 		SetCurrentCursorPos(NEXT_STAGE_ORIGIN_X + x * 2, NEXT_STAGE_ORIGIN_Y + NEXT_STAGE_HEIGHT);
 		printf("━");
 	}
-	int nextstageX = NEXT_STAGE_ORIGIN_X + 8;
-	int nextstageY = NEXT_STAGE_ORIGIN_Y + 2;
-	SetCurrentCursorPos(nextstageX, nextstageY);
+	int nextStageX = NEXT_STAGE_ORIGIN_X + 8;
+	int nextStageY = NEXT_STAGE_ORIGIN_Y + 2;
+	SetCurrentCursorPos(nextStageX, nextStageY);
 	printf("다음 스테이지 시작하기 ");
 
 	for (y = 0; y <= OTHER_STAGE_HEIGHT; y++)
@@ -1626,23 +1638,21 @@ int drawStageClear()
 		SetCurrentCursorPos(OTHER_STAGE_ORIGIN_X + x * 2, OTHER_STAGE_ORIGIN_Y + OTHER_STAGE_HEIGHT);
 		printf("━");
 	}
-	int otherstageX = OTHER_STAGE_ORIGIN_X + 6;
-	int otherstageY = OTHER_STAGE_ORIGIN_Y + 2;
-	SetCurrentCursorPos(otherstageX, otherstageY);
+	int otherStageX = OTHER_STAGE_ORIGIN_X + 6;
+	int otherStageY = OTHER_STAGE_ORIGIN_Y + 2;
+	SetCurrentCursorPos(otherStageX, otherStageY);
 	printf("스테이지 선택으로 돌아가기");
 	while (1)
 	{
 		int m = CheckMouse();
 		if (m == 1)
 		{
-			if (mouse_x >= START_ORIGIN_X && mouse_x <= START_ORIGIN_X + 2 * START_WIDTH && mouse_y >= START_ORIGIN_Y && mouse_y <= START_ORIGIN_Y + START_HEIGHT) // start 버튼 클릭시
+			if (mouse_x >= START_ORIGIN_X && mouse_x <= START_ORIGIN_X + 2 * START_WIDTH && mouse_y >= START_ORIGIN_Y && mouse_y <= START_ORIGIN_Y + START_HEIGHT) // 다음 스테이지 버튼 클릭시
 			{
-				removeAll();
 				return 1;
 			}
-			else if (mouse_x >= OTHER_STAGE_ORIGIN_X && mouse_x <= OTHER_STAGE_ORIGIN_X + 2 * OTHER_STAGE_WIDTH && mouse_y >= OTHER_STAGE_ORIGIN_Y && mouse_y <= OTHER_STAGE_ORIGIN_Y + OTHER_STAGE_HEIGHT) // manual 버튼 클릭시
+			else if (mouse_x >= OTHER_STAGE_ORIGIN_X && mouse_x <= OTHER_STAGE_ORIGIN_X + 2 * OTHER_STAGE_WIDTH && mouse_y >= OTHER_STAGE_ORIGIN_Y && mouse_y <= OTHER_STAGE_ORIGIN_Y + OTHER_STAGE_HEIGHT) // 스테이지 선택 버튼 클릭시
 			{
-				removeAll();
 				return 0;
 			}
 		}
@@ -1708,7 +1718,7 @@ void getSavedFile()
 			fclose(file);
 			break;
 		}
-		clearmap[i] = value;
+		stageClearInfo[i] = value;
 	}
 	fclose(file);
 }
@@ -1723,7 +1733,7 @@ void setSaveFile()
 
 	// 배열 값을 파일에 쓰기
 	for (int i = 0; i < MAP_COUNT; i++) {
-		fprintf(file, "%d ", clearmap[i]);
+		fprintf(file, "%d ", stageClearInfo[i]);
 	}
 
 	// 파일 닫기
@@ -1760,6 +1770,8 @@ int CheckMouse()
 void startStage() {
 	BasicSetting();
 	initBlockArray();
+	resetBlockCount();
+	resetItem();
 	loadMapInfo();
 	drawUI();
 	player = initialPCPos[curStageInfo];
@@ -1802,20 +1814,33 @@ void startStage() {
 					event = checkEvent();
 					if (event == EVENT_STAGE_CLEAR) // 스테이지 클리어 시 StageClear 화면 출력, 맵 초기화 후 현재 명령 블록 수행 종료
 					{
-						if (drawStageClear())
+						// 블록 개수 기준에 따라 해당 스테이지의 별 획득
+						if (blockCount <= blockCountToGetStar[curStageInfo][0])			// 별 3개 획득
 						{
-							// StageClear 화면 출력
-							clearmap[curStageInfo] = 1;
+							if (stageClearInfo[curStageInfo] < 3)
+								stageClearInfo[curStageInfo] = 3;
+						}
+						else if (blockCount <= blockCountToGetStar[curStageInfo][1])	// 별 2개 획득	
+						{
+							if (stageClearInfo[curStageInfo] < 2)
+								stageClearInfo[curStageInfo] = 2;
+						}
+						else															// 별 1개 획득
+						{
+							if (stageClearInfo[curStageInfo] < 1)
+								stageClearInfo[curStageInfo] = 1;
+						}
+						if (drawStageClear())	// 다음 스테이지로 이동
+						{
+							removeAll();
 							curStageInfo++;
 							resetStage();
 							drawUI();
 							showPC();
 							break;
 						}
-						else
+						else					// 스테이지 선택 화면으로 이동
 						{
-							clearmap[curStageInfo] = 1;
-							curStageInfo++;
 							removeAll();
 							return;
 						}

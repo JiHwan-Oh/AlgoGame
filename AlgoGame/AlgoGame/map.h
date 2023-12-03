@@ -10,7 +10,7 @@
 #endif
 
 // 스테이지 클리어 정보
-int clearmap[MAP_COUNT] = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
+int stageClearInfo[MAP_COUNT] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
 // 스테이지 별 맵 정보
 int map[MAP_COUNT][MAP_WIDTH][MAP_HEIGHT] =
@@ -596,7 +596,6 @@ int blockLimit[MAP_COUNT] = {
 };
 
 // 별 획득을 위한 블록 개수 기준 (앞에서부터 3별, 2별 기준, 6이라면 블록을 6개 이하로 사용해야 해당 별 기준 충족)
-/*
 int blockCountToGetStar[MAP_COUNT][2] = {
 	// STAGE 1-1
 	{ 3, 3 },
@@ -607,13 +606,13 @@ int blockCountToGetStar[MAP_COUNT][2] = {
 	// STAGE 1-4
 	{ 24, 24 },
 	// STAGE 1-5
-	{ 18, 20 }
+	{ 18, 20 },
 	// STAGE 1-6
-	{ 9, 11 }
+	{ 9, 11 },
 	// STAGE 1-7
-	{ 11, 15 }
+	{ 11, 15 },
 	// STAGE 1-8
-	{ 13, 17 }
+	{ 13, 17 },
 	// STAGE 1-9
 	{ 24, 24 },
 	// STAGE 1-10
@@ -631,32 +630,31 @@ int blockCountToGetStar[MAP_COUNT][2] = {
 	// STAGE 2-6
 	{ 20, 22 },
 	// STAGE 2-7
-	4,
+	{ 0, 0 },
 	// STAGE 2-8
-	4,
+	{ 0, 0 },
 	// STAGE 2-9
-	4,
+	{ 0, 0 },
 	// STAGE 2-10
-	4,
+	{ 0, 0 },
 	// STAGE 3-1
-	4,
+	{ 0, 0 },
 	// STAGE 3-2
-	4,
+	{ 0, 0 },
 	// STAGE 3-3
-	4,
+	{ 0, 0 },
 	// STAGE 3-4
-	4,
+	{ 0, 0 },
 	// STAGE 3-5
-	4,
+	{ 0, 0 },
 	// STAGE 3-6
-	4,
+	{ 0, 0 },
 	// STAGE 3-7
-	4,
+	{ 0, 0 },
 	// STAGE 3-8
-	4,
+	{ 0, 0 },
 	// STAGE 3-9
-	4,
+	{ 0, 0 },
 	// STAGE 3-10
-	4
-}
-*/
+	{ 0, 0 },
+};
