@@ -206,36 +206,36 @@ int drawManual()
 	printf("     아래에 있는 명령블록들을 이용해 캐릭터를 움직일 수 있습니다.");
 
 	SetCurrentCursorPos(18, 7); // 전진
-	printf(": 캐릭터가 바라보는 방향으로 한 칸 전진합니다.   예)                  >>>");
-	drawObject(74, 6, 1); drawObject(80, 6, 1); drawObject(94, 6, 1); drawObject(100, 6, 1);
-	SetCurrentCursorPos(76, 7); printf("→"); SetCurrentCursorPos(102, 7); printf("→");
+	printf(": 캐릭터가 바라보는 방향으로 한 칸 전진합니다.          예)                     >>");
+	drawObject(82, 6, 1); drawObject(88, 6, 1); drawObject(104, 6, 1); drawObject(110, 6, 1);
+	SetCurrentCursorPos(84, 7); printf("→"); SetCurrentCursorPos(112, 7); printf("→");
 
 	SetCurrentCursorPos(18, 13); // 좌측
-	printf(": 캐릭터가 왼쪽을 바라보게 합니다.   예) 캐릭터가 → 였다면 이 명령블록 사용후 캐릭터는 ↑ 이 됩니다.");
+	printf(": 캐릭터가 왼쪽을 바라보게 합니다.                      예) 캐릭터가 → 였다면 이 명령블록 사용후 캐릭터는 ↑ 이 됩니다.");
 	SetCurrentCursorPos(18, 19); // 우측
-	printf(": 캐릭터가 오른쪽을 바라보게 합니다.   예) 캐릭터가 → 였다면 이 명령블록 사용후 캐릭터는 ↓ 이 됩니다.");
+	printf(": 캐릭터가 오른쪽을 바라보게 합니다.                    예) 캐릭터가 → 였다면 이 명령블록 사용후 캐릭터는 ↓ 이 됩니다.");
 
-	SetCurrentCursorPos(18, 25); // 아이템 획득
-	printf(": 캐릭터가 위치한 칸에 있는 아이템을 획득합니다.        예)  열쇠 :             점프:");
-	SetCurrentCursorPos(18, 26); 
-	printf("  화면 우측 상단에 보유한 아이템 갯수가 표시됩니다.");
-	drawObject(86, 24, 5); drawObject(104, 24, 6);
-	SetCurrentCursorPos(88, 25); printf("→"); SetCurrentCursorPos(106, 25); printf("→");
-
-	SetCurrentCursorPos(18, 31); // key 사용
-	printf(": 캐릭터가 위치한 칸의 상하좌우 칸이 벽일 경우 지나갈 수 있는 길로 주변 칸을 변경합니다.      예)                >>>");
-	drawObject(120, 31, 1); drawObject(120, 28, 4); drawObject(140, 31, 1); drawObject(140, 28, 1);
-	SetCurrentCursorPos(122, 32); printf("↑"); SetCurrentCursorPos(142, 32); printf("↑");
-
-	SetCurrentCursorPos(18, 37); // shield 사용
-	printf(": 캐릭터가 바로 다음 전진하는 칸이 가시밭 길 이더라도 캐릭터가 죽지 않습니다.       예)                    >>>");
-	drawObject(110, 36, 1); drawObject(116, 36, 2); drawObject(130, 36, 1); drawObject(136, 36, 2);
-	SetCurrentCursorPos(112, 37); printf("→"); SetCurrentCursorPos(138, 37); printf("→");
-
-	SetCurrentCursorPos(18, 43); // portal 사용
+	SetCurrentCursorPos(18, 25); // 포탈 사용
 	printf(": 캐릭터가 포탈 칸에 있을 때 사용할 경우. 다른 포탈 칸으로 캐릭터를 이동시킵니다.    예)");
-	drawObject(110, 42, 1); drawObject(116, 42, 3); drawObject(130, 42, 3); drawObject(136, 42, 1);
-	SetCurrentCursorPos(118, 43); printf("→"); SetCurrentCursorPos(132, 43); printf("→");
+	drawObject(110, 24, 1); drawObject(116, 24, 3); drawObject(130, 24, 3); drawObject(136, 24, 1);
+	SetCurrentCursorPos(118, 25); printf("→"); SetCurrentCursorPos(132, 25); printf("→");
+
+	SetCurrentCursorPos(18, 31); // 아이템 획득
+	printf(": 캐릭터가 위치한 칸에 있는 아이템을 획득합니다.        예)  열쇠 :             점프:");
+	SetCurrentCursorPos(18, 26);
+	printf("  화면 우측 상단에 보유한 아이템 갯수가 표시됩니다.");
+	drawObject(86, 30, 5); drawObject(104, 30, 6);
+	SetCurrentCursorPos(88, 31); printf("→"); SetCurrentCursorPos(106, 31); printf("→");
+
+	SetCurrentCursorPos(18, 37); // 열쇠 사용
+	printf(": 캐릭터가 위치한 칸의 상하좌우 칸이 벽일 경우 지나갈 수 있는 길로 주변 칸을 변경합니다.     예)                >>");
+	drawObject(120, 37, 1); drawObject(120, 34, 4); drawObject(136, 37, 1); drawObject(136, 34, 1);
+	SetCurrentCursorPos(122, 38); printf("↑"); SetCurrentCursorPos(138, 38); printf("↑");
+
+	SetCurrentCursorPos(18, 43); // 점프 사용
+	printf(": 캐릭터가 바라보는 방향의 두 칸 앞으로 이동합니다.     예)                         >>");
+	drawObject(80, 42, 1); drawObject(86, 42, 1); drawObject(92, 42, 1); drawObject(108, 42, 1); drawObject(114, 42, 1); drawObject(120, 42, 1);
+	SetCurrentCursorPos(82, 43); printf("→"); SetCurrentCursorPos(122, 43); printf("→");
 
 	for (y = 0; y <= MANUAL_BACK_HEIGHT; y++)
 	{
