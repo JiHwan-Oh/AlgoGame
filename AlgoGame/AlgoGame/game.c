@@ -929,16 +929,31 @@ void drawDialogue()
 	// 대화 출력
 	int diaX = DIALOGUE_ORIGIN_X + 2;
 	int diaY = DIALOGUE_ORIGIN_Y + 1;
-	SetCurrentCursorPos(diaX, diaY++);
-	printf("Hello");
-	SetCurrentCursorPos(diaX, diaY++);
-	printf("My name is ");
-	SetCurrentCursorPos(diaX, diaY++);
-	printf("My age is ");
-	SetCurrentCursorPos(diaX, diaY++);
-	printf("Im from ");
-	SetCurrentCursorPos(diaX, diaY++);
-	printf("My major is ");
+	for (int y = 0; y < 5; y++) {
+		SetCurrentCursorPos(diaX, diaY + y);
+		printf("%s", stageDialogue[curStageInfo][y]);
+	}
+}
+
+// 대화창에 스크립트 출력
+void showHintDialogue(int dialogueIndex) {
+	int diaX = DIALOGUE_ORIGIN_X + 2;
+	int diaY = DIALOGUE_ORIGIN_Y + 1;
+	removeDialogue();
+	for (int y = 0; y < 5; y++) {
+		SetCurrentCursorPos(diaX, diaY + y);
+		printf("%s", hintDialogue[dialogueIndex][y]);
+	}
+}
+
+// 대화창 내용 전부 지우기
+void removeDialogue() {
+	int diaX = DIALOGUE_ORIGIN_X + 2;
+	int diaY = DIALOGUE_ORIGIN_Y + 1;
+	for (int y = 0; y < 5; y++) {
+		SetCurrentCursorPos(diaX, diaY + y);
+		printf("                                                ");
+	}
 }
 
 // 오브젝트를 화면에 그림
@@ -1297,7 +1312,6 @@ void goStraight()
 		Sleep(simulationSpeed);
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 		deletePC();
-		// $$ 앞이 벽이라 지나갈 수 없다는 Dialogue 출력
 	}
 	showPC();
 }
@@ -1462,6 +1476,7 @@ int checkStageClear()
 	return 0;
 }
 
+// 플레이어 캐릭터의 (distance)칸 앞에 벽이 있는지 체크
 int checkWall(int distance)
 {
 	int nextPosX = player.x;
@@ -1484,16 +1499,20 @@ int checkWall(int distance)
 		break;
 	}
 
-	if (curMap[nextPosY][nextPosX] == 0 || curMap[nextPosY][nextPosX] == 4 || nextPosX < 0 || nextPosX >= 12 || nextPosY < 0 || nextPosY >= 12)
+	if (curMap[nextPosY][nextPosX] == 0 || curMap[nextPosY][nextPosX] == 4 || nextPosX < 0 || nextPosX >= 12 || nextPosY < 0 || nextPosY >= 12) {
+		showHintDialogue(DIALOGUE_WALL_COLLISION);	// 앞이 벽이라 지나갈 수 없다는 Dialogue 출력
 		return 1;
+	}
 	return 0;
 }
 
 // 함정과 충돌했다면 1 반환, 충돌하지 않았다면 0 반환
 int checkTrap()
 {
-	if (curMap[player.y][player.x] == 2) // 현재 위치가 함정일 경우
+	if (curMap[player.y][player.x] == 2) { // 현재 위치가 함정일 경우
+		showHintDialogue(DIALOGUE_TRAP_COLLISION);
 		return 1;
+	}
 	return 0;
 }
 
