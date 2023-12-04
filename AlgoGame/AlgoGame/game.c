@@ -1371,17 +1371,17 @@ void useKey()
 		curMap[player.y][player.x - 1] = 1;
 		drawObject(x + (6 * (player.x - 1)), y + (3 * player.y), 1);
 	}
-	else if (curMap[player.y][player.x + 1] == 4) // 우측 칸이 자물쇠인 경우
+	if (curMap[player.y][player.x + 1] == 4) // 우측 칸이 자물쇠인 경우
 	{
 		curMap[player.y][player.x + 1] = 1;
 		drawObject(x + (6 * (player.x + 1)), y + (3 * player.y), 1);
 	}
-	else if (curMap[player.y - 1][player.x] == 4) // 위 칸이 자물쇠인 경우
+	if (curMap[player.y - 1][player.x] == 4) // 위 칸이 자물쇠인 경우
 	{
 		curMap[player.y - 1][player.x] = 1;
 		drawObject(x + (6 * player.x), y + (3 * (player.y - 1)), 1);
 	}
-	else if (curMap[player.y + 1][player.x] == 4) // 아래 칸이 자물쇠인 경우
+	if (curMap[player.y + 1][player.x] == 4) // 아래 칸이 자물쇠인 경우
 	{
 		curMap[player.y + 1][player.x] = 1;
 		drawObject(x + (6 * player.x), y + (3 * (player.y + 1)), 1);
