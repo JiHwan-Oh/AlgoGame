@@ -81,12 +81,19 @@
 #define NEXT_STAGE_ORIGIN_X 60
 #define NEXT_STAGE_ORIGIN_Y 25
 
+// 현재 스테이지 재시작 버튼
+#define PRESENT_STAGE_WIDTH 17
+#define PRESENT_STAGE_HEIGHT 4
+
+#define PRESENT_STAGE_ORIGIN_X 60
+#define PRESENT_STAGE_ORIGIN_Y 30
+
 // 다른 스테이지 시작 버튼
 #define OTHER_STAGE_WIDTH 17
 #define OTHER_STAGE_HEIGHT 4
 
 #define OTHER_STAGE_ORIGIN_X 60
-#define OTHER_STAGE_ORIGIN_Y 30
+#define OTHER_STAGE_ORIGIN_Y 35
 
 // 스크린
 #define SCREEN_WIDTH 75

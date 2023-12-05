@@ -1600,6 +1600,27 @@ int drawStageClear()
 		}
 		chapx += 12;
 	}
+	chapx = 66;
+	chapy = 19;
+	SetCurrentCursorPos(chapx, chapy);
+	printf("사용한 명령 블럭의 개수 : %d", blockCount);
+	chapx = 70;
+	chapy = 21;
+	SetCurrentCursorPos(chapx, chapy);
+	switch (stageClearInfo[curStageInfo])
+	{
+	case 1:
+		printf("획득한 별 : ★ ☆ ☆");
+		break;
+	case 2:
+		printf("획득한 별 : ★ ★ ☆");
+		break;
+	case 3:
+		printf("획득한 별 : ★ ★ ★");
+		break;
+	default:
+		break;
+	}
 	int x, y;
 	for (y = 0; y <= NEXT_STAGE_HEIGHT; y++)
 	{
@@ -1635,6 +1656,41 @@ int drawStageClear()
 	int nextStageY = NEXT_STAGE_ORIGIN_Y + 2;
 	SetCurrentCursorPos(nextStageX, nextStageY);
 	printf("다음 스테이지 시작하기 ");
+
+	for (y = 0; y <= PRESENT_STAGE_HEIGHT; y++)
+	{
+		SetCurrentCursorPos(PRESENT_STAGE_ORIGIN_X, PRESENT_STAGE_ORIGIN_Y + y);
+		if (y == PRESENT_STAGE_HEIGHT)
+			printf("┗");
+		else if (y == 0)
+			printf("┏");
+		else
+			printf("┃");
+	}
+	for (y = 0; y <= PRESENT_STAGE_HEIGHT; y++)
+	{
+		SetCurrentCursorPos(PRESENT_STAGE_ORIGIN_X + (PRESENT_STAGE_WIDTH + 1) * 2, PRESENT_STAGE_ORIGIN_Y + y);
+		if (y == PRESENT_STAGE_HEIGHT)
+			printf("┛");
+		else if (y == 0)
+			printf("┓");
+		else
+			printf("┃");
+	}
+	for (x = 1; x < PRESENT_STAGE_WIDTH + 1; x++)
+	{
+		SetCurrentCursorPos(PRESENT_STAGE_ORIGIN_X + x * 2, PRESENT_STAGE_ORIGIN_Y);
+		printf("━");
+	}
+	for (x = 1; x < PRESENT_STAGE_WIDTH + 1; x++)
+	{
+		SetCurrentCursorPos(PRESENT_STAGE_ORIGIN_X + x * 2, PRESENT_STAGE_ORIGIN_Y + PRESENT_STAGE_HEIGHT);
+		printf("━");
+	}
+	int presentStageX = PRESENT_STAGE_ORIGIN_X + 8;
+	int presentStageY = PRESENT_STAGE_ORIGIN_Y + 2;
+	SetCurrentCursorPos(presentStageX, presentStageY);
+	printf("현재 스테이지 다시하기 ");
 
 	for (y = 0; y <= OTHER_STAGE_HEIGHT; y++)
 	{
@@ -1678,6 +1734,10 @@ int drawStageClear()
 			if (mouse_x >= START_ORIGIN_X && mouse_x <= START_ORIGIN_X + 2 * START_WIDTH && mouse_y >= START_ORIGIN_Y && mouse_y <= START_ORIGIN_Y + START_HEIGHT) // 다음 스테이지 버튼 클릭시
 			{
 				return 1;
+			}
+			else if (mouse_x >= PRESENT_STAGE_ORIGIN_X && mouse_x <= PRESENT_STAGE_ORIGIN_X + 2 * PRESENT_STAGE_WIDTH && mouse_y >= PRESENT_STAGE_ORIGIN_Y && mouse_y <= PRESENT_STAGE_ORIGIN_Y + PRESENT_STAGE_HEIGHT) // 스테이지 선택 버튼 클릭시
+			{
+				return 2;
 			}
 			else if (mouse_x >= OTHER_STAGE_ORIGIN_X && mouse_x <= OTHER_STAGE_ORIGIN_X + 2 * OTHER_STAGE_WIDTH && mouse_y >= OTHER_STAGE_ORIGIN_Y && mouse_y <= OTHER_STAGE_ORIGIN_Y + OTHER_STAGE_HEIGHT) // 스테이지 선택 버튼 클릭시
 			{
@@ -1764,8 +1824,6 @@ void setSaveFile()
 	for (int i = 0; i < MAP_COUNT; i++) {
 		fprintf(file, "%d ", stageClearInfo[i]);
 	}
-
-	// 파일 닫기
 	fclose(file);
 }
 
@@ -1798,7 +1856,6 @@ int CheckMouse()
 
 // 스테이지 시작 함수
 void startStage() {
-	BasicSetting();
 	initBlockArray();
 	resetBlockCount();
 	resetItem();
@@ -1860,19 +1917,27 @@ void startStage() {
 							if (stageClearInfo[curStageInfo] < 1)
 								stageClearInfo[curStageInfo] = 1;
 						}
-						if (drawStageClear())	// 다음 스테이지로 이동
+						setSaveFile();
+						switch (drawStageClear())
 						{
+						case 0: // 스테이지 선택 화면으로 이동
+							removeAll();
+							return;
+						case 1: // 다음 스테이지로 이동
 							removeAll();
 							curStageInfo++;
 							resetStage();
 							drawUI();
 							showPC();
 							break;
-						}
-						else					// 스테이지 선택 화면으로 이동
-						{
+						case 2: // 현재 스테이지 다시시작
 							removeAll();
-							return;
+							resetStage();
+							drawUI();
+							showPC();
+							break;
+						default:
+							break;
 						}
 					}
 					else if (event == EVENT_TRAP)	// 함정 충돌 시 현재 시뮬레이션 종료 후 현재 명령 블록 수행 종료

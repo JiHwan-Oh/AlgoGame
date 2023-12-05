@@ -6,7 +6,6 @@ int main()
 	while (1) {
 		if (drawTitle())
 		{
-			setSaveFile();
 			system("cls");
 			return 0;
 		}
