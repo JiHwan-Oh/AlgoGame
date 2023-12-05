@@ -1579,7 +1579,20 @@ int drawStageClear()
 	chapx = 70;
 	chapy = 21;
 	SetCurrentCursorPos(chapx, chapy);
-	printf("획득한 별 : ★ ★ ★");
+	switch (stageClearInfo[curStageInfo])
+	{
+	case 1:
+		printf("획득한 별 : ★");
+		break;
+	case 2:
+		printf("획득한 별 : ★ ★");
+		break;
+	case 3:
+		printf("획득한 별 : ★ ★ ★");
+		break;
+	default:
+		break;
+	}
 	int x, y;
 	for (y = 0; y <= NEXT_STAGE_HEIGHT; y++)
 	{
