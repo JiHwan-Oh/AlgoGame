@@ -26,6 +26,14 @@
 
 #endif
 
+#ifndef __MMSYSTEM_H__
+#define __MMSYSTEM_H__
+
+#include <mmsystem.h>
+
+#endif
+
+
 #ifndef STRUCT_INFO
 #define STRUCT_INFO
 

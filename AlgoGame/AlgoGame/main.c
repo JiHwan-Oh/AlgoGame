@@ -1,5 +1,6 @@
 ﻿#include "main.h"
 #pragma warning(disable:4996)
+#pragma comment (lib, "winmm.lib")
 
 int main()
 {	
