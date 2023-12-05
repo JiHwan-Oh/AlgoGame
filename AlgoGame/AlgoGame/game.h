@@ -22,6 +22,13 @@
 
 #endif
 
+#ifndef __DIALOGUE_H__
+#define __DIALOGUE_H__
+
+#include "dialogue.h"
+
+#endif
+
 #ifndef UI_INFO
 #define UI_INFO
 
@@ -211,6 +218,8 @@ void drawResetButton();
 void drawExitButton();
 void drawSpeedButton();
 void drawDialogue();
+void showHintDialogue(int dialogueIndex);
+void removeDialogue();
 void drawObject(int x, int y, int idx);
 void removeMap();
 void drawMap();
@@ -244,7 +253,7 @@ void gatherItem();
 void usePortal();
 void useKey();
 void useJump();
-void executeBlock();
+void executeBlock(int index);
 int checkStageClear();
 int checkWall(int distance);
 int checkTrap();
