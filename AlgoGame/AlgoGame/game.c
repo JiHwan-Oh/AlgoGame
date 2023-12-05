@@ -1788,12 +1788,12 @@ void BasicSetting() {
 
 void playingBGM() // 배경음악 재생
 {
-	sndPlaySoundA(BGM_PATH, SND_ASYNC | SND_LOOP);
+	sndPlaySoundA(BGM_PATH, SND_ASYNC | SND_LOOP | SND_NODEFAULT);
 }
 
 void playingClickSound() // 효과음 재생(배경음악이 꺼지는 단점이 있다.)
 {
-	sndPlaySoundA(CLICK_SOUND_PATH, SND_ASYNC | SND_ASYNC);
+	sndPlaySoundA(CLICK_SOUND_PATH, SND_ASYNC | SND_NODEFAULT);
 }
 
 void getSaveFile()

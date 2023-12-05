@@ -180,7 +180,7 @@
 #define FILE_INFO
 
 #define FILE_PATH "C:\\tmp\\test.txt"
-#define BGM_PATH "C:\\tmp\\BGM.wav"
+#define BGM_PATH "C:\\tmp\\BGMd.wav"
 #define CLICK_SOUND_PATH "C:\\tmp\\ClickSound.wav"
 
 #endif
