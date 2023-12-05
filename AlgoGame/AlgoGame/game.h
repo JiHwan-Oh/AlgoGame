@@ -200,7 +200,7 @@ int mouse_y;// 마우스 커서 y축
 INPUT_RECORD rec;	//﻿★ INPUT_RECORD 는 마우스 이벤트 정보들을 가지고있다,
 DWORD        dwNOER;//★ 참고로 DWORD는 unsigned long 을 뜻한다 0~4294967295 (0 ~ 2^32-1)
 
-void getSavedFile();
+void getSaveFile();
 void setSaveFile();
 void remove_scrollbar();
 void BasicSetting();

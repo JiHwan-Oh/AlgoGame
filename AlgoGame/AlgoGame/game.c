@@ -1727,14 +1727,14 @@ void BasicSetting() {
 	SetConsoleMode(COUT, ENABLE_PROCESSED_INPUT | ENABLE_MOUSE_INPUT);// ?★ 마우스 입력모드로 변경
 }
 
-void getSavedFile()
+void getSaveFile()
 {
 	char* filename = "c:\\tmp\\test.txt";
 	FILE* file = fopen(filename, "r");
 	// 파일이 존재하지 않을 경우 오류 메시지 출력 후 종료
 	if (file == NULL) {
 		//fprintf(stderr, "파일을 열 수 없습니다: %s\n", filename);
-		return 1;
+		return;
 	}
 
 	// 파일에서 숫자 읽어서 배열에 저장
@@ -1750,13 +1750,14 @@ void getSavedFile()
 	}
 	fclose(file);
 }
+
 void setSaveFile()
 {
 	char* filename = "c:\\tmp\\test.txt";
 	FILE* file = fopen(filename, "w");
 	if (file == NULL) {
 		//fprintf(stderr, "파일을 열 수 없습니다: %s\n", filename);
-		return 1;
+		return;
 	}
 
 	// 배열 값을 파일에 쓰기
@@ -1767,6 +1768,7 @@ void setSaveFile()
 	// 파일 닫기
 	fclose(file);
 }
+
 // 마우스 클릭 확인 및 좌표 반환
 int CheckMouse()
 {
