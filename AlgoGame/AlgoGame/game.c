@@ -1602,7 +1602,7 @@ int drawStageClear()
 	chapx = 66;
 	chapy = 19;
 	SetCurrentCursorPos(chapx, chapy);
-	printf("사용한 명령 블럭의 개수 : %d", blockCount);
+	printf("사용한 명령 블록의 개수 : %d", blockCount);
 	chapx = 70;
 	chapy = 21;
 	SetCurrentCursorPos(chapx, chapy);
@@ -1818,6 +1818,7 @@ void getSaveFile()
 	}
 	fclose(file);
 }
+
 void setSaveFile()
 {
 	FILE* file = fopen(FILE_PATH, "w");
@@ -1832,6 +1833,7 @@ void setSaveFile()
 	}
 	fclose(file);
 }
+
 // 마우스 클릭 확인 및 좌표 반환
 int CheckMouse()
 {
