@@ -1582,10 +1582,10 @@ int drawStageClear()
 	switch (stageClearInfo[curStageInfo])
 	{
 	case 1:
-		printf("획득한 별 : ★");
+		printf("획득한 별 : ★ ☆ ☆");
 		break;
 	case 2:
-		printf("획득한 별 : ★ ★");
+		printf("획득한 별 : ★ ★ ☆");
 		break;
 	case 3:
 		printf("획득한 별 : ★ ★ ★");
