@@ -1603,7 +1603,7 @@ int drawStageClear()
 	chapx = 66;
 	chapy = 19;
 	SetCurrentCursorPos(chapx, chapy);
-	printf("사용한 명령 블럭의 개수 : %d", blockCount);
+	printf("사용한 명령 블록의 개수 : %d", blockCount);
 	chapx = 70;
 	chapy = 21;
 	SetCurrentCursorPos(chapx, chapy);
