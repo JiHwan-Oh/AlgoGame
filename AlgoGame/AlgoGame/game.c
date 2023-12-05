@@ -1351,33 +1351,38 @@ void gatherItem()
 
 void usePortal()
 {
-	if (curMap[player.y][player.x] == 3)	// 현재 위치가 포탈인 경우
+	if (curMap[player.y][player.x] != 3)	// 현재 위치가 포탈인 경우
 	{
-		int isTeleported = 0;
-		for (int i = 0; i < 12; i++)
+		showHintDialogue(DIALOGUE_NO_PORTAL);
+		return;
+	}
+	int isTeleported = 0;
+	for (int i = 0; i < 12; i++)
+	{
+		for (int j = 0; j < 12; j++)
 		{
-			for (int j = 0; j < 12; j++)
+			if (curMap[i][j] == 3 && !(player.x == j && player.y == i))
 			{
-				if (curMap[i][j] == 3 && !(player.x == j && player.y == i))
-				{
-					deletePC();
-					player.x = j;
-					player.y = i;
-					showPC();
-					isTeleported = 1;
-					break;
-				}
-			}
-			if (isTeleported)
+				deletePC();
+				player.x = j;
+				player.y = i;
+				showPC();
+				isTeleported = 1;
 				break;
+			}
 		}
+		if (isTeleported)
+			break;
 	}
 }
 
 void useKey()
 {
 	if (key == 0)
+	{
+		showHintDialogue(DIALOGUE_NO_KEY);
 		return;
+	}
 	int x = GBOARD_ORIGIN_X + 2;
 	int y = GBOARD_ORIGIN_Y + 1;
 	if (curMap[player.y][player.x - 1] == 4) // 좌측 칸이 자물쇠인 경우
@@ -1408,7 +1413,10 @@ void useKey()
 void useJump()
 {
 	if (jump == 0)
+	{
+		showHintDialogue(DIALOGUE_NO_JUMP);
 		return;
+	}
 	deletePC();
 	if (!checkWall(2)) {
 		switch (player.dir)
@@ -1470,7 +1478,8 @@ void executeBlock(int index)
 // 스테이지 클리어 조건을 만족(도착점에 도달)했다면 1, 만족하지 않았다면 0 반환
 int checkStageClear()
 {
-	if (curMap[player.y][player.x] == 7) {
+	if (curMap[player.y][player.x] == 7)
+	{
 		return 1;
 	}
 	return 0;
@@ -1876,7 +1885,7 @@ void startStage() {
 				if (event != EVENT_STAGE_CLEAR && event != EVENT_TRAP)	// 명령 블록을 모두 수행한 후에도 스테이지를 클리어하지 못했다면 시뮬레이션 종료
 				{
 					stopSimulation();
-					// $$ 목표 지점에 도달하지 못했다는 Dialogue 출력
+					showHintDialogue(DIALOGUE_DEST_FAILED);
 				}
 			}
 			else if (mouse_x >= SPEED_ORIGIN_X && mouse_x <= SPEED_ORIGIN_X + 2 * SPEED_WIDTH && mouse_y >= SPEED_ORIGIN_Y && mouse_y <= SPEED_ORIGIN_Y + SPEED_HEIGHT) // speed버튼 클릭시
