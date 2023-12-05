@@ -81,12 +81,19 @@
 #define NEXT_STAGE_ORIGIN_X 60
 #define NEXT_STAGE_ORIGIN_Y 25
 
+// 현재 스테이지 재시작 버튼
+#define PRESENT_STAGE_WIDTH 17
+#define PRESENT_STAGE_HEIGHT 4
+
+#define PRESENT_STAGE_ORIGIN_X 60
+#define PRESENT_STAGE_ORIGIN_Y 30
+
 // 다른 스테이지 시작 버튼
 #define OTHER_STAGE_WIDTH 17
 #define OTHER_STAGE_HEIGHT 4
 
 #define OTHER_STAGE_ORIGIN_X 60
-#define OTHER_STAGE_ORIGIN_Y 30
+#define OTHER_STAGE_ORIGIN_Y 35
 
 // 스크린
 #define SCREEN_WIDTH 75
@@ -200,7 +207,7 @@ int mouse_y;// 마우스 커서 y축
 INPUT_RECORD rec;	//﻿★ INPUT_RECORD 는 마우스 이벤트 정보들을 가지고있다,
 DWORD        dwNOER;//★ 참고로 DWORD는 unsigned long 을 뜻한다 0~4294967295 (0 ~ 2^32-1)
 
-void getSavedFile();
+void getSaveFile();
 void setSaveFile();
 void remove_scrollbar();
 void BasicSetting();

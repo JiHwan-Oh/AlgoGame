@@ -14,7 +14,7 @@ void init()
 	system("mode con cols=154 lines=47");
 	RemoveCursor();
 	BasicSetting();
-	getSavedFile();
+	getSaveFile();
 }
 
 void SetCurrentCursorPos(int x, int y)

@@ -1657,6 +1657,41 @@ int drawStageClear()
 	SetCurrentCursorPos(nextStageX, nextStageY);
 	printf("다음 스테이지 시작하기 ");
 
+	for (y = 0; y <= PRESENT_STAGE_HEIGHT; y++)
+	{
+		SetCurrentCursorPos(PRESENT_STAGE_ORIGIN_X, PRESENT_STAGE_ORIGIN_Y + y);
+		if (y == PRESENT_STAGE_HEIGHT)
+			printf("┗");
+		else if (y == 0)
+			printf("┏");
+		else
+			printf("┃");
+	}
+	for (y = 0; y <= PRESENT_STAGE_HEIGHT; y++)
+	{
+		SetCurrentCursorPos(PRESENT_STAGE_ORIGIN_X + (PRESENT_STAGE_WIDTH + 1) * 2, PRESENT_STAGE_ORIGIN_Y + y);
+		if (y == PRESENT_STAGE_HEIGHT)
+			printf("┛");
+		else if (y == 0)
+			printf("┓");
+		else
+			printf("┃");
+	}
+	for (x = 1; x < PRESENT_STAGE_WIDTH + 1; x++)
+	{
+		SetCurrentCursorPos(PRESENT_STAGE_ORIGIN_X + x * 2, PRESENT_STAGE_ORIGIN_Y);
+		printf("━");
+	}
+	for (x = 1; x < PRESENT_STAGE_WIDTH + 1; x++)
+	{
+		SetCurrentCursorPos(PRESENT_STAGE_ORIGIN_X + x * 2, PRESENT_STAGE_ORIGIN_Y + PRESENT_STAGE_HEIGHT);
+		printf("━");
+	}
+	int presentStageX = PRESENT_STAGE_ORIGIN_X + 8;
+	int presentStageY = PRESENT_STAGE_ORIGIN_Y + 2;
+	SetCurrentCursorPos(presentStageX, presentStageY);
+	printf("현재 스테이지 다시하기 ");
+
 	for (y = 0; y <= OTHER_STAGE_HEIGHT; y++)
 	{
 		SetCurrentCursorPos(OTHER_STAGE_ORIGIN_X, OTHER_STAGE_ORIGIN_Y + y);
@@ -1699,6 +1734,10 @@ int drawStageClear()
 			if (mouse_x >= START_ORIGIN_X && mouse_x <= START_ORIGIN_X + 2 * START_WIDTH && mouse_y >= START_ORIGIN_Y && mouse_y <= START_ORIGIN_Y + START_HEIGHT) // 다음 스테이지 버튼 클릭시
 			{
 				return 1;
+			}
+			else if (mouse_x >= PRESENT_STAGE_ORIGIN_X && mouse_x <= PRESENT_STAGE_ORIGIN_X + 2 * PRESENT_STAGE_WIDTH && mouse_y >= PRESENT_STAGE_ORIGIN_Y && mouse_y <= PRESENT_STAGE_ORIGIN_Y + PRESENT_STAGE_HEIGHT) // 스테이지 선택 버튼 클릭시
+			{
+				return 2;
 			}
 			else if (mouse_x >= OTHER_STAGE_ORIGIN_X && mouse_x <= OTHER_STAGE_ORIGIN_X + 2 * OTHER_STAGE_WIDTH && mouse_y >= OTHER_STAGE_ORIGIN_Y && mouse_y <= OTHER_STAGE_ORIGIN_Y + OTHER_STAGE_HEIGHT) // 스테이지 선택 버튼 클릭시
 			{
@@ -1748,14 +1787,14 @@ void BasicSetting() {
 	SetConsoleMode(COUT, ENABLE_PROCESSED_INPUT | ENABLE_MOUSE_INPUT);// ?★ 마우스 입력모드로 변경
 }
 
-void getSavedFile()
+void getSaveFile()
 {
 	char* filename = "c:\\tmp\\test.txt";
 	FILE* file = fopen(filename, "r");
 	// 파일이 존재하지 않을 경우 오류 메시지 출력 후 종료
 	if (file == NULL) {
 		//fprintf(stderr, "파일을 열 수 없습니다: %s\n", filename);
-		return 1;
+		return;
 	}
 
 	// 파일에서 숫자 읽어서 배열에 저장
@@ -1777,15 +1816,13 @@ void setSaveFile()
 	FILE* file = fopen(filename, "w");
 	if (file == NULL) {
 		//fprintf(stderr, "파일을 열 수 없습니다: %s\n", filename);
-		return 1;
+		return;
 	}
 
 	// 배열 값을 파일에 쓰기
 	for (int i = 0; i < MAP_COUNT; i++) {
 		fprintf(file, "%d ", stageClearInfo[i]);
 	}
-
-	// 파일 닫기
 	fclose(file);
 }
 // 마우스 클릭 확인 및 좌표 반환
@@ -1878,19 +1915,27 @@ void startStage() {
 							if (stageClearInfo[curStageInfo] < 1)
 								stageClearInfo[curStageInfo] = 1;
 						}
-						if (drawStageClear())	// 다음 스테이지로 이동
+						setSaveFile();
+						switch (drawStageClear())
 						{
+						case 0: // 스테이지 선택 화면으로 이동
+							removeAll();
+							return;
+						case 1: // 다음 스테이지로 이동
 							removeAll();
 							curStageInfo++;
 							resetStage();
 							drawUI();
 							showPC();
 							break;
-						}
-						else					// 스테이지 선택 화면으로 이동
-						{
+						case 2: // 현재 스테이지 다시시작
 							removeAll();
-							return;
+							resetStage();
+							drawUI();
+							showPC();
+							break;
+						default:
+							break;
 						}
 					}
 					else if (event == EVENT_TRAP)	// 함정 충돌 시 현재 시뮬레이션 종료 후 현재 명령 블록 수행 종료
