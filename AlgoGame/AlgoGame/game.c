@@ -964,6 +964,41 @@ void removeDialogue() {
 	}
 }
 
+void printShape(int index) {
+	switch (index)
+	{
+	case 0:
+		printf("  ");
+		break;
+	case 1:
+		printf("■");
+		break;
+	case 2:
+		printf("▲");
+		break;
+	case 3:
+		printf("●");
+		break;
+	case 4:
+		printf("★");
+		break;
+	case 5:
+		printf("☆");
+		break;
+	case 6:
+		printf("♤");
+		break;
+	case 7:
+		printf("◆");
+		break;
+	case 8:
+		printf("◇");
+		break;
+	default:
+		break;
+	}
+}
+
 // 오브젝트를 화면에 그림
 void drawObject(int x, int y, int idx)
 {
@@ -973,32 +1008,7 @@ void drawObject(int x, int y, int idx)
 		{
 			SetCurrentCursorPos(x + (2 * i), y + j);
 			int obj = objectArray[idx][i][j];
-			switch (obj)
-			{
-			case 0:
-				printf("  ");
-				break;
-			case 1:
-				printf("■");
-				break;
-			case 2:
-				printf("▲");
-				break;
-			case 3:
-				printf("●");
-				break;
-			case 4:
-				printf("★");
-				break;
-			case 5:
-				printf("☆");
-				break;
-			case 6:
-				printf("♤");
-				break;
-			default:
-				break;
-			}
+			printShape(obj);
 		}
 	}
 }
@@ -1210,61 +1220,11 @@ void pcSimulationEffect(int index) {
 	SetCurrentCursorPos(x + toDrawX, y + toDrawY);
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 1);
 	int obj = objectArray[curObject][objY][objX];
-	switch (obj)
-	{
-	case 0:
-		printf("  ");
-		break;
-	case 1:
-		printf("■");
-		break;
-	case 2:
-		printf("▲");
-		break;
-	case 3:
-		printf("●");
-		break;
-	case 4:
-		printf("★");
-		break;
-	case 5:
-		printf("☆");
-		break;
-	case 6:
-		printf("♤");
-		break;
-	default:
-		break;
-	}
+	printShape(obj);
 	Sleep(simulationSpeed / 8);
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 	SetCurrentCursorPos(x + toDrawX, y + toDrawY);
-	switch (obj)
-	{
-	case 0:
-		printf("  ");
-		break;
-	case 1:
-		printf("■");
-		break;
-	case 2:
-		printf("▲");
-		break;
-	case 3:
-		printf("●");
-		break;
-	case 4:
-		printf("★");
-		break;
-	case 5:
-		printf("☆");
-		break;
-	case 6:
-		printf("♤");
-		break;
-	default:
-		break;
-	}
+	printShape(obj);
 }
 
 void drawUI()
@@ -1503,8 +1463,10 @@ void gatherItem()
 	{
 		jump++;
 	}
-	else
+	else {
+		showHintDialogue(DIALOGUE_NO_ITEM);
 		return;
+	}
 	curMap[player.y][player.x] = 1;
 	drawObject(x + (6 * player.x), y + (3 * player.y), 1);
 	showPC();
@@ -1637,6 +1599,24 @@ void executeBlock(int index)
 	}
 }
 
+void updateOnOffTrap() {
+	int x = GBOARD_ORIGIN_X + 2;
+	int y = GBOARD_ORIGIN_Y + 1;
+
+	for (int i = 0; i < MAP_HEIGHT; i++) {
+		for (int j = 0; j < MAP_WIDTH; j++) {
+			if (curMap[i][j] == 8) {
+				curMap[i][j] = 9;
+				drawObject(x + 6 * j, y + 3 * i, 9);
+			}
+			else if (curMap[i][j] == 9) {
+				curMap[i][j] = 8;
+				drawObject(x + 6 * j, y + 3 * i, 8);
+			}
+		}
+	}
+}
+
 // 스테이지 클리어 조건을 만족(도착점에 도달)했다면 1, 만족하지 않았다면 0 반환
 int checkStageClear()
 {
@@ -1680,7 +1660,7 @@ int checkWall(int distance)
 // 함정과 충돌했다면 1 반환, 충돌하지 않았다면 0 반환
 int checkTrap()
 {
-	if (curMap[player.y][player.x] == 2) { // 현재 위치가 함정일 경우
+	if (curMap[player.y][player.x] == 2 || curMap[player.y][player.x] == 8) { // 현재 위치가 함정일 경우
 		showHintDialogue(DIALOGUE_TRAP_COLLISION);
 		return 1;
 	}
@@ -2068,6 +2048,7 @@ void startStage() {
 				pcIdleEffect(0);
 				for (int i = 0; i < 24 && blockArray.array[i] != -1; i++)
 				{
+					updateOnOffTrap();
 					executeBlock(i);
 					showBlockArray(i);
 					if (checkStageClear())
@@ -2078,7 +2059,6 @@ void startStage() {
 							pcSimulationEffect(i);
 						}
 					}
-					// Sleep(simulationSpeed);
 					event = checkEvent();
 					if (event == EVENT_STAGE_CLEAR) // 스테이지 클리어 시 StageClear 화면 출력, 맵 초기화 후 현재 명령 블록 수행 종료
 					{

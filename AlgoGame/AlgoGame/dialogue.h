@@ -4,16 +4,17 @@
 #define DIALOGUE_INFO
 
 #define STAGE_DIALOGUE_COUNT 30
-#define HINT_DIALOGUE_COUNT 6
+#define HINT_DIALOGUE_COUNT 7
 #define DIALOGUE_CHAR_COUNT 72
 #define DIALOGUE_LINE_COUNT 5
 
 #define DIALOGUE_WALL_COLLISION 0
 #define DIALOGUE_TRAP_COLLISION 1
 #define DIALOGUE_NO_PORTAL		2
-#define DIALOGUE_NO_KEY			3
-#define DIALOGUE_NO_JUMP		4
-#define DIALOGUE_DEST_FAILED	5
+#define DIALOGUE_NO_ITEM		3
+#define DIALOGUE_NO_KEY			4
+#define DIALOGUE_NO_JUMP		5
+#define DIALOGUE_DEST_FAILED	6
 
 #endif
 
@@ -202,6 +203,14 @@ char hintDialogue[HINT_DIALOGUE_COUNT][DIALOGUE_LINE_COUNT][DIALOGUE_CHAR_COUNT 
 		{ "" },
 		{ "" },
 		{ "여기선 포탈을 사용할 수 없어." },
+		{ "" },
+		{ "" }
+	},
+	// 아이템 획득 시도 시 해당 칸에 아이템이 없을 때
+	{
+		{ "" },
+		{ "" },
+		{ "지금은 획득할 수 있는 아이템이 없어." },
 		{ "" },
 		{ "" }
 	},
