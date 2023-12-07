@@ -1489,6 +1489,7 @@ void gatherItem()
 	}
 	else
 		return;
+	curMap[player.y][player.x] = 1;
 	drawObject(x + (6 * player.x), y + (3 * player.y), 1);
 	showPC();
 	drawItemInfo();
