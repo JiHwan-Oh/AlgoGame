@@ -200,7 +200,7 @@ int curStageInfo = 0;				// 현재 스테이지 정보
 PCInfo player;						// 현재 PC 정보
 int key = 0;						// 현재 열쇠 아이템 개수
 int jump = 0;						// 현재 점프 아이템 개수
-int curMap[MAP_WIDTH][MAP_HEIGHT] =	// 현재 스테이지 맵 정보
+int curMap[MAP_HEIGHT][MAP_WIDTH] =	// 현재 스테이지 맵 정보
 {
 		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -253,6 +253,7 @@ void showBlockArray(int idx);
 void removeAllBlockArray();
 void showPC();
 void deletePC();
+void pcAroundEffect(int index);
 void drawUI();
 
 void drawTitleButton();

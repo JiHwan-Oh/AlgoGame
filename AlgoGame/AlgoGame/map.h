@@ -13,7 +13,7 @@
 int stageClearInfo[MAP_COUNT] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
 // 스테이지 별 맵 정보
-int map[MAP_COUNT][MAP_WIDTH][MAP_HEIGHT] =
+int map[MAP_COUNT][MAP_HEIGHT][MAP_WIDTH] =
 {
 	// STAGE 1-1
 	{

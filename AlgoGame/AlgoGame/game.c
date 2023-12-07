@@ -157,6 +157,7 @@ void drawTitleImage() {
 
 int drawTitle()
 {
+	// drawTitleImage();
 	drawScreen();
 	drawTitleButton();
 	while (1)
@@ -1113,6 +1114,143 @@ void deletePC()
 	printf("  ");
 }
 
+void pcAroundEffect(int index) {
+	int x = GBOARD_ORIGIN_X + 4 + (6 * player.x);
+	int y = GBOARD_ORIGIN_Y + 2 + (3 * player.y);
+
+	int curObject = curMap[player.y][player.x];
+
+	int toDrawX = 0, toDrawY = 0;
+
+	switch (index) {
+	case 0:
+		toDrawX = 0;
+		toDrawY = -1;
+		break;
+	case 1:
+		toDrawX = 2;
+		toDrawY = -1;
+		break;
+	case 2:
+		toDrawX = 2;
+		toDrawY = 0;
+		break;
+	case 3:
+		toDrawX = 2;
+		toDrawY = 1;
+		break;
+	case 4:
+		// toDrawX = 0;
+		// toDrawY = 0;
+		break;
+	case 5:
+		toDrawX = 0;
+		toDrawY = 1;
+		break;
+	case 6:
+		toDrawX = -2;
+		toDrawY = 1;
+		break;
+	case 7:
+		toDrawX = -2;
+		toDrawY = 0;
+		break;
+	case 8:
+		toDrawX = -2;
+		toDrawY = -1;
+		break;
+	default:
+		break;
+	}
+
+	int objX = 0, objY = 0;
+	switch (toDrawX) {
+	case -2:
+		objX = 0;
+		break;
+	case 0:
+		objX = 1;
+		break;
+	case 2:
+		objX = 2;
+		break;
+	default:
+		break;
+	}
+	switch (toDrawY) {
+	case -1:
+		objY = 0;
+		break;
+	case 0:
+		objY = 1;
+		break;
+	case 1:
+		objY = 2;
+		break;
+	default:
+		break;
+	}
+
+	SetCurrentCursorPos(x + toDrawX, y + toDrawY);
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);
+	int obj = objectArray[curObject][objY][objX];
+	switch (obj)
+	{
+	case 0:
+		printf("  ");
+		break;
+	case 1:
+		printf("■");
+		break;
+	case 2:
+		printf("▲");
+		break;
+	case 3:
+		printf("●");
+		break;
+	case 4:
+		printf("★");
+		break;
+	case 5:
+		printf("☆");
+		break;
+	case 6:
+		printf("♤");
+		break;
+	default:
+		break;
+	}
+	Sleep(simulationSpeed / 8);
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+	SetCurrentCursorPos(x + toDrawX, y + toDrawY);
+	switch (obj)
+	{
+	case 0:
+		printf("  ");
+		break;
+	case 1:
+		printf("■");
+		break;
+	case 2:
+		printf("▲");
+		break;
+	case 3:
+		printf("●");
+		break;
+	case 4:
+		printf("★");
+		break;
+	case 5:
+		printf("☆");
+		break;
+	case 6:
+		printf("♤");
+		break;
+	default:
+		break;
+	}
+}
+
 void drawUI()
 {
 	drawScreen();
@@ -1912,8 +2050,16 @@ void startStage() {
 				for (int i = 0; i < 24 && blockArray.array[i] != -1; i++)
 				{
 					executeBlock(i);
-					showBlockArray(i);	
-					Sleep(simulationSpeed);
+					showBlockArray(i);
+					if (checkStageClear())
+						Sleep(simulationSpeed);
+					else {
+						for (int i = 0; i < 9; i++) {
+							if (i == 4) continue;
+							pcAroundEffect(i);
+						}
+					}
+					// Sleep(simulationSpeed);
 					event = checkEvent();
 					if (event == EVENT_STAGE_CLEAR) // 스테이지 클리어 시 StageClear 화면 출력, 맵 초기화 후 현재 명령 블록 수행 종료
 					{
