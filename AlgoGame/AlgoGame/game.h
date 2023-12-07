@@ -183,6 +183,15 @@
 
 #endif
 
+#ifndef FILE_INFO
+#define FILE_INFO
+
+#define FILE_PATH "C:\\tmp\\test.txt"
+#define BGM_PATH "C:\\tmp\\BGMd.wav"
+#define CLICK_SOUND_PATH "C:\\tmp\\ClickSound.wav"
+
+#endif
+
 Queue blockArray;					// 블록 배열 정보
 int simulationSpeed = SPEED_NORMAL;	// 현재 시뮬레이션 배속(시간 정보)
 int speed = 1;						// 현재 시뮬레이션 배속 Index
@@ -214,8 +223,11 @@ int mouse_y;// 마우스 커서 y축
 INPUT_RECORD rec;	//﻿★ INPUT_RECORD 는 마우스 이벤트 정보들을 가지고있다,
 DWORD        dwNOER;//★ 참고로 DWORD는 unsigned long 을 뜻한다 0~4294967295 (0 ~ 2^32-1)
 
+
 void getSaveFile();
 void setSaveFile();
+void playingBGM();
+void playingClickSound();
 void remove_scrollbar();
 void BasicSetting();
 int CheckMouse();

@@ -157,8 +157,6 @@ void drawTitleImage() {
 
 int drawTitle()
 {
-	BasicSetting();
-	// drawTitleImage();
 	drawScreen();
 	drawTitleButton();
 	while (1)
@@ -1796,10 +1794,19 @@ void BasicSetting() {
 	SetConsoleMode(COUT, ENABLE_PROCESSED_INPUT | ENABLE_MOUSE_INPUT);// ?★ 마우스 입력모드로 변경
 }
 
+void playingBGM() // 배경음악 재생
+{
+	sndPlaySoundA(BGM_PATH, SND_ASYNC | SND_LOOP | SND_NODEFAULT);
+}
+
+void playingClickSound() // 효과음 재생(배경음악이 꺼지는 단점이 있다.)
+{
+	sndPlaySoundA(CLICK_SOUND_PATH, SND_ASYNC | SND_NODEFAULT);
+}
+
 void getSaveFile()
 {
-	char* filename = "c:\\tmp\\test.txt";
-	FILE* file = fopen(filename, "r");
+	FILE* file = fopen(FILE_PATH, "r");
 	// 파일이 존재하지 않을 경우 오류 메시지 출력 후 종료
 	if (file == NULL) {
 		//fprintf(stderr, "파일을 열 수 없습니다: %s\n", filename);
@@ -1822,8 +1829,7 @@ void getSaveFile()
 
 void setSaveFile()
 {
-	char* filename = "c:\\tmp\\test.txt";
-	FILE* file = fopen(filename, "w");
+	FILE* file = fopen(FILE_PATH, "w");
 	if (file == NULL) {
 		//fprintf(stderr, "파일을 열 수 없습니다: %s\n", filename);
 		return;
@@ -1878,6 +1884,7 @@ void startStage() {
 		int m = CheckMouse();
 		if (m == 1)
 		{
+			//playingClickSound(); // 빠르게 여러번 클릭하면 소리가 짤린다.
 			if (mouse_x >= BLOCK_ORIGIN_X && mouse_x <= BLOCK_ORIGIN_X + 2 * BLOCK_WIDTH && mouse_y >= BLOCK_ORIGIN_Y && mouse_y <= BLOCK_ORIGIN_Y + BLOCK_HEIGHT) // 블록 버튼 클릭시
 			{
 				int clickedX = mouse_x - BLOCK_ORIGIN_X;
