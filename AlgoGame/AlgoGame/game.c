@@ -147,9 +147,18 @@ void drawTitleButton()
 	printf("게임종료");
 }
 
+void drawTitleImage() {
+	for (int i = 0; i < IMAGE_HEIGHT; i++)
+	{
+		SetCurrentCursorPos(GBOARD_ORIGIN_X, GBOARD_ORIGIN_Y + i);
+		printf("%s", schoolImage[i]);
+	}
+}
+
 int drawTitle()
 {
 	BasicSetting();
+	// drawTitleImage();
 	drawScreen();
 	drawTitleButton();
 	while (1)

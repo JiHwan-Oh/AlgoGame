@@ -29,6 +29,13 @@
 
 #endif
 
+#ifndef __IMAGE_H__
+#define __IMAGE_H__
+
+#include "image.h"
+
+#endif
+
 #ifndef UI_INFO
 #define UI_INFO
 
