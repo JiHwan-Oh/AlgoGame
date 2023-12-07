@@ -1114,7 +1114,23 @@ void deletePC()
 	printf("  ");
 }
 
-void pcAroundEffect(int index) {
+void pcIdleEffect(int isTrue) {
+
+	int x = GBOARD_ORIGIN_X + 2;
+	int y = GBOARD_ORIGIN_Y + 1;
+
+	if (isTrue) {
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 1);
+		drawObject(x + 6 * player.x, y + 3 * player.y, curMap[player.y][player.x]);
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+	}
+	else {
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+		drawObject(x + 6 * player.x, y + 3 * player.y, curMap[player.y][player.x]);
+	}
+}
+
+void pcSimulationEffect(int index) {
 	int x = GBOARD_ORIGIN_X + 4 + (6 * player.x);
 	int y = GBOARD_ORIGIN_Y + 2 + (3 * player.y);
 
@@ -1192,7 +1208,7 @@ void pcAroundEffect(int index) {
 	}
 
 	SetCurrentCursorPos(x + toDrawX, y + toDrawY);
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 1);
 	int obj = objectArray[curObject][objY][objX];
 	switch (obj)
 	{
@@ -2017,6 +2033,7 @@ void startStage() {
 	drawUI();
 	player = initialPCPos[curStageInfo];
 	showBlockArray(999);
+	pcIdleEffect(1);
 	showPC();
 	while (1)
 	{
@@ -2048,6 +2065,7 @@ void startStage() {
 			else if (mouse_x >= PS_ORIGIN_X && mouse_x <= PS_ORIGIN_X + 2 * PS_WIDTH + 2 && mouse_y >= PS_ORIGIN_Y && mouse_y <= PS_ORIGIN_Y + PS_HEIGHT) // play버튼 클릭시
 			{
 				int event = -1;
+				pcIdleEffect(0);
 				for (int i = 0; i < 24 && blockArray.array[i] != -1; i++)
 				{
 					executeBlock(i);
@@ -2057,7 +2075,7 @@ void startStage() {
 					else {
 						for (int i = 0; i < 9; i++) {
 							if (i == 4) continue;
-							pcAroundEffect(i);
+							pcSimulationEffect(i);
 						}
 					}
 					// Sleep(simulationSpeed);
@@ -2091,12 +2109,14 @@ void startStage() {
 							curStageInfo++;
 							resetStage();
 							drawUI();
+							pcIdleEffect(1);
 							showPC();
 							break;
 						case 2: // 현재 스테이지 다시시작
 							removeAll();
 							resetStage();
 							drawUI();
+							pcIdleEffect(1);
 							showPC();
 							break;
 						default:
@@ -2107,6 +2127,8 @@ void startStage() {
 					{
 						hitMoment();
 						stopSimulation();
+						pcIdleEffect(1);
+						showPC();
 						break;
 					}
 					if (blockArray.array[i + 1] == -1 || i + 1 == 24)
@@ -2115,6 +2137,8 @@ void startStage() {
 				if (event != EVENT_STAGE_CLEAR && event != EVENT_TRAP)	// 명령 블록을 모두 수행한 후에도 스테이지를 클리어하지 못했다면 시뮬레이션 종료
 				{
 					stopSimulation();
+					pcIdleEffect(1);
+					showPC();
 					showHintDialogue(DIALOGUE_DEST_FAILED);
 				}
 			}
@@ -2125,6 +2149,8 @@ void startStage() {
 			else if (mouse_x >= RESET_ORIGIN_X && mouse_x <= RESET_ORIGIN_X + 2 * RESET_WIDTH && mouse_y >= RESET_ORIGIN_Y && mouse_y <= RESET_ORIGIN_Y + RESET_HEIGHT) // reset버튼 클릭시
 			{
 				resetStage();
+				pcIdleEffect(1);
+				showPC();
 			}
 			else if (mouse_x >= BACK_ORIGIN_X && mouse_x <= BACK_ORIGIN_X + 2 * BACK_WIDTH && mouse_y >= BACK_ORIGIN_Y && mouse_y <= BACK_ORIGIN_Y + BACK_HEIGHT) // exit버튼 클릭시
 			{

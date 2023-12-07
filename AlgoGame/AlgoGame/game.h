@@ -253,7 +253,8 @@ void showBlockArray(int idx);
 void removeAllBlockArray();
 void showPC();
 void deletePC();
-void pcAroundEffect(int index);
+void pcIdleEffect(int isTrue);
+void pcSimulationEffect(int index);
 void drawUI();
 
 void drawTitleButton();
