@@ -200,6 +200,7 @@ int curStageInfo = 0;				// 현재 스테이지 정보
 PCInfo player;						// 현재 PC 정보
 int key = 0;						// 현재 열쇠 아이템 개수
 int jump = 0;						// 현재 점프 아이템 개수
+int tryCount = 0;                        // 현재 스테이지 시도 횟수
 int curMap[MAP_HEIGHT][MAP_WIDTH] =	// 현재 스테이지 맵 정보
 {
 		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -238,6 +239,7 @@ void drawBlock();
 void drawBlockArray();
 void drawItemInfo();
 void drawBlockCountInfo();
+void drawTryCountInfo();
 void drawStageInfo();
 void drawPlayButton();
 void drawResetButton();
