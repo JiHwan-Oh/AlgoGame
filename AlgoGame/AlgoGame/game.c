@@ -2020,7 +2020,7 @@ void startStage() {
 		int m = CheckMouse();
 		if (m == 1)
 		{
-			//playingClickSound(); // 빠르게 여러번 클릭하면 소리가 짤린다.
+			playingClickSound(); // 빠르게 여러번 클릭하면 소리가 짤린다.
 			if (mouse_x >= BLOCK_ORIGIN_X && mouse_x <= BLOCK_ORIGIN_X + 2 * BLOCK_WIDTH && mouse_y >= BLOCK_ORIGIN_Y && mouse_y <= BLOCK_ORIGIN_Y + BLOCK_HEIGHT) // 블록 버튼 클릭시
 			{
 				int clickedX = mouse_x - BLOCK_ORIGIN_X;

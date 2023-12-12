@@ -15,7 +15,7 @@ void init()
 	RemoveCursor();
 	BasicSetting();
 	getSaveFile();
-	playingBGM();
+	// playingBGM();
 }
 
 void SetCurrentCursorPos(int x, int y)
