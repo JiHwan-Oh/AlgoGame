@@ -335,33 +335,14 @@ int drawStageSelect()
 	int x, y, plusx = 14, plusy = 14;
 	for (int i = 0; i < 3; i++)
 	{
-		if (i == 0)
-			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 2);
-		else if (i == 1)
-			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 3);
-		else if (i == 2)
-			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);
 		for (int j = 0; j < 10; j++)
 		{
-			SetCurrentCursorPos(SELECT_ORIGIN_X + plusx * j + 6, SELECT_ORIGIN_Y + plusy * i + 1);
-			printf("%d", j + 1);
-			SetCurrentCursorPos(SELECT_ORIGIN_X + plusx * j + 3, SELECT_ORIGIN_Y + plusy * i + 3);
-			switch (stageClearInfo[10 * i + j]) {
-			case 0:
-				printf("☆ ☆ ☆");
-				break;
-			case 1:
-				printf("★ ☆ ☆");
-				break;
-			case 2:
-				printf("★ ★ ☆");
-				break;
-			case 3:
-				printf("★ ★ ★");
-				break;
-			default:
-				break;
-			}
+			if (i == 0)
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 2);
+			else if (i == 1)
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 3);
+			else if (i == 2)
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);
 			for (y = 0; y <= SELECT_HEIGHT; y++)
 			{
 				SetCurrentCursorPos(SELECT_ORIGIN_X + plusx * j, SELECT_ORIGIN_Y + y + plusy * i);
@@ -391,6 +372,29 @@ int drawStageSelect()
 			{
 				SetCurrentCursorPos(SELECT_ORIGIN_X + x * 2 + plusx * j, SELECT_ORIGIN_Y + SELECT_HEIGHT + plusy * i);
 				printf("━");
+			}
+			SetCurrentCursorPos(SELECT_ORIGIN_X + plusx * j + 6, SELECT_ORIGIN_Y + plusy * i + 1);
+			printf("%d", j + 1);
+			SetCurrentCursorPos(SELECT_ORIGIN_X + plusx * j + 3, SELECT_ORIGIN_Y + plusy * i + 3);
+			switch (stageClearInfo[10 * i + j]) {
+			case 0:
+				printf("☆ ☆ ☆");
+				break;
+			case 1:
+				printf("★ ☆ ☆");
+				break;
+			case 2:
+				printf("★ ★ ☆");
+				break;
+			case 3:
+				printf("★ ★ ★");
+				break;
+			case 4:
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 6);
+				printf("★ ★ ★");
+				break;
+			default:
+				break;
 			}
 		}
 	}
@@ -677,6 +681,15 @@ void drawBlockCountInfo() {
 	printf("[COMMAND BLOCK COUNT] : %d", blockCount);
 }
 
+void drawTryCountInfo() {
+	int infoX = INFO_ORIGIN_X + 2;
+	int infoY = INFO_ORIGIN_Y + 1;
+	SetCurrentCursorPos(infoX, infoY + 10);
+	printf("                ");
+	SetCurrentCursorPos(infoX, infoY + 10);
+	printf("[TRY COUNT] : %d", tryCount);
+}
+
 void drawStageInfo()
 {
 	int x, y;
@@ -720,6 +733,7 @@ void drawStageInfo()
 	printf("[ITEM]");
 	drawItemInfo();
 	drawBlockCountInfo();
+	drawTryCountInfo();
 }
 
 void drawPlayButton()
@@ -1346,6 +1360,11 @@ void resetBlockCount() {
 	drawBlockCountInfo();
 }
 
+void resetTryCount() {
+	tryCount = 0;
+	drawTryCountInfo();
+}
+
 // 스테이지 재시작 함수
 void resetStage()
 {
@@ -1355,6 +1374,7 @@ void resetStage()
 	resetPlayer();
 	resetItem();
 	resetBlockCount();
+	resetTryCount();
 	resetBlockArray();
 }
 
@@ -1746,8 +1766,10 @@ int drawStageClear()
 	chapy = 19;
 	SetCurrentCursorPos(chapx, chapy);
 	printf("사용한 명령 블록의 개수 : %d", blockCount);
+	SetCurrentCursorPos(chapx+7, chapy+2);
+	printf("시도 횟수 : %d", tryCount);
 	chapx = 70;
-	chapy = 21;
+	chapy = 23;
 	SetCurrentCursorPos(chapx, chapy);
 	switch (stageClearInfo[curStageInfo])
 	{
@@ -1759,6 +1781,13 @@ int drawStageClear()
 		break;
 	case 3:
 		printf("획득한 별 : ★ ★ ★");
+		break;
+	case 4:
+		printf("획득한 별 : ");
+		SetCurrentCursorPos(chapx+12, chapy);
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 6);
+		printf("★ ★ ★");
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 		break;
 	default:
 		break;
@@ -2008,6 +2037,7 @@ int CheckMouse()
 void startStage() {
 	initBlockArray();
 	resetBlockCount();
+	resetTryCount();
 	resetItem();
 	loadMapInfo();
 	drawUI();
@@ -2044,6 +2074,8 @@ void startStage() {
 			}
 			else if (mouse_x >= PS_ORIGIN_X && mouse_x <= PS_ORIGIN_X + 2 * PS_WIDTH + 2 && mouse_y >= PS_ORIGIN_Y && mouse_y <= PS_ORIGIN_Y + PS_HEIGHT) // play버튼 클릭시
 			{
+				tryCount++;
+				drawTryCountInfo();
 				int event = -1;
 				pcIdleEffect(0);
 				for (int i = 0; i < 24 && blockArray.array[i] != -1; i++)
@@ -2063,7 +2095,12 @@ void startStage() {
 					if (event == EVENT_STAGE_CLEAR) // 스테이지 클리어 시 StageClear 화면 출력, 맵 초기화 후 현재 명령 블록 수행 종료
 					{
 						// 블록 개수 기준에 따라 해당 스테이지의 별 획득
-						if (blockCount <= blockCountToGetStar[curStageInfo][0])			// 별 3개 획득
+						if (blockCount <= blockCountToGetStar[curStageInfo][0] && tryCount == 1)			// 별 3개 획득
+						{
+							if (stageClearInfo[curStageInfo] < 4)
+								stageClearInfo[curStageInfo] = 4;
+						}
+						else if (blockCount <= blockCountToGetStar[curStageInfo][0])			// 별 3개 획득
 						{
 							if (stageClearInfo[curStageInfo] < 3)
 								stageClearInfo[curStageInfo] = 3;
@@ -2135,6 +2172,7 @@ void startStage() {
 			else if (mouse_x >= BACK_ORIGIN_X && mouse_x <= BACK_ORIGIN_X + 2 * BACK_WIDTH && mouse_y >= BACK_ORIGIN_Y && mouse_y <= BACK_ORIGIN_Y + BACK_HEIGHT) // exit버튼 클릭시
 			{
 				resetBlockCount();
+				resetTryCount();
 				resetItem();
 				removeAll();
 				return;
