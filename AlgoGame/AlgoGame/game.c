@@ -166,6 +166,7 @@ int drawTitle()
 		int m = CheckMouse();
 		if (m == 1)
 		{
+			playSFX(SOUND_CLICK);
 			if (mouse_x >= START_ORIGIN_X && mouse_x <= START_ORIGIN_X + 2 * START_WIDTH && mouse_y >= START_ORIGIN_Y && mouse_y <= START_ORIGIN_Y + START_HEIGHT) // start 버튼 클릭시
 			{
 				removeAll();
@@ -284,6 +285,7 @@ int drawManual()
 		int m = CheckMouse();
 		if (m == 1)
 		{
+			playSFX(SOUND_CLICK);
 			if (mouse_x >= MANUAL_BACK_ORIGIN_X && mouse_x <= MANUAL_BACK_ORIGIN_X + 2 * MANUAL_BACK_WIDTH && mouse_y >= MANUAL_BACK_ORIGIN_Y && mouse_y <= MANUAL_BACK_ORIGIN_Y + MANUAL_BACK_HEIGHT) // 듀토리얼에서 뒤로가기 버튼 클릭시
 			{
 				removeAll();
@@ -439,6 +441,7 @@ int drawStageSelect()
 
 		if (m == 1)
 		{
+			playSFX(SOUND_CLICK);
 			if (mouse_x >= SELECT_BACK_ORIGIN_X && mouse_x <= SELECT_BACK_ORIGIN_X + 2 * SELECT_BACK_WIDTH && mouse_y >= SELECT_BACK_ORIGIN_Y && mouse_y <= SELECT_BACK_ORIGIN_Y + SELECT_BACK_HEIGHT) // start 버튼 클릭시
 			{
 				removeAll();
@@ -1409,7 +1412,7 @@ void goStraight()
 {
 	deletePC();
 	if (!checkWall(1)) {
-		
+		playSFX(SOUND_MOVE);
 		switch (player.dir)
 		{
 		case 0:
@@ -1429,6 +1432,7 @@ void goStraight()
 		}
 	}
 	else {
+		playSFX(SOUND_WRONG);
 		// PC 색상을 빨간색으로 잠시 변경 후 다시 원래 색으로 되돌림
 		int x = GBOARD_ORIGIN_X + 4;
 		int y = GBOARD_ORIGIN_Y + 2;
@@ -1484,9 +1488,11 @@ void gatherItem()
 		jump++;
 	}
 	else {
+		playSFX(SOUND_WRONG);
 		showHintDialogue(DIALOGUE_NO_ITEM);
 		return;
 	}
+	playSFX(SOUND_COLLECT);
 	curMap[player.y][player.x] = 1;
 	drawObject(x + (6 * player.x), y + (3 * player.y), 1);
 	showPC();
@@ -1495,11 +1501,13 @@ void gatherItem()
 
 void usePortal()
 {
-	if (curMap[player.y][player.x] != 3)	// 현재 위치가 포탈인 경우
+	if (curMap[player.y][player.x] != 3)	// 현재 위치가 포탈이 아닌 경우
 	{
+		playSFX(SOUND_WRONG);
 		showHintDialogue(DIALOGUE_NO_PORTAL);
 		return;
 	}
+	playSFX(SOUND_PORTAL);
 	int isTeleported = 0;
 	for (int i = 0; i < 12; i++)
 	{
@@ -1524,9 +1532,11 @@ void useKey()
 {
 	if (key == 0)
 	{
+		playSFX(SOUND_WRONG);
 		showHintDialogue(DIALOGUE_NO_KEY);
 		return;
 	}
+	playSFX(SOUND_KEY);
 	int x = GBOARD_ORIGIN_X + 2;
 	int y = GBOARD_ORIGIN_Y + 1;
 	if (curMap[player.y][player.x - 1] == 4) // 좌측 칸이 자물쇠인 경우
@@ -1558,9 +1568,11 @@ void useJump()
 {
 	if (jump == 0)
 	{
+		playSFX(SOUND_WRONG);
 		showHintDialogue(DIALOGUE_NO_JUMP);
 		return;
 	}
+	playSFX(SOUND_JUMP);
 	deletePC();
 	if (!checkWall(2)) {
 		switch (player.dir)
@@ -1595,9 +1607,11 @@ void executeBlock(int index)
 		goStraight();
 		break;
 	case 1:
+		playSFX(SOUND_MOVE);
 		turnLeft();
 		break;
 	case 2:
+		playSFX(SOUND_MOVE);
 		turnRight();
 		break;
 	case 3:
@@ -1902,6 +1916,7 @@ int drawStageClear()
 		int m = CheckMouse();
 		if (m == 1)
 		{
+			playSFX(SOUND_CLICK);
 			if (mouse_x >= START_ORIGIN_X && mouse_x <= START_ORIGIN_X + 2 * START_WIDTH && mouse_y >= START_ORIGIN_Y && mouse_y <= START_ORIGIN_Y + START_HEIGHT) // 다음 스테이지 버튼 클릭시
 			{
 				return 1;
@@ -1958,14 +1973,42 @@ void BasicSetting() {
 	SetConsoleMode(COUT, ENABLE_PROCESSED_INPUT | ENABLE_MOUSE_INPUT);// ?★ 마우스 입력모드로 변경
 }
 
-void playingBGM() // 배경음악 재생
+void playBGM() // 배경음악 재생
 {
 	sndPlaySoundA(BGM_PATH, SND_ASYNC | SND_LOOP | SND_NODEFAULT);
 }
 
-void playingClickSound() // 효과음 재생(배경음악이 꺼지는 단점이 있다.)
+void playSFX(int index) // 클릭 효과음 재생
 {
-	sndPlaySoundA(CLICK_SOUND_PATH, SND_ASYNC | SND_NODEFAULT);
+	switch (index) {
+	case SOUND_CLICK:
+		sndPlaySoundA(CLICK_SOUND_PATH, SND_ASYNC | SND_NODEFAULT);
+		break;
+	case SOUND_MOVE:
+		sndPlaySoundA(MOVE_SOUND_PATH, SND_ASYNC | SND_NODEFAULT);
+		break;
+	case SOUND_PORTAL:
+		sndPlaySoundA(PORTAL_SOUND_PATH, SND_ASYNC | SND_NODEFAULT);
+		break;
+	case SOUND_COLLECT:
+		sndPlaySoundA(COLLECT_SOUND_PATH, SND_ASYNC | SND_NODEFAULT);
+		break;
+	case SOUND_KEY:
+		sndPlaySoundA(KEY_SOUND_PATH, SND_ASYNC | SND_NODEFAULT);
+		break;
+	case SOUND_JUMP:
+		sndPlaySoundA(JUMP_SOUND_PATH, SND_ASYNC | SND_NODEFAULT);
+		break;
+	case SOUND_CLEAR:
+		sndPlaySoundA(CLEAR_SOUND_PATH, SND_ASYNC | SND_NODEFAULT);
+		break;
+	case SOUND_FAIL:
+		sndPlaySoundA(FAIL_SOUND_PATH, SND_ASYNC | SND_NODEFAULT);
+		break;
+	case SOUND_WRONG:
+		sndPlaySoundA(WRONG_SOUND_PATH, SND_ASYNC | SND_NODEFAULT);
+		break;
+	}
 }
 
 void getSaveFile()
@@ -2050,7 +2093,7 @@ void startStage() {
 		int m = CheckMouse();
 		if (m == 1)
 		{
-			playingClickSound(); // 빠르게 여러번 클릭하면 소리가 짤린다.
+			playSFX(SOUND_CLICK); // 빠르게 여러번 클릭하면 소리가 짤린다.
 			if (mouse_x >= BLOCK_ORIGIN_X && mouse_x <= BLOCK_ORIGIN_X + 2 * BLOCK_WIDTH && mouse_y >= BLOCK_ORIGIN_Y && mouse_y <= BLOCK_ORIGIN_Y + BLOCK_HEIGHT) // 블록 버튼 클릭시
 			{
 				int clickedX = mouse_x - BLOCK_ORIGIN_X;
@@ -2081,8 +2124,8 @@ void startStage() {
 				for (int i = 0; i < 24 && blockArray.array[i] != -1; i++)
 				{
 					updateOnOffTrap();
-					executeBlock(i);
 					showBlockArray(i);
+					executeBlock(i);
 					if (checkStageClear())
 						Sleep(simulationSpeed);
 					else {
@@ -2094,6 +2137,7 @@ void startStage() {
 					event = checkEvent();
 					if (event == EVENT_STAGE_CLEAR) // 스테이지 클리어 시 StageClear 화면 출력, 맵 초기화 후 현재 명령 블록 수행 종료
 					{
+						playSFX(SOUND_CLEAR);
 						// 블록 개수 기준에 따라 해당 스테이지의 별 획득
 						if (blockCount <= blockCountToGetStar[curStageInfo][0] && tryCount == 1)			// 별 3개 획득
 						{
@@ -2142,6 +2186,7 @@ void startStage() {
 					}
 					else if (event == EVENT_TRAP)	// 함정 충돌 시 현재 시뮬레이션 종료 후 현재 명령 블록 수행 종료
 					{
+						playSFX(SOUND_FAIL);
 						hitMoment();
 						stopSimulation();
 						pcIdleEffect(1);
@@ -2153,6 +2198,7 @@ void startStage() {
 				}
 				if (event != EVENT_STAGE_CLEAR && event != EVENT_TRAP)	// 명령 블록을 모두 수행한 후에도 스테이지를 클리어하지 못했다면 시뮬레이션 종료
 				{
+					playSFX(SOUND_FAIL);
 					stopSimulation();
 					pcIdleEffect(1);
 					showPC();

@@ -36,6 +36,13 @@
 
 #endif
 
+#ifndef __RESOURCE_H__
+#define __RESOURCE_H__
+
+#include "resource.h"
+
+#endif
+
 #ifndef UI_INFO
 #define UI_INFO
 
@@ -183,15 +190,6 @@
 
 #endif
 
-#ifndef FILE_INFO
-#define FILE_INFO
-
-#define FILE_PATH "C:\\tmp\\test.txt"
-#define BGM_PATH "C:\\tmp\\BGM.wav"
-#define CLICK_SOUND_PATH "C:\\tmp\\ClickSound.wav"
-
-#endif
-
 Queue blockArray;					// 블록 배열 정보
 int simulationSpeed = SPEED_NORMAL;	// 현재 시뮬레이션 배속(시간 정보)
 int speed = 1;						// 현재 시뮬레이션 배속 Index
@@ -227,8 +225,8 @@ DWORD        dwNOER;//★ 참고로 DWORD는 unsigned long 을 뜻한다 0~42949
 
 void getSaveFile();
 void setSaveFile();
-void playingBGM();
-void playingClickSound();
+void playBGM();
+void playSFX(int index);
 void remove_scrollbar();
 void BasicSetting();
 int CheckMouse();
