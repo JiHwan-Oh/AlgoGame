@@ -15,6 +15,22 @@ void drawTitleButton()
 	int chapx = 25;
 	int chapy = 10;
 	int color[9] = { 4, 6, 14, 10, 11, 9, 5, 7, 15 };
+	for (int x = -1; x < (6 * 9 + 1) * 2; x++) {
+		for (int y = 0; y < 5 + 2; y++) {
+			SetCurrentCursorPos(chapx - 1 + x, chapy - 1 + y);
+			printf(" ");
+		}
+	}
+	chapx = 42;
+	chapy += 6;
+	for (int x = 0; x < (5 * 6 + 2) * 2; x++) {
+		for (int y = 0; y < 5 + 1; y++) {
+			SetCurrentCursorPos(chapx - 1 + x, chapy + y);
+			printf(" ");
+		}
+	}
+	chapx = 25;
+	chapy = 10;
 	for (int i = 0; i < 2; i++)
 	{
 		for (int j = 0; j < 9; j++)
@@ -38,7 +54,7 @@ void drawTitleButton()
 		chapy += 6;
 	}
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-	SetCurrentCursorPos(62, 23);
+	SetCurrentCursorPos(112, 25);
 	printf("마우스로 클릭하여 시작하세요!!");
 	int x, y;
 	for (y = 0; y <= START_HEIGHT; y++)
@@ -157,12 +173,11 @@ void drawTitleImage() {
 
 int drawTitle()
 {
-	// drawTitleImage();
+	drawTitleImage();
 	drawScreen();
 	drawTitleButton();
 	while (1)
 	{
-		drawTitleButton();
 		int m = CheckMouse();
 		if (m == 1)
 		{
@@ -438,7 +453,6 @@ int drawStageSelect()
 	while (1)
 	{
 		int m = CheckMouse();
-
 		if (m == 1)
 		{
 			playSFX(SOUND_CLICK);
@@ -1973,13 +1987,14 @@ void BasicSetting() {
 	SetConsoleMode(COUT, ENABLE_PROCESSED_INPUT | ENABLE_MOUSE_INPUT);// ?★ 마우스 입력모드로 변경
 }
 
-//void playBGM() { // 배경음악 재생
-//	mciOpenBgm.lpstrElementName = TEXT(BGM_PATH);	// 파일 오픈
-//	mciOpenBgm.lpstrDeviceType = TEXT("mpegvideo");	// mp3 형식
-//	mciSendCommand(NULL, MCI_OPEN, MCI_OPEN_ELEMENT | MCI_OPEN_TYPE, (DWORD)(LPVOID)&mciOpenBgm);
-//	dwID = mciOpenBgm.wDeviceID;
-//	mciSendCommand(dwID, MCI_PLAY, MCI_DGV_PLAY_REPEAT, (DWORD)(LPVOID)&mciPlayBgm);
-//}
+void playBGM() { // 배경음악 재생
+	//mciOpenBgm.lpstrElementName = TEXT(BGM_PATH);	// 파일 오픈
+	//mciOpenBgm.lpstrDeviceType = TEXT("mpegvideo");	// mp3 형식
+	//mciSendCommand(NULL, MCI_OPEN, MCI_OPEN_ELEMENT | MCI_OPEN_TYPE, (DWORD)(LPVOID)&mciOpenBgm);
+	//dwID = mciOpenBgm.wDeviceID;
+	//mciSendCommand(dwID, MCI_PLAY, MCI_DGV_PLAY_REPEAT, (DWORD)(LPVOID)&mciPlayBgm);
+	mciSendString(TEXT("play C:\\tmp\\BGM.mp3"), NULL, 0, NULL);
+}
 
 void playSFX(int index) // 효과음 재생
 {
