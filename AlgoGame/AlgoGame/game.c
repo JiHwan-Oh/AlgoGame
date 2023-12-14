@@ -15,22 +15,6 @@ void drawTitleButton()
 	int chapx = 25;
 	int chapy = 10;
 	int color[9] = { 4, 6, 14, 10, 11, 9, 5, 7, 15 };
-	for (int x = -1; x < (6 * 9 + 1) * 2; x++) {
-		for (int y = 0; y < 5 + 2; y++) {
-			SetCurrentCursorPos(chapx - 1 + x, chapy - 1 + y);
-			printf(" ");
-		}
-	}
-	chapx = 42;
-	chapy += 6;
-	for (int x = 0; x < (5 * 6 + 2) * 2; x++) {
-		for (int y = 0; y < 5 + 1; y++) {
-			SetCurrentCursorPos(chapx - 1 + x, chapy + y);
-			printf(" ");
-		}
-	}
-	chapx = 25;
-	chapy = 10;
 	for (int i = 0; i < 2; i++)
 	{
 		for (int j = 0; j < 9; j++)
@@ -54,7 +38,7 @@ void drawTitleButton()
 		chapy += 6;
 	}
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-	SetCurrentCursorPos(112, 25);
+	SetCurrentCursorPos(62, 23);
 	printf("마우스로 클릭하여 시작하세요!!");
 	int x, y;
 	for (y = 0; y <= START_HEIGHT; y++)
@@ -173,11 +157,12 @@ void drawTitleImage() {
 
 int drawTitle()
 {
-	drawTitleImage();
+	// drawTitleImage();
 	drawScreen();
 	drawTitleButton();
 	while (1)
 	{
+		drawTitleButton();
 		int m = CheckMouse();
 		if (m == 1)
 		{
@@ -224,7 +209,7 @@ int drawManual()
 			}
 		blockPosY += 6;
 	}
-	SetCurrentCursorPos(6, 2); 
+	SetCurrentCursorPos(6, 2);
 	printf("→ : 화살표가 플레이어 캐릭터 입니다. 화살표가 가리키는 방향이 플레이어가 바라보는 방향입니다.");
 	SetCurrentCursorPos(6, 3);
 	printf("     아래에 있는 명령블록들을 이용해 캐릭터를 움직일 수 있습니다.");
@@ -453,6 +438,7 @@ int drawStageSelect()
 	while (1)
 	{
 		int m = CheckMouse();
+
 		if (m == 1)
 		{
 			playSFX(SOUND_CLICK);
@@ -1398,7 +1384,7 @@ void resetStage()
 void hitMoment()
 {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), (4 << 4) + 15);
-	for (int i = 0; i < GBOARD_HEIGHT-1; i++)
+	for (int i = 0; i < GBOARD_HEIGHT - 1; i++)
 	{
 		SetCurrentCursorPos(4, i + 2);
 		printf("                                                                        ");
@@ -1735,7 +1721,7 @@ int drawStageClear()
 	removeAll();
 	int chapx = 48;
 	int chapy = 4;
-	if (curStageInfo /10 == 0)
+	if (curStageInfo / 10 == 0)
 	{
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 2);
 	}
@@ -1770,7 +1756,7 @@ int drawStageClear()
 		for (int y = 0; y < 5; y++)
 		{
 			SetCurrentCursorPos(chapx + (x * 2), chapy + y);
-			if (num[curStageInfo%10][y][x] == 1)
+			if (num[curStageInfo % 10][y][x] == 1)
 				printf("■");
 		}
 	}
@@ -1794,7 +1780,7 @@ int drawStageClear()
 	chapy = 19;
 	SetCurrentCursorPos(chapx, chapy);
 	printf("사용한 명령 블록의 개수 : %d", blockCount);
-	SetCurrentCursorPos(chapx+7, chapy+2);
+	SetCurrentCursorPos(chapx + 7, chapy + 2);
 	printf("시도 횟수 : %d", tryCount);
 	chapx = 70;
 	chapy = 23;
@@ -1812,7 +1798,7 @@ int drawStageClear()
 		break;
 	case 4:
 		printf("획득한 별 : ");
-		SetCurrentCursorPos(chapx+12, chapy);
+		SetCurrentCursorPos(chapx + 12, chapy);
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 6);
 		printf("★ ★ ★");
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
@@ -1988,12 +1974,7 @@ void BasicSetting() {
 }
 
 void playBGM() { // 배경음악 재생
-	//mciOpenBgm.lpstrElementName = TEXT(BGM_PATH);	// 파일 오픈
-	//mciOpenBgm.lpstrDeviceType = TEXT("mpegvideo");	// mp3 형식
-	//mciSendCommand(NULL, MCI_OPEN, MCI_OPEN_ELEMENT | MCI_OPEN_TYPE, (DWORD)(LPVOID)&mciOpenBgm);
-	//dwID = mciOpenBgm.wDeviceID;
-	//mciSendCommand(dwID, MCI_PLAY, MCI_DGV_PLAY_REPEAT, (DWORD)(LPVOID)&mciPlayBgm);
-	mciSendString(TEXT("play C:\\tmp\\BGM.mp3"), NULL, 0, NULL);
+	mciSendString(TEXT("play BGM.mp3"), NULL, 0, NULL);
 }
 
 void playSFX(int index) // 효과음 재생
@@ -2095,7 +2076,7 @@ int CheckMouse()
 		//어떤 메뉴를 눌렀는지 알게하기 위해서(해당 메뉴의 좌표랑 비교)
 		mouse_x = rec.Event.MouseEvent.dwMousePosition.X; // 마우스의 X값 받아옴 
 		mouse_y = rec.Event.MouseEvent.dwMousePosition.Y; // 마우스의 Y값 받아옴 
-		
+
 		if (rec.Event.MouseEvent.dwButtonState & FROM_LEFT_1ST_BUTTON_PRESSED && !(rec.Event.MouseEvent.dwEventFlags & MOUSE_MOVED)) { // 좌측 버튼이 클릭되었을 경우(드래그 시 연속 입력 X)
 			return 1;
 		}
@@ -2251,5 +2232,5 @@ void startStage() {
 				return;
 			}
 		}
-	}	
+	}
 }
