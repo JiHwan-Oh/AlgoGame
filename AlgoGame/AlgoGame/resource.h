@@ -1,10 +1,14 @@
 #include "main.h"
 
+MCI_OPEN_PARMS mciOpenBgm;
+MCI_PLAY_PARMS mciPlayBgm;
+int dwID;
+
 #ifndef RESOURCE_INFO
 #define RESOURCE_INFO
 
 #define FILE_PATH "C:\\tmp\\Save.txt"
-#define BGM_PATH "C:\\tmp\\BGM.wav"
+#define BGM_PATH "C:\\tmp\\BGM.mp3"
 #define CLICK_SOUND_PATH "C:\\tmp\\Click.wav"
 #define MOVE_SOUND_PATH "C:\\tmp\\Move.wav"
 #define PORTAL_SOUND_PATH "C:\\tmp\\Portal.wav"

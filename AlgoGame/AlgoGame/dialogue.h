@@ -231,7 +231,7 @@ char stageDialogue[STAGE_DIALOGUE_COUNT][DIALOGUE_LINE_COUNT][DIALOGUE_CHAR_COUN
 	{
 		{ "" },
 		{ "" },
-		{ "어떻게 하면 저 열쇠를 얻을 수 있을까?" },
+		{ "어떻게 해야 저 열쇠를 얻을 수 있을까?" },
 		{ "" },
 		{ "" }
 	},
@@ -254,9 +254,9 @@ char stageDialogue[STAGE_DIALOGUE_COUNT][DIALOGUE_LINE_COUNT][DIALOGUE_CHAR_COUN
 	// STAGE 3-10
 	{
 		{ "" },
-		{ "우는 사람의 얼굴 모양과 닮아 보여." },
+		{ "이제 마지막 단계야." },
 		{ "" },
-		{ "안 좋은 일이라도 있었던 걸까...?" },
+		{ "끝까지 최선을 다해 보자." },
 		{ "" }
 	}
 };

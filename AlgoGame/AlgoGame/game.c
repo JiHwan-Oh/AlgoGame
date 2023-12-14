@@ -1973,49 +1973,52 @@ void BasicSetting() {
 	SetConsoleMode(COUT, ENABLE_PROCESSED_INPUT | ENABLE_MOUSE_INPUT);// ?★ 마우스 입력모드로 변경
 }
 
-void playBGM() // 배경음악 재생
-{
-	sndPlaySoundA(BGM_PATH, SND_ASYNC | SND_LOOP | SND_NODEFAULT);
-}
+//void playBGM() { // 배경음악 재생
+//	mciOpenBgm.lpstrElementName = TEXT(BGM_PATH);	// 파일 오픈
+//	mciOpenBgm.lpstrDeviceType = TEXT("mpegvideo");	// mp3 형식
+//	mciSendCommand(NULL, MCI_OPEN, MCI_OPEN_ELEMENT | MCI_OPEN_TYPE, (DWORD)(LPVOID)&mciOpenBgm);
+//	dwID = mciOpenBgm.wDeviceID;
+//	mciSendCommand(dwID, MCI_PLAY, MCI_DGV_PLAY_REPEAT, (DWORD)(LPVOID)&mciPlayBgm);
+//}
 
 void playSFX(int index) // 효과음 재생
 {
 	switch (index) {
 	case SOUND_CLICK:
-		// sndPlaySoundA(CLICK_SOUND_PATH, SND_ASYNC | SND_NODEFAULT);
-		PlaySound(TEXT(CLICK_SOUND_PATH), NULL, SND_ASYNC);
+		sndPlaySoundA(CLICK_SOUND_PATH, SND_ASYNC | SND_NODEFAULT);
+		// PlaySound(TEXT(CLICK_SOUND_PATH), NULL, SND_ASYNC);
 		break;
 	case SOUND_MOVE:
-		// sndPlaySoundA(MOVE_SOUND_PATH, SND_ASYNC | SND_NODEFAULT);
-		PlaySound(TEXT(MOVE_SOUND_PATH), NULL, SND_ASYNC);
+		sndPlaySoundA(MOVE_SOUND_PATH, SND_ASYNC | SND_NODEFAULT);
+		// PlaySound(TEXT(MOVE_SOUND_PATH), NULL, SND_ASYNC);
 		break;
 	case SOUND_PORTAL:
-		// sndPlaySoundA(PORTAL_SOUND_PATH, SND_ASYNC | SND_NODEFAULT);
-		PlaySound(TEXT(PORTAL_SOUND_PATH), NULL, SND_ASYNC);
+		sndPlaySoundA(PORTAL_SOUND_PATH, SND_ASYNC | SND_NODEFAULT);
+		// PlaySound(TEXT(PORTAL_SOUND_PATH), NULL, SND_ASYNC);
 		break;
 	case SOUND_COLLECT:
-		// sndPlaySoundA(COLLECT_SOUND_PATH, SND_ASYNC | SND_NODEFAULT);
-		PlaySound(TEXT(COLLECT_SOUND_PATH), NULL, SND_ASYNC);
+		sndPlaySoundA(COLLECT_SOUND_PATH, SND_ASYNC | SND_NODEFAULT);
+		// PlaySound(TEXT(COLLECT_SOUND_PATH), NULL, SND_ASYNC);
 		break;
 	case SOUND_KEY:
-		// sndPlaySoundA(KEY_SOUND_PATH, SND_ASYNC | SND_NODEFAULT);
-		PlaySound(TEXT(KEY_SOUND_PATH), NULL, SND_ASYNC);
+		sndPlaySoundA(KEY_SOUND_PATH, SND_ASYNC | SND_NODEFAULT);
+		// PlaySound(TEXT(KEY_SOUND_PATH), NULL, SND_ASYNC);
 		break;
 	case SOUND_JUMP:
-		// sndPlaySoundA(JUMP_SOUND_PATH, SND_ASYNC | SND_NODEFAULT);
-		PlaySound(TEXT(JUMP_SOUND_PATH), NULL, SND_ASYNC);
+		sndPlaySoundA(JUMP_SOUND_PATH, SND_ASYNC | SND_NODEFAULT);
+		// PlaySound(TEXT(JUMP_SOUND_PATH), NULL, SND_ASYNC);
 		break;
 	case SOUND_CLEAR:
-		// sndPlaySoundA(CLEAR_SOUND_PATH, SND_ASYNC | SND_NODEFAULT);
-		PlaySound(TEXT(CLEAR_SOUND_PATH), NULL, SND_ASYNC);
+		sndPlaySoundA(CLEAR_SOUND_PATH, SND_ASYNC | SND_NODEFAULT);
+		// PlaySound(TEXT(CLEAR_SOUND_PATH), NULL, SND_ASYNC);
 		break;
 	case SOUND_FAIL:
-		// sndPlaySoundA(FAIL_SOUND_PATH, SND_ASYNC | SND_NODEFAULT);
-		PlaySound(TEXT(FAIL_SOUND_PATH), NULL, SND_ASYNC);
+		sndPlaySoundA(FAIL_SOUND_PATH, SND_ASYNC | SND_NODEFAULT);
+		// PlaySound(TEXT(FAIL_SOUND_PATH), NULL, SND_ASYNC);
 		break;
 	case SOUND_WRONG:
-		// sndPlaySoundA(WRONG_SOUND_PATH, SND_ASYNC | SND_NODEFAULT);
-		PlaySound(TEXT(WRONG_SOUND_PATH), NULL, SND_ASYNC);
+		sndPlaySoundA(WRONG_SOUND_PATH, SND_ASYNC | SND_NODEFAULT);
+		// PlaySound(TEXT(WRONG_SOUND_PATH), NULL, SND_ASYNC);
 		break;
 	}
 }

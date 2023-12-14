@@ -33,6 +33,13 @@
 
 #endif
 
+#ifndef __DIGITALV_H__
+#define __DIGITALV_H__
+
+#include <Digitalv.h>
+
+#endif
+
 
 #ifndef STRUCT_INFO
 #define STRUCT_INFO
