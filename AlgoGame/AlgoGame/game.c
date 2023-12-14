@@ -166,14 +166,15 @@ int drawTitle()
 		int m = CheckMouse();
 		if (m == 1)
 		{
-			playSFX(SOUND_CLICK);
 			if (mouse_x >= START_ORIGIN_X && mouse_x <= START_ORIGIN_X + 2 * START_WIDTH && mouse_y >= START_ORIGIN_Y && mouse_y <= START_ORIGIN_Y + START_HEIGHT) // start 버튼 클릭시
 			{
+				playSFX(SOUND_CLICK);
 				removeAll();
 				return 0;
 			}
 			else if (mouse_x >= MANUAL_ORIGIN_X && mouse_x <= MANUAL_ORIGIN_X + 2 * MANUAL_WIDTH && mouse_y >= MANUAL_ORIGIN_Y && mouse_y <= MANUAL_ORIGIN_Y + MANUAL_HEIGHT) // manual 버튼 클릭시
 			{
+				playSFX(SOUND_CLICK);
 				removeAll();
 				if (drawManual())
 				{
@@ -184,6 +185,7 @@ int drawTitle()
 			}
 			else if (mouse_x >= TERMINATE_ORIGIN_X && mouse_x <= TERMINATE_ORIGIN_X + 2 * TERMINATE_WIDTH && mouse_y >= TERMINATE_ORIGIN_Y && mouse_y <= TERMINATE_ORIGIN_Y + TERMINATE_HEIGHT) // 종료 버튼 클릭시
 			{
+				playSFX(SOUND_CLICK);
 				removeAll();
 				return 1;
 			}
@@ -285,9 +287,9 @@ int drawManual()
 		int m = CheckMouse();
 		if (m == 1)
 		{
-			playSFX(SOUND_CLICK);
 			if (mouse_x >= MANUAL_BACK_ORIGIN_X && mouse_x <= MANUAL_BACK_ORIGIN_X + 2 * MANUAL_BACK_WIDTH && mouse_y >= MANUAL_BACK_ORIGIN_Y && mouse_y <= MANUAL_BACK_ORIGIN_Y + MANUAL_BACK_HEIGHT) // 듀토리얼에서 뒤로가기 버튼 클릭시
 			{
+				playSFX(SOUND_CLICK);
 				removeAll();
 				return 1;
 			}
@@ -441,9 +443,9 @@ int drawStageSelect()
 
 		if (m == 1)
 		{
-			playSFX(SOUND_CLICK);
-			if (mouse_x >= SELECT_BACK_ORIGIN_X && mouse_x <= SELECT_BACK_ORIGIN_X + 2 * SELECT_BACK_WIDTH && mouse_y >= SELECT_BACK_ORIGIN_Y && mouse_y <= SELECT_BACK_ORIGIN_Y + SELECT_BACK_HEIGHT) // start 버튼 클릭시
+			if (mouse_x >= SELECT_BACK_ORIGIN_X && mouse_x <= SELECT_BACK_ORIGIN_X + 2 * SELECT_BACK_WIDTH && mouse_y >= SELECT_BACK_ORIGIN_Y && mouse_y <= SELECT_BACK_ORIGIN_Y + SELECT_BACK_HEIGHT) // 뒤로 가기 버튼 클릭시
 			{
+				playSFX(SOUND_CLICK);
 				removeAll();
 				return 0;
 			}
@@ -451,6 +453,7 @@ int drawStageSelect()
 			// 스테이지 선택
 			if (mouse_x >= SELECT_ORIGIN_X && mouse_x <= SELECT_ORIGIN_X + 28 * SELECT_WIDTH && mouse_y >= SELECT_ORIGIN_Y && mouse_y <= SELECT_ORIGIN_Y + SELECT_HEIGHT) // easy 스테이지 버튼 클릭시
 			{
+				playSFX(SOUND_CLICK);
 				int clickedX = mouse_x - SELECT_ORIGIN_X;
 				curStageInfo = clickedX / 14;
 				removeAll();
@@ -458,6 +461,7 @@ int drawStageSelect()
 			}
 			else if (mouse_x >= SELECT_ORIGIN_X && mouse_x <= SELECT_ORIGIN_X + 28 * SELECT_WIDTH && mouse_y >= SELECT_ORIGIN_Y + 14 && mouse_y <= SELECT_ORIGIN_Y + SELECT_HEIGHT + 14) // normal 스테이지 버튼 클릭시
 			{
+				playSFX(SOUND_CLICK);
 				int clickedX = mouse_x - SELECT_ORIGIN_X;
 				curStageInfo = clickedX / 14 + 10;
 				removeAll();
@@ -465,6 +469,7 @@ int drawStageSelect()
 			}
 			else if (mouse_x >= SELECT_ORIGIN_X && mouse_x <= SELECT_ORIGIN_X + 28 * SELECT_WIDTH && mouse_y >= SELECT_ORIGIN_Y + 28 && mouse_y <= SELECT_ORIGIN_Y + SELECT_HEIGHT + 28) // hard 스테이지 버튼 클릭시
 			{
+				playSFX(SOUND_CLICK);
 				int clickedX = mouse_x - SELECT_ORIGIN_X;
 				curStageInfo = clickedX / 14 + 20;
 				removeAll();
@@ -1916,17 +1921,19 @@ int drawStageClear()
 		int m = CheckMouse();
 		if (m == 1)
 		{
-			playSFX(SOUND_CLICK);
 			if (mouse_x >= START_ORIGIN_X && mouse_x <= START_ORIGIN_X + 2 * START_WIDTH && mouse_y >= START_ORIGIN_Y && mouse_y <= START_ORIGIN_Y + START_HEIGHT) // 다음 스테이지 버튼 클릭시
 			{
+				playSFX(SOUND_CLICK);
 				return 1;
 			}
 			else if (mouse_x >= PRESENT_STAGE_ORIGIN_X && mouse_x <= PRESENT_STAGE_ORIGIN_X + 2 * PRESENT_STAGE_WIDTH && mouse_y >= PRESENT_STAGE_ORIGIN_Y && mouse_y <= PRESENT_STAGE_ORIGIN_Y + PRESENT_STAGE_HEIGHT) // 스테이지 선택 버튼 클릭시
 			{
+				playSFX(SOUND_CLICK);
 				return 2;
 			}
 			else if (mouse_x >= OTHER_STAGE_ORIGIN_X && mouse_x <= OTHER_STAGE_ORIGIN_X + 2 * OTHER_STAGE_WIDTH && mouse_y >= OTHER_STAGE_ORIGIN_Y && mouse_y <= OTHER_STAGE_ORIGIN_Y + OTHER_STAGE_HEIGHT) // 스테이지 선택 버튼 클릭시
 			{
+				playSFX(SOUND_CLICK);
 				return 0;
 			}
 		}
@@ -2101,9 +2108,9 @@ void startStage() {
 		int m = CheckMouse();
 		if (m == 1)
 		{
-			playSFX(SOUND_CLICK); // 빠르게 여러번 클릭하면 소리가 짤린다.
 			if (mouse_x >= BLOCK_ORIGIN_X && mouse_x <= BLOCK_ORIGIN_X + 2 * BLOCK_WIDTH && mouse_y >= BLOCK_ORIGIN_Y && mouse_y <= BLOCK_ORIGIN_Y + BLOCK_HEIGHT) // 블록 버튼 클릭시
 			{
+				playSFX(SOUND_CLICK);
 				int clickedX = mouse_x - BLOCK_ORIGIN_X;
 				int blockIndex = clickedX / 12;
 				if (blockIndex < blockLimit[curStageInfo]) {
@@ -2114,6 +2121,7 @@ void startStage() {
 			}
 			else if (mouse_x >= BLOCK_ARRAY_ORIGIN_X && mouse_x <= BLOCK_ARRAY_ORIGIN_X + 2 * BLOCK_ARRAY_WIDTH && mouse_y >= BLOCK_ARRAY_ORIGIN_Y && mouse_y <= BLOCK_ARRAY_ORIGIN_Y + BLOCK_ARRAY_HEIGHT) // 블록 배열 클릭시 삭제
 			{
+				playSFX(SOUND_CLICK);
 				int clickedX = mouse_x - BLOCK_ARRAY_ORIGIN_X;
 				int clickedY = mouse_y - BLOCK_ARRAY_ORIGIN_Y;
 				int blockArrayIndex = clickedX / 12 + clickedY / 6 * 6;
@@ -2215,16 +2223,19 @@ void startStage() {
 			}
 			else if (mouse_x >= SPEED_ORIGIN_X && mouse_x <= SPEED_ORIGIN_X + 2 * SPEED_WIDTH && mouse_y >= SPEED_ORIGIN_Y && mouse_y <= SPEED_ORIGIN_Y + SPEED_HEIGHT) // speed버튼 클릭시
 			{
+				playSFX(SOUND_CLICK);
 				changeSpeed();
 			}
 			else if (mouse_x >= RESET_ORIGIN_X && mouse_x <= RESET_ORIGIN_X + 2 * RESET_WIDTH && mouse_y >= RESET_ORIGIN_Y && mouse_y <= RESET_ORIGIN_Y + RESET_HEIGHT) // reset버튼 클릭시
 			{
+				playSFX(SOUND_CLICK);
 				resetStage();
 				pcIdleEffect(1);
 				showPC();
 			}
 			else if (mouse_x >= BACK_ORIGIN_X && mouse_x <= BACK_ORIGIN_X + 2 * BACK_WIDTH && mouse_y >= BACK_ORIGIN_Y && mouse_y <= BACK_ORIGIN_Y + BACK_HEIGHT) // exit버튼 클릭시
 			{
+				playSFX(SOUND_CLICK);
 				resetBlockCount();
 				resetTryCount();
 				resetItem();
