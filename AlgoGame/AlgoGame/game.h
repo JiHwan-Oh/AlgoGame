@@ -50,22 +50,22 @@
 #define START_WIDTH 10
 #define START_HEIGHT 4
 
-#define START_ORIGIN_X 115
-#define START_ORIGIN_Y 28
+#define START_ORIGIN_X 65
+#define START_ORIGIN_Y 25
 
 // 메뉴얼버튼
 #define MANUAL_WIDTH 10
 #define MANUAL_HEIGHT 4
 
-#define MANUAL_ORIGIN_X 115
-#define MANUAL_ORIGIN_Y 33
+#define MANUAL_ORIGIN_X 65
+#define MANUAL_ORIGIN_Y 30
 
 // 종료버튼
 #define TERMINATE_WIDTH 10
 #define TERMINATE_HEIGHT 4
 
-#define TERMINATE_ORIGIN_X 115
-#define TERMINATE_ORIGIN_Y 38
+#define TERMINATE_ORIGIN_X 65
+#define TERMINATE_ORIGIN_Y 35
 
 // 메뉴얼 뒤로가기버튼
 #define MANUAL_BACK_WIDTH 10
