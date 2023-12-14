@@ -2108,7 +2108,7 @@ void startStage() {
 				int blockIndex = clickedX / 12;
 				if (blockIndex < blockLimit[curStageInfo]) {
 					addBlock(blockIndex);
-					removeAllBlockArray();
+					// removeAllBlockArray();
 					showBlockArray(999);
 				}
 			}
