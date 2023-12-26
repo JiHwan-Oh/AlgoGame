@@ -8,16 +8,16 @@ int dwID;
 #define RESOURCE_INFO
 
 #define FILE_PATH "C:\\tmp\\Save.txt"
-#define BGM_PATH "C:\\tmp\\BGM.mp3"
-#define CLICK_SOUND_PATH "C:\\tmp\\Click.wav"
-#define MOVE_SOUND_PATH "C:\\tmp\\Move.wav"
-#define PORTAL_SOUND_PATH "C:\\tmp\\Portal.wav"
-#define COLLECT_SOUND_PATH "C:\\tmp\\ItemCollect.wav"
-#define KEY_SOUND_PATH "C:\\tmp\\Key.wav"
-#define JUMP_SOUND_PATH "C:\\tmp\\Jump.wav"
-#define CLEAR_SOUND_PATH "C:\\tmp\\StageClear.wav"
-#define FAIL_SOUND_PATH "C:\\tmp\\StageFail.wav"
-#define WRONG_SOUND_PATH "C:\\tmp\\Wrong.wav"
+#define BGM_PATH "C:\\tmp\\BGM.wav"
+#define CLICK_SOUND_PATH "C:\\tmp\\Click.mp3"
+#define MOVE_SOUND_PATH "C:\\tmp\\Move.mp3"
+#define PORTAL_SOUND_PATH "C:\\tmp\\Portal.mp3"
+#define COLLECT_SOUND_PATH "C:\\tmp\\ItemCollect.mp3"
+#define KEY_SOUND_PATH "C:\\tmp\\Key.mp3"
+#define JUMP_SOUND_PATH "C:\\tmp\\Jump.mp3"
+#define CLEAR_SOUND_PATH "C:\\tmp\\StageClear.mp3"
+#define FAIL_SOUND_PATH "C:\\tmp\\StageFail.mp3"
+#define WRONG_SOUND_PATH "C:\\tmp\\Wrong.mp3"
 
 #endif
 

@@ -1981,47 +1981,57 @@ void BasicSetting() {
 }
 
 void playBGM() { // 배경음악 재생
-	mciSendString(TEXT("play BGM.mp3"), NULL, 0, NULL);
+	sndPlaySoundA(BGM_PATH, SND_ASYNC | SND_NODEFAULT | SND_LOOP);
+	// mciSendString(TEXT("play BGM.wav"), NULL, 0, NULL);
 }
 
 void playSFX(int index) // 효과음 재생
 {
 	switch (index) {
 	case SOUND_CLICK:
-		sndPlaySoundA(CLICK_SOUND_PATH, SND_ASYNC | SND_NODEFAULT);
+		// sndPlaySoundA(CLICK_SOUND_PATH, SND_ASYNC | SND_NODEFAULT);
 		// PlaySound(TEXT(CLICK_SOUND_PATH), NULL, SND_ASYNC);
+		mciSendString(TEXT("play Click.mp3"), NULL, 0, NULL);
 		break;
 	case SOUND_MOVE:
-		sndPlaySoundA(MOVE_SOUND_PATH, SND_ASYNC | SND_NODEFAULT);
+		// sndPlaySoundA(MOVE_SOUND_PATH, SND_ASYNC | SND_NODEFAULT);
 		// PlaySound(TEXT(MOVE_SOUND_PATH), NULL, SND_ASYNC);
+		mciSendString(TEXT("play Move.mp3"), NULL, 0, NULL);
 		break;
 	case SOUND_PORTAL:
-		sndPlaySoundA(PORTAL_SOUND_PATH, SND_ASYNC | SND_NODEFAULT);
+		// sndPlaySoundA(PORTAL_SOUND_PATH, SND_ASYNC | SND_NODEFAULT);
 		// PlaySound(TEXT(PORTAL_SOUND_PATH), NULL, SND_ASYNC);
+		mciSendString(TEXT("play Portal.mp3"), NULL, 0, NULL);
 		break;
 	case SOUND_COLLECT:
-		sndPlaySoundA(COLLECT_SOUND_PATH, SND_ASYNC | SND_NODEFAULT);
+		// sndPlaySoundA(COLLECT_SOUND_PATH, SND_ASYNC | SND_NODEFAULT);
 		// PlaySound(TEXT(COLLECT_SOUND_PATH), NULL, SND_ASYNC);
+		mciSendString(TEXT("play ItemCollect.mp3"), NULL, 0, NULL);
 		break;
 	case SOUND_KEY:
-		sndPlaySoundA(KEY_SOUND_PATH, SND_ASYNC | SND_NODEFAULT);
+		// sndPlaySoundA(KEY_SOUND_PATH, SND_ASYNC | SND_NODEFAULT);
 		// PlaySound(TEXT(KEY_SOUND_PATH), NULL, SND_ASYNC);
+		mciSendString(TEXT("play Key.mp3"), NULL, 0, NULL);
 		break;
 	case SOUND_JUMP:
-		sndPlaySoundA(JUMP_SOUND_PATH, SND_ASYNC | SND_NODEFAULT);
+		// sndPlaySoundA(JUMP_SOUND_PATH, SND_ASYNC | SND_NODEFAULT);
 		// PlaySound(TEXT(JUMP_SOUND_PATH), NULL, SND_ASYNC);
+		mciSendString(TEXT("play Jump.mp3"), NULL, 0, NULL);
 		break;
 	case SOUND_CLEAR:
-		sndPlaySoundA(CLEAR_SOUND_PATH, SND_ASYNC | SND_NODEFAULT);
+		// sndPlaySoundA(CLEAR_SOUND_PATH, SND_ASYNC | SND_NODEFAULT);
 		// PlaySound(TEXT(CLEAR_SOUND_PATH), NULL, SND_ASYNC);
+		mciSendString(TEXT("play StageClear.mp3"), NULL, 0, NULL);
 		break;
 	case SOUND_FAIL:
-		sndPlaySoundA(FAIL_SOUND_PATH, SND_ASYNC | SND_NODEFAULT);
+		// sndPlaySoundA(FAIL_SOUND_PATH, SND_ASYNC | SND_NODEFAULT);
 		// PlaySound(TEXT(FAIL_SOUND_PATH), NULL, SND_ASYNC);
+		mciSendString(TEXT("play StageFail.mp3"), NULL, 0, NULL);
 		break;
 	case SOUND_WRONG:
-		sndPlaySoundA(WRONG_SOUND_PATH, SND_ASYNC | SND_NODEFAULT);
+		// sndPlaySoundA(WRONG_SOUND_PATH, SND_ASYNC | SND_NODEFAULT);
 		// PlaySound(TEXT(WRONG_SOUND_PATH), NULL, SND_ASYNC);
+		mciSendString(TEXT("play Wrong.mp3"), NULL, 0, NULL);
 		break;
 	}
 }
