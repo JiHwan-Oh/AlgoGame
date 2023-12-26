@@ -7,17 +7,17 @@ int dwID;
 #ifndef RESOURCE_INFO
 #define RESOURCE_INFO
 
-#define FILE_PATH "C:\\tmp\\Save.txt"
-#define BGM_PATH "C:\\tmp\\BGM.wav"
-#define CLICK_SOUND_PATH "C:\\tmp\\Click.mp3"
-#define MOVE_SOUND_PATH "C:\\tmp\\Move.mp3"
-#define PORTAL_SOUND_PATH "C:\\tmp\\Portal.mp3"
-#define COLLECT_SOUND_PATH "C:\\tmp\\ItemCollect.mp3"
-#define KEY_SOUND_PATH "C:\\tmp\\Key.mp3"
-#define JUMP_SOUND_PATH "C:\\tmp\\Jump.mp3"
-#define CLEAR_SOUND_PATH "C:\\tmp\\StageClear.mp3"
-#define FAIL_SOUND_PATH "C:\\tmp\\StageFail.mp3"
-#define WRONG_SOUND_PATH "C:\\tmp\\Wrong.mp3"
+#define FILE_PATH "Save.txt"
+#define BGM_PATH "BGM.wav"
+#define CLICK_SOUND_PATH "Click.mp3"
+#define MOVE_SOUND_PATH "Move.mp3"
+#define PORTAL_SOUND_PATH "Portal.mp3"
+#define COLLECT_SOUND_PATH "ItemCollect.mp3"
+#define KEY_SOUND_PATH "Key.mp3"
+#define JUMP_SOUND_PATH "Jump.mp3"
+#define CLEAR_SOUND_PATH "StageClear.mp3"
+#define FAIL_SOUND_PATH "StageFail.mp3"
+#define WRONG_SOUND_PATH "Wrong.mp3"
 
 #endif
 
